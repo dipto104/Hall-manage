@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -33,25 +34,25 @@ class AdminController extends Controller
     public function insertstudent(Request $request)
     {
         $this->validate($request, [
-            'studentid' => 'required|unique:students',
-            'firstname' => 'required',
-            'lastname' => 'required|'
+            'name' => 'required|',
+            'email' => 'required|unique:users',
+            'password' => 'required|'
         ]);
 
-        $studentid=$request['studentid'];
-        $firstname=$request['firstname'];
-        $lastname=$request['lastname'];
+        $name=$request['name'];
+        $email=$request['email'];
+        $password=bcrypt($request['password']);
 
-        $student=new Student();
-        $student->studentid=$studentid;
-        $student->firstname=$firstname;
-        $student->lastname=$lastname;
+        $student=new User();
+        $student->name=$name;
+        $student->email=$email;
+        $student->password=$password;
 
         $student->save();
 
 
 
-        return redirect()->route('dashboard');
+        return redirect()->route('admin.dashboard');
 
     }
 
