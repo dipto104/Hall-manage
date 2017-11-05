@@ -6,7 +6,9 @@
             <h1>Students Data</h1>
         </div>
 
-
+        <div class="col-md-2 col-md-offset-10">
+            <a href="{{ route('admin.insertstudent') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">InsertStudent</a>
+        </div>
         <div class="col-md-12">
             <hr>
         </div>
@@ -19,7 +21,6 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Student ID</th>
-                <th>Password</th>
                 <th>Created At</th>
                 <th></th>
                 </thead>
@@ -32,9 +33,9 @@
                         <th>{{ $studentdata->id }}</th>
                         <th>{{ $studentdata->name }}</th>
                         <td>{{ $studentdata->email }}</td>
-                        <td>{{ $studentdata->password}}</td>
                         <td>{{ date('M j, Y', strtotime($studentdata->created_at)) }}</td>
-
+                        <td><a href="{{ route('admin.insertstudent') }}" class="btn btn-default btn-sm">View</a>
+                            <a href="{{ route('admin.insertstudent') }}" class="btn btn-default btn-sm">Edit</a></td>
                     </tr>
 
                 @endforeach

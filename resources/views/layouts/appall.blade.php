@@ -68,7 +68,7 @@
 
                         @elseif(Auth::guard('admin')->check())
                             <li class="{{Request::is(route('admin.insertstudent')) ? 'active' : ''}}">
-                                <a href="{{ route('admin.insertstudent') }}">Insert Student</a>
+                                <a href="{{ route('admin.studentdata') }}">Student Data</a>
                             </li>
                             <li class="{{Request::is(route('student.login')) ? 'active' : ''}}">
                                 <a href="{{ route('student.login') }}">Student Login</a>
