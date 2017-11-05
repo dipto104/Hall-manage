@@ -27,6 +27,7 @@ Route::prefix('home')->group(function (){
 Route::prefix('admin')->group(function (){
     Route::get('/login','Auth\AdminLoginController@showloginform')->name('admin.login');
     Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::get('/studentdata','StudentdataController@showdata')->name('admin.studentdata');
     Route::get('/insertstudent','AdminController@showinsertstudent')->name('admin.insertstudent');
     Route::post('/insertstudent','AdminController@insertstudent')->name('admin.insertstudent.submit');
     Route::get('/logout','Auth\AdminLoginController@adminlogout')->name('admin.logout');
