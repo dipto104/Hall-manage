@@ -34,7 +34,7 @@
                         <th>{{ $studentdata->name }}</th>
                         <td>{{ $studentdata->email }}</td>
                         <td>{{ date('M j, Y', strtotime($studentdata->created_at)) }}</td>
-                        <td><a href="{{ route('admin.insertstudent') }}" class="btn btn-default btn-sm">View</a>
+                        <td><a href="{{ route('admin.perstudent', $studentdata->id) }}" class="btn btn-default btn-sm">View</a>
                             <a href="{{ route('admin.insertstudent') }}" class="btn btn-default btn-sm">Edit</a></td>
                     </tr>
 
