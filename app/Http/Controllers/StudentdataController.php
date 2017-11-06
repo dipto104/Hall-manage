@@ -24,5 +24,11 @@ class StudentdataController extends Controller
 
         return view('foradmin.perstudentinfo',compact('data'));
     }
+    public function edit($id)
+    {
+        $data=User::find($id);
+
+        return view('foradmin.editstudent',compact('data'));
+    }
 
 }
