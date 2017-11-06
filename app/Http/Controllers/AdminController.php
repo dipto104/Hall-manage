@@ -35,10 +35,10 @@ class AdminController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|',
-            'studentid' => 'required|unique:users',
+            'studentid' => 'required|numeric|unique:users',
             'department' => 'required|',
-            'roomno' => 'required|',
-            'userid' => 'required|max:7|min:7|unique:users',
+            'roomno' => 'required|numeric',
+            'userid' => 'required|min:7|numeric|unique:users',
             'password' => 'required|min:7|confirmed'
         ]);
 

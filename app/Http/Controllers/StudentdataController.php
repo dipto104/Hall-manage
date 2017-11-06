@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StudentdataController extends Controller
 {
@@ -29,6 +30,37 @@ class StudentdataController extends Controller
         $data=User::find($id);
 
         return view('foradmin.editstudent',compact('data'));
+    }
+    public function update(Request $request,$id )
+    {
+        $this->validate($request, [
+            'name' => 'required|',
+            'studentid' => ['required','numeric',Rule::unique('users')->ignore($id)],
+            'department' => 'required|',
+            'roomno' => 'required|numeric',
+            'userid' => ['required','numeric',Rule::unique('users')->ignore($id)]
+
+        ]);
+
+        $name=$request['name'];
+        $studentid=$request['studentid'];
+        $department=$request['department'];
+        $roomno=$request['roomno'];
+        $userid=$request['userid'];
+
+
+        $student=User::find($id);
+        $student->name=$name;
+        $student->studentid=$studentid;
+        $student->department=$department;
+        $student->roomno=$roomno;
+        $student->userid=$userid;
+
+        $student->save();
+
+
+
+        return redirect()->route('admin.dashboard');
     }
 
 }
