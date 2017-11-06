@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Insert New Student</div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('admin.insertstudent.submit') }}">
@@ -24,16 +24,55 @@
                                 @endif
                             </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                        <div class="form-group{{ $errors->has('studentid') ? ' has-error' : '' }}">
+                            <label for="studentid" class="col-md-4 control-label">Student ID</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="studentid" type="text" class="form-control" name="studentid" value="{{ old('studentid') }}" required autofocus>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('studentid'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('studentid') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('department') ? ' has-error' : '' }}">
+                            <label for="department" class="col-md-4 control-label">Department</label>
+
+                            <div class="col-md-6">
+                                <input id="department" type="text" class="form-control" name="department" value="{{ old('department') }}" required>
+
+                                @if ($errors->has('department'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('department') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('roomno') ? ' has-error' : '' }}">
+                            <label for="roomno" class="col-md-4 control-label">Room No</label>
+
+                            <div class="col-md-6">
+                                <input id="roomno" type="text" class="form-control" name="roomno" value="{{ old('roomno') }}" required>
+
+                                @if ($errors->has('roomno'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('roomno') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('userid') ? ' has-error' : '' }}">
+                            <label for="userid" class="col-md-4 control-label">User ID</label>
+
+                            <div class="col-md-6">
+                                <input id="userid" type="text" class="form-control" name="userid" value="{{ old('userid') }}" required>
+
+                                @if ($errors->has('userid'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('userid') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -64,7 +103,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Insert
                                 </button>
                             </div>
                         </div>

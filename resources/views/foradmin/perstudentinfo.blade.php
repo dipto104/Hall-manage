@@ -8,7 +8,7 @@
             <h1>{{ $data->id }}</h1>
 
             <p class="lead">Name : {{ $data->name }}</p>
-            <p class="lead">Student Id : {{ $data->email }}</p>
+            <p class="lead">Student Id : {{ $data->studentid }}</p>
         </div>
     </div>
 @endsection

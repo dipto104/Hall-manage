@@ -35,17 +35,26 @@ class AdminController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|',
-            'email' => 'required|unique:users',
-            'password' => 'required|confirmed'
+            'studentid' => 'required|unique:users',
+            'department' => 'required|',
+            'roomno' => 'required|',
+            'userid' => 'required|max:7|min:7|unique:users',
+            'password' => 'required|min:7|confirmed'
         ]);
 
         $name=$request['name'];
-        $email=$request['email'];
+        $studentid=$request['studentid'];
+        $department=$request['department'];
+        $roomno=$request['roomno'];
+        $userid=$request['userid'];
         $password=bcrypt($request['password']);
 
         $student=new User();
         $student->name=$name;
-        $student->email=$email;
+        $student->studentid=$studentid;
+        $student->department=$department;
+        $student->roomno=$roomno;
+        $student->userid=$userid;
         $student->password=$password;
 
         $student->save();

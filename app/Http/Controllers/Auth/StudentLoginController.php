@@ -22,17 +22,17 @@ class StudentLoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|',
+            'userid' => 'required|',
             'password' => 'required|'
         ]);
 
 
-        if (Auth::guard('web')->attempt(['email' => $request['email'], 'password' => $request['password']])) {
+        if (Auth::guard('web')->attempt(['userid' => $request['userid'], 'password' => $request['password']])) {
             return redirect()->route('student.dashboard');
         }
 
 
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->withInput($request->only('userid', 'remember'));
 
     }
     public function studentlogout()
