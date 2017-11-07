@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 col-md-offset-.5">
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit Student Data</div>
 
@@ -81,14 +81,32 @@
 
 
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Edit
+                                <div class="col-md-3 col-md-offset-4 ">
+                                    <button type="submit" class="btn btn-success btn-block">
+                                        Save Changes
                                     </button>
                                 </div>
+                                <div class="col-md-3 ">
+                                    <a href="{{route('admin.perstudent',$data->id)}}" class="btn btn-danger btn-block">Cancel</a>
+                                </div>
+
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <dl class="dl-horizontal">
+                        <dt>Created At:</dt>
+                        <dd>{{ date('M j, Y h:ia', strtotime($data->created_at)) }}</dd>
+                    </dl>
+
+                    <dl class="dl-horizontal">
+                        <dt>Last Updated:</dt>
+                        <dd>{{ date('M j, Y h:ia', strtotime($data->updated_at)) }}</dd>
+                    </dl>
+                    <hr>
                 </div>
             </div>
         </div>

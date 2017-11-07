@@ -29,6 +29,8 @@ Route::prefix('admin')->group(function (){
     Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('/studentdata','StudentdataController@showdata')->name('admin.studentdata');
     Route::get('/editstudent/{id}','StudentdataController@edit')->name('admin.editstudent');
+
+    Route::get('/deletestudent/{id}','StudentdataController@destroy')->name('admin.deletestudent');
     Route::post('/updatestudent/{id}','StudentdataController@update')->name('admin.updatestudent');
     Route::get('/perstudentinfo/{id}','StudentdataController@show')->name('admin.perstudent');
     Route::get('/insertstudent','AdminController@showinsertstudent')->name('admin.insertstudent');

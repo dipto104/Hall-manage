@@ -60,7 +60,21 @@ class StudentdataController extends Controller
 
 
 
-        return redirect()->route('admin.dashboard');
+        $data=User::all();
+
+        return view('foradmin.studentdata',compact('data'));
+
+    }
+    public function destroy($id)
+    {
+        $data = User::find($id);
+
+        $data->delete();
+
+        //Session::flash('success', 'The post was successfully deleted.');
+        $data=User::all();
+
+        return view('foradmin.studentdata',compact('data'));
     }
 
 }
