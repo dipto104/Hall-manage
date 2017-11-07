@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Session;
 
 class StudentLoginController extends Controller
 {
@@ -30,6 +31,7 @@ class StudentLoginController extends Controller
         if (Auth::guard('web')->attempt(['userid' => $request['userid'], 'password' => $request['password']])) {
             return redirect()->route('student.dashboard');
         }
+        Session::flash('danger', 'User ID or Password is incorrect.');
 
 
         return redirect()->back()->withInput($request->only('userid', 'remember'));

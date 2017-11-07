@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Session;
 
 class AdminLoginController extends Controller
 {
@@ -31,6 +32,8 @@ class AdminLoginController extends Controller
         if (Auth::guard('admin')->attempt(['userid' => $request['userid'], 'password' => $request['password']])) {
             return redirect()->route('admin.dashboard');
         }
+
+        Session::flash('danger', 'User ID or Password is incorrect.');
 
 
         return redirect()->back()->withInput($request->only('userid', 'remember'));

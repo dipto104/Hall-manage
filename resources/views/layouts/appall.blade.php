@@ -108,7 +108,7 @@
         </nav>
 
 
-
+        @include('includes.flashmesseges')
         @yield('content')
     </div>
 

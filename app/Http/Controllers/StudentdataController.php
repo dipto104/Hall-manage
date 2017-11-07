@@ -5,6 +5,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Session;
 
 class StudentdataController extends Controller
 {
@@ -57,6 +58,7 @@ class StudentdataController extends Controller
         $student->userid=$userid;
 
         $student->save();
+        Session::flash('success', 'This data was successfully updated.');
 
 
 
@@ -71,7 +73,7 @@ class StudentdataController extends Controller
 
         $data->delete();
 
-        //Session::flash('success', 'The post was successfully deleted.');
+        Session::flash('success', 'The data was successfully deleted.');
         $data=User::all();
 
         return view('foradmin.studentdata',compact('data'));

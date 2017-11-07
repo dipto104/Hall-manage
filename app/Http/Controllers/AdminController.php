@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Session;
 
 class AdminController extends Controller
 {
@@ -58,10 +59,13 @@ class AdminController extends Controller
         $student->password=$password;
 
         $student->save();
+        Session::flash('success', 'This student data were successfully saved.');
 
 
 
-        return redirect()->route('admin.dashboard');
+        $data=User::all();
+
+        return view('foradmin.studentdata',compact('data'));
 
     }
 
