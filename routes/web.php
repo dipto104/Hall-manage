@@ -32,12 +32,20 @@ Route::prefix('admin')->group(function (){
 
     Route::get('/editstudent/{id}','StudentdataController@edit')->name('admin.editstudent');
 
+    Route::get('/hallmess','MessController@index')->name('admin.hallmess');
+
+    Route::get('/insertterm','MessController@termindex')->name('admin.insertterm');
+    Route::post('/insertterm','MessController@termcreate')->name('admin.insertterm.submit');
+
     Route::get('/deletestudent/{id}','StudentdataController@destroy')->name('admin.deletestudent');
 
     Route::post('/updatestudent/{id}','StudentdataController@update')->name('admin.updatestudent');
+
     Route::get('/perstudentinfo/{id}','StudentdataController@show')->name('admin.perstudent');
+
     Route::get('/insertstudent','AdminController@showinsertstudent')->name('admin.insertstudent');
     Route::post('/insertstudent','AdminController@insertstudent')->name('admin.insertstudent.submit');
+
     Route::get('/logout','Auth\AdminLoginController@adminlogout')->name('admin.logout');
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
 

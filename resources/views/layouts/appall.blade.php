@@ -67,6 +67,9 @@
                             </li>
 
                         @elseif(Auth::guard('admin')->check())
+                            <li class="{{Request::is(route('admin.hallmess')) ? 'active' : ''}}">
+                                <a href="{{ route('admin.hallmess') }}">Dining Payment</a>
+                            </li>
                             <li class="{{Request::is(route('admin.insertstudent')) ? 'active' : ''}}">
                                 <a href="{{ route('admin.studentdata') }}">Student Data</a>
                             </li>
