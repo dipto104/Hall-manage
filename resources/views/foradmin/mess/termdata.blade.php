@@ -36,8 +36,8 @@
                         @else
                             <td>Empty</td>
                         @endif
-                        <td><a href="{{ route('admin.perstudent', $termdata->id) }}" class="btn btn-default btn-sm">View</a>
-                            <a href="{{ route('admin.editstudent',$termdata->id) }}" class="btn btn-default btn-sm">Edit</a></td>
+                        <td><a href="{{ route('admin.openterm', $termdata->id) }}" class="btn btn-default btn-sm">Open</a>
+                            <a href="{{ route('admin.editterm',$termdata->id) }}" class="btn btn-default btn-sm">Edit</a></td>
                     </tr>
 
                 @endforeach

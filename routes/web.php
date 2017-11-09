@@ -34,6 +34,11 @@ Route::prefix('admin')->group(function (){
 
     Route::get('/hallmess','MessController@index')->name('admin.hallmess');
 
+    Route::get('/editterm/{id}','MessController@editterm')->name('admin.editterm');
+    Route::post('/editterm/{id}','MessController@updateterm')->name('admin.editterm.submit');
+
+    Route::get('/openterm/{id}','MessController@openterm')->name('admin.openterm');
+
     Route::get('/insertterm','MessController@termindex')->name('admin.insertterm');
     Route::post('/insertterm','MessController@termcreate')->name('admin.insertterm.submit');
 

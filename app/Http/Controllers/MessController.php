@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Term;
 use Session;
+use Illuminate\Validation\Rule;
 
 class MessController extends Controller
 {
@@ -75,6 +76,12 @@ class MessController extends Controller
 
         return view('foradmin.mess.termdata',compact('data'));
     }
+    public function openterm($id)
+    {
+        $data=Term::find($id);
+
+        return view('foradmin.mess.messpayment',compact('data'));
+    }
     public function create()
     {
         //
@@ -108,9 +115,11 @@ class MessController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editterm($id)
     {
-        //
+        $data=Term::find($id);
+
+        return view('foradmin.mess.editterm',compact('data'));
     }
 
     /**
@@ -120,9 +129,41 @@ class MessController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateterm(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'termno' => ['required','numeric',Rule::unique('terms')->ignore($id)],
+            'startat' =>'required',
+
+
+        ]);
+
+        $termno=$request['termno'];
+        $startat=$request['startat'];
+        $finishat=$request['finishat'];
+
+
+
+        $data=Term::find($id);
+        $data->termno=$termno;
+        $data->startat=$startat;
+
+        if(strlen($finishat)){
+            $data->finishat=$finishat;
+        }
+        else{
+            $finishat=null;
+            $data->finishat=$finishat;
+        }
+        $data->save();
+        Session::flash('success', 'The Term has been Successfully Updated.');
+
+
+
+        //$data=User::all();
+
+        //return view('foradmin.studentdata',compact('data'));
+        return view('foradmin.hallmess');
     }
 
     /**
