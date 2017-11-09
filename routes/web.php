@@ -37,6 +37,8 @@ Route::prefix('admin')->group(function (){
     Route::get('/insertterm','MessController@termindex')->name('admin.insertterm');
     Route::post('/insertterm','MessController@termcreate')->name('admin.insertterm.submit');
 
+    Route::get('/termdata','MessController@showterms')->name('admin.termdata');
+
     Route::get('/deletestudent/{id}','StudentdataController@destroy')->name('admin.deletestudent');
 
     Route::post('/updatestudent/{id}','StudentdataController@update')->name('admin.updatestudent');

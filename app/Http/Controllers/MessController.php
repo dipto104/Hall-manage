@@ -69,6 +69,12 @@ class MessController extends Controller
         return view('foradmin.hallmess');
 
     }
+    public function showterms()
+    {
+        $data=Term::all();
+
+        return view('foradmin.mess.termdata',compact('data'));
+    }
     public function create()
     {
         //

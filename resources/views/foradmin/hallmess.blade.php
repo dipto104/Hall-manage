@@ -26,7 +26,7 @@
                             <hr>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ route('admin.insertstudent') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">All Term List</a>
+                            <a href="{{ route('admin.termdata') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">All Term List</a>
                         </div>
                         <div class="col-md-4">
                             <a href="{{ route('admin.insertstudent') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Create New Mess</a>
