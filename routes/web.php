@@ -32,6 +32,18 @@ Route::prefix('admin')->group(function (){
 
     Route::get('/editstudent/{id}','StudentdataController@edit')->name('admin.editstudent');
 
+
+    Route::get('/deletestudent/{id}','StudentdataController@destroy')->name('admin.deletestudent');
+
+    Route::post('/updatestudent/{id}','StudentdataController@update')->name('admin.updatestudent');
+
+    Route::get('/perstudentinfo/{id}','StudentdataController@show')->name('admin.perstudent');
+
+    Route::get('/insertstudent','AdminController@showinsertstudent')->name('admin.insertstudent');
+    Route::post('/insertstudent','AdminController@insertstudent')->name('admin.insertstudent.submit');
+
+
+    Route::get('/createmess/{id}','MessController@indexmess')->name('admin.createmess');
     Route::get('/hallmess','MessController@index')->name('admin.hallmess');
 
     Route::get('/editterm/{id}','MessController@editterm')->name('admin.editterm');
@@ -44,14 +56,6 @@ Route::prefix('admin')->group(function (){
 
     Route::get('/termdata','MessController@showterms')->name('admin.termdata');
 
-    Route::get('/deletestudent/{id}','StudentdataController@destroy')->name('admin.deletestudent');
-
-    Route::post('/updatestudent/{id}','StudentdataController@update')->name('admin.updatestudent');
-
-    Route::get('/perstudentinfo/{id}','StudentdataController@show')->name('admin.perstudent');
-
-    Route::get('/insertstudent','AdminController@showinsertstudent')->name('admin.insertstudent');
-    Route::post('/insertstudent','AdminController@insertstudent')->name('admin.insertstudent.submit');
 
     Route::get('/logout','Auth\AdminLoginController@adminlogout')->name('admin.logout');
     Route::get('/', 'AdminController@index')->name('admin.dashboard');

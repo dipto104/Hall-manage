@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Term;
+use App\Mess;
 use Session;
 use Illuminate\Validation\Rule;
 
@@ -20,11 +21,11 @@ class MessController extends Controller
     }
     public function index()
     {
-        return view('foradmin.hallmess');
+        return view('foradmin.hallmess'); // this return the view with all button the dining payment view
     }
     public function termindex()
     {
-        return view('foradmin.mess.insertterm');
+        return view('foradmin.mess.insertterm');//this will give the view of insert new term
     }
 
     /**
@@ -81,6 +82,54 @@ class MessController extends Controller
         $data=Term::find($id);
 
         return view('foradmin.mess.messpayment',compact('data'));
+    }
+    public function indexmess($id)
+    {
+        $datamess=Term::find($id);
+        return view('foradmin.mess.createmess',compact('datamess'));
+    }
+    public function messcreate(Request $request,$id)
+    {
+        $this->validate($request, [
+            'messno' => 'required|numeric',
+            'startat' =>'required',
+            'finishat' =>'required',
+            'fine' => 'required|numeric'
+
+
+        ]);
+
+        $termno=$id;
+        $messno=$request['messno'];
+        $startat=$request['startat'];
+        $finishat=$request['finishat'];
+        $vacstartat=$request['vacstartat'];
+        $vacfinishat=$request['vacfinishat'];
+
+
+        $data=new Mess();
+        $data->messno=$messno;
+        $data->termno=$termno;
+        $data->startat=$startat;
+        $data->finishat=$finishat;
+
+        if(strlen($finishat)){
+            $data->finishat=$finishat;
+        }
+        else{
+            $finishat=null;
+            $data->finishat=$finishat;
+        }
+        $data->save();
+        Session::flash('success', 'New Term has been Created Successfully.');
+
+
+
+        //$data=User::all();
+
+        //return view('foradmin.studentdata',compact('data'));
+        return view('foradmin.hallmess');
+
     }
     public function create()
     {

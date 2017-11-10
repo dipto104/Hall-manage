@@ -25,6 +25,7 @@
 
                 <tbody>
 
+
                 @foreach ($data as $termdata)
 
                     <tr>

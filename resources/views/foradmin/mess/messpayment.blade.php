@@ -14,7 +14,7 @@
                             <hr>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ route('admin.insertterm') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Create New Mess</a>
+                            <a href="{{ route('admin.createmess',$data->id) }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Create New Mess</a>
                         </div>
                         <div class="col-md-4">
                             <a href="{{ route('admin.insertstudent') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Current Mess</a>
