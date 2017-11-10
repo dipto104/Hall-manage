@@ -105,6 +105,7 @@ class MessController extends Controller
         $finishat=$request['finishat'];
         $vacstartat=$request['vacstartat'];
         $vacfinishat=$request['vacfinishat'];
+        $fine=$request['fine'];
 
 
         $data=new Mess();
@@ -112,16 +113,24 @@ class MessController extends Controller
         $data->termno=$termno;
         $data->startat=$startat;
         $data->finishat=$finishat;
+        $data->fine=$fine;
 
-        if(strlen($finishat)){
-            $data->finishat=$finishat;
+        if(strlen($vacstartat)){
+            $data->vacstartat=$vacstartat;
         }
         else{
-            $finishat=null;
-            $data->finishat=$finishat;
+            $vacstartat=null;
+            $data->vacstartat=$vacstartat;
+        }
+        if(strlen($vacfinishat)){
+            $data->vacfinishat=$vacfinishat;
+        }
+        else{
+            $vacfinishat=null;
+            $data->vacfinishat=$vacfinishat;
         }
         $data->save();
-        Session::flash('success', 'New Term has been Created Successfully.');
+        Session::flash('success', 'New Mess has been Created Successfully.');
 
 
 

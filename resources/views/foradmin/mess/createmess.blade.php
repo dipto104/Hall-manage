@@ -8,7 +8,7 @@
                     <div class="panel-heading">Create New Mess</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="GET" action="{{ route('admin.insertstudent') }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('admin.createmess.submit',$datamess->id) }}">
                             {{ csrf_field() }}
 
 
