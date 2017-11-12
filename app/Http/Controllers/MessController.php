@@ -114,7 +114,7 @@ class MessController extends Controller
         $results = DB::select('select * from messes where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
 
         if($results!=null){
-            Session::flash('danger', 'Duplicate Mess No is this term.');
+            Session::flash('danger', 'Duplicate Mess No in this term.');
             return redirect()->back()->withInput();
 
         }
@@ -150,6 +150,12 @@ class MessController extends Controller
         //return view('foradmin.studentdata',compact('data'));
         return view('foradmin.hallmess');
 
+    }
+    public function showmess($id)
+    {
+        $data=DB::select('select * from messes where  termno = :termno', ['termno' => $id]);
+
+        return view('foradmin.mess.messdata',compact('data'));
     }
     public function create()
     {

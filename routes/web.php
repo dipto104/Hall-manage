@@ -42,7 +42,7 @@ Route::prefix('admin')->group(function (){
     Route::get('/insertstudent','AdminController@showinsertstudent')->name('admin.insertstudent');
     Route::post('/insertstudent','AdminController@insertstudent')->name('admin.insertstudent.submit');
 
-
+    Route::get('/messdata/{id}','MessController@showmess')->name('admin.messdata');
     Route::get('/createmess/{id}','MessController@indexmess')->name('admin.createmess');
     Route::post('/createmess/{id}','MessController@messcreate')->name('admin.createmess.submit');
 
