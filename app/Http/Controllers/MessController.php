@@ -7,6 +7,7 @@ use App\Term;
 use App\Mess;
 use Session;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class MessController extends Controller
 {
@@ -99,6 +100,8 @@ class MessController extends Controller
 
         ]);
 
+
+
         $termno=$id;
         $messno=$request['messno'];
         $startat=$request['startat'];
@@ -107,6 +110,14 @@ class MessController extends Controller
         $vacfinishat=$request['vacfinishat'];
         $fine=$request['fine'];
 
+
+        $results = DB::select('select * from messes where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+
+        if($results!=null){
+            Session::flash('danger', 'Duplicate Mess No is this term.');
+            return redirect()->back()->withInput();
+
+        }
 
         $data=new Mess();
         $data->messno=$messno;

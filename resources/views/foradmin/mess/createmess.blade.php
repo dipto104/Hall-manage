@@ -30,7 +30,7 @@
                                 <label for="startat" class="col-md-4 control-label">Starts At</label>
 
                                 <div class="col-md-6">
-                                    <input id="startat" type="date" class="form-control" name="startat" required>
+                                    <input id="startat" type="date" class="form-control" name="startat" value="{{ old('startat') }}" required>
 
                                     @if ($errors->has('startat'))
                                         <span class="help-block">
@@ -43,7 +43,7 @@
                                 <label for="finishat" class="col-md-4 control-label">Finish At</label>
 
                                 <div class="col-md-6">
-                                    <input id="finishat" type="date" class="form-control" name="finishat" required>
+                                    <input id="finishat" type="date" class="form-control" name="finishat" value="{{ old('finishat') }}"required>
 
                                     @if ($errors->has('finishat'))
                                         <span class="help-block">
@@ -57,7 +57,7 @@
                                 <label for="vacstartat" class="col-md-4 control-label">Vacation Starts At</label>
 
                                 <div class="col-md-6">
-                                    <input id="vacstartat" type="date" class="form-control" name="vacstartat" >
+                                    <input id="vacstartat" type="date" class="form-control" name="vacstartat" value="{{ old('vacstartat') }}" >
 
                                     @if ($errors->has('vacstartat'))
                                         <span class="help-block">
@@ -70,7 +70,7 @@
                                 <label for="vacfinishat" class="col-md-4 control-label">Vacation Finish At</label>
 
                                 <div class="col-md-6">
-                                    <input id="vacfinishat" type="date" class="form-control" name="vacfinishat" >
+                                    <input id="vacfinishat" type="date" class="form-control" name="vacfinishat" value="{{ old('vacfinishat') }}">
 
                                     @if ($errors->has('vacfinishat'))
                                         <span class="help-block">
