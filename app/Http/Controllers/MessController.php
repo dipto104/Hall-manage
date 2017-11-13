@@ -157,6 +157,76 @@ class MessController extends Controller
 
         return view('foradmin.mess.messdata',compact('data'));
     }
+    public function editmess($id)
+    {
+        $data=Mess::find($id);
+
+        return view('foradmin.mess.editmess',compact('data'));
+    }
+    public function messupdate(Request $request,$id)
+    {
+        $this->validate($request, [
+            'messno' => 'required|numeric',
+            'startat' =>'required',
+            'finishat' =>'required',
+            'fine' => 'required|numeric'
+
+
+        ]);
+
+
+
+
+        $messno=$request['messno'];
+        $startat=$request['startat'];
+        $finishat=$request['finishat'];
+        $vacstartat=$request['vacstartat'];
+        $vacfinishat=$request['vacfinishat'];
+        $fine=$request['fine'];
+
+        $data= Mess::find($id);
+
+        $termno=$data->termno;
+        $results = DB::select('select * from messes where messno = :messno and termno = :termno and id <> :id', ['messno' => $messno,'termno' => $termno,'id' => $id]);
+
+        if($results!=null){
+            Session::flash('danger', 'Duplicate Mess No in this term.');
+            return redirect()->back()->withInput();
+
+        }
+
+
+        $data->messno=$messno;
+        $data->termno=$termno;
+        $data->startat=$startat;
+        $data->finishat=$finishat;
+        $data->fine=$fine;
+
+        if(strlen($vacstartat)){
+            $data->vacstartat=$vacstartat;
+        }
+        else{
+            $vacstartat=null;
+            $data->vacstartat=$vacstartat;
+        }
+        if(strlen($vacfinishat)){
+            $data->vacfinishat=$vacfinishat;
+        }
+        else{
+            $vacfinishat=null;
+            $data->vacfinishat=$vacfinishat;
+        }
+        $data->save();
+        Session::flash('success', 'This Mess has been Updated Successfully.');
+
+
+
+        //$data=User::all();
+
+        //return view('foradmin.studentdata',compact('data'));
+        return view('foradmin.hallmess');
+
+    }
     public function create()
     {
         //
@@ -190,6 +260,9 @@ class MessController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function editterm($id)
     {
         $data=Term::find($id);

@@ -48,7 +48,7 @@
                         @endif
                         <th>{{ $messdata->fine }}</th>
                         <td><a href="{{ route('admin.openterm', $messdata->id) }}" class="btn btn-default btn-sm">Open</a>
-                            <a href="{{ route('admin.editterm',$messdata->id) }}" class="btn btn-default btn-sm">Edit</a></td>
+                            <a href="{{ route('admin.editmess',$messdata->id) }}" class="btn btn-default btn-sm">Edit</a></td>
                     </tr>
 
                 @endforeach
