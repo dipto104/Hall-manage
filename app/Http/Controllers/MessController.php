@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Payment;
 use Illuminate\Http\Request;
 use App\Term;
+use App\User;
 use App\Mess;
 use Session;
 use Illuminate\Validation\Rule;
@@ -66,10 +68,9 @@ class MessController extends Controller
 
 
 
-        //$data=User::all();
+        $data=Term::all();
 
-        //return view('foradmin.studentdata',compact('data'));
-        return view('foradmin.hallmess');
+        return view('foradmin.mess.termdata',compact('data'));
 
     }
     public function showterms()
@@ -141,15 +142,29 @@ class MessController extends Controller
             $data->vacfinishat=$vacfinishat;
         }
         $data->save();
+        $this->autopaymentcreate($termno,$messno);
         Session::flash('success', 'New Mess has been Created Successfully.');
 
 
 
-        //$data=User::all();
+        $data=DB::select('select * from messes where  termno = :termno', ['termno' => $termno]);
 
-        //return view('foradmin.studentdata',compact('data'));
-        return view('foradmin.hallmess');
+        return view('foradmin.mess.messdata',compact('data'));
 
+    }
+    public function autopaymentcreate($termno,$messno){
+        $alldata=User::all();
+
+        foreach ($alldata as $data){
+            $payment=new Payment();
+            $payment->termno=$termno;
+            $payment->messno=$messno;
+            $payment->studentid=$data->studentid;
+            $payment->name=$data->name;
+            $payment->roomno=$data->roomno;
+            $payment->department=$data->department;
+            $payment->save();
+        }
     }
     public function showmess($id)
     {
@@ -224,7 +239,10 @@ class MessController extends Controller
         //$data=User::all();
 
         //return view('foradmin.studentdata',compact('data'));
-        return view('foradmin.hallmess');
+        $data=DB::select('select * from messes where  termno = :termno', ['termno' => $termno]);
+
+        return view('foradmin.mess.messdata',compact('data'));
+
 
     }
     public function create()
@@ -313,6 +331,8 @@ class MessController extends Controller
         //return view('foradmin.studentdata',compact('data'));
         return view('foradmin.hallmess');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

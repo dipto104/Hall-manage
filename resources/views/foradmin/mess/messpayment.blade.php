@@ -7,7 +7,7 @@
                     <div class="panel-body">
 
                         <div class="col-md-10 col-md-offset-4">
-                            <h1>Term No : {{$data->id}} Mess</h1>
+                            <h1>Term No : {{$data->termno}} Mess</h1>
                         </div>
 
                         <div class="col-md-12">
