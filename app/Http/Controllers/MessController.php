@@ -176,6 +176,94 @@ class MessController extends Controller
 
 
     }
+    public function editpayment($id)
+    {
+       $data=Payment::find($id);
+       return view('foradmin.mess.editpayment',compact('data'));
+
+    }
+    public function finepermess($id){
+        $mess=Payment::find($id);
+        $termno=$mess->termno;
+        $messno=$mess->messno;
+        $datapay = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+        $datamess = DB::select('select * from messes where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+
+
+
+        foreach ($datapay as $pay){
+            foreach ($datamess as $datames) {
+                if ($pay->remarks == null) {
+                    $startdate = strtotime($datames->startat);
+                    $finishdate = strtotime($datames->finishat);
+                    $datediff = $finishdate - $startdate;
+                    $days = floor($datediff / (60 * 60 * 24));
+                    $fine = $days * $datames->fine;
+
+                    $temp = Payment::find($pay->id);
+
+                    $temp->due = $fine;
+                    $temp->save();
+                } else {
+                    $startdate = strtotime($datames->startat);
+                    $receivedate = strtotime($pay->receivedate);
+                    $datediff = $receivedate - $startdate;
+                    $days = floor($datediff / (60 * 60 * 24));
+                    $days = $days - 7;
+                    if ($days < 0) {
+                        $days = 0;
+                    }
+                    $fine = $datames->fine;
+                    $fine = (int)$fine;
+                    $fine = $days * $fine;
+                    $temp = Payment::find($pay->id);
+
+                    $temp->due = $fine;
+                    $temp->save();
+                }
+            }
+
+        }
+        $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+        return view('foradmin.mess.openpayment',compact('data'));
+    }
+
+    public function updatepayment(Request $request,$id)
+    {
+        $this->validate($request, [
+            'hallscroll' => 'required|numeric',
+            'bankscroll' =>'required|numeric',
+            'receivedate'=>'required',
+            'remarks' => 'required',
+
+
+        ]);
+
+        $hallscroll=$request['hallscroll'];
+        $bankscroll=$request['bankscroll'];
+        $receivedate=$request['receivedate'];
+        $remarks=$request['remarks'];
+
+
+
+        $data=Payment::find($id);
+        $data->hallscroll=$hallscroll;
+        $data->bankscroll=$bankscroll;
+        $data->receivedate=$receivedate;
+        $data->remarks=$remarks;
+
+
+
+        $data->save();
+        Session::flash('success', "$data->name 's Payment has been Successfully Saved.");
+
+
+
+        $termno=$data->termno;
+        $messno=$data->messno;
+        $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+        return view('foradmin.mess.openpayment',compact('data'));
+    }
     public function showmess($id)
     {
         $data=DB::select('select * from messes where  termno = :termno', ['termno' => $id]);

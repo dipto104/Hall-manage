@@ -47,21 +47,19 @@ Route::prefix('admin')->group(function (){
     Route::post('/createmess/{id}','MessController@messcreate')->name('admin.createmess.submit');
     Route::get('/editmess/{id}','MessController@editmess')->name('admin.editmess');
     Route::post('/editmess/{id}','MessController@messupdate')->name('admin.editmess.submit');
-
     Route::get('/hallmess','MessController@index')->name('admin.hallmess');
+    Route::get('/duemess/{id}','MessController@finepermess')->name('admin.duemess');
 
     Route::get('/openpayment/{id}','MessController@openpayment')->name('admin.openpayment');
-
+    Route::get('/editpayment/{id}','MessController@editpayment')->name('admin.editpayment');
+    Route::post('/editpayment/{id}','MessController@updatepayment')->name('admin.editpayment.submit');
 
 
     Route::get('/editterm/{id}','MessController@editterm')->name('admin.editterm');
     Route::post('/editterm/{id}','MessController@updateterm')->name('admin.editterm.submit');
-
     Route::get('/openterm/{id}','MessController@openterm')->name('admin.openterm');
-
     Route::get('/insertterm','MessController@termindex')->name('admin.insertterm');
     Route::post('/insertterm','MessController@termcreate')->name('admin.insertterm.submit');
-
     Route::get('/termdata','MessController@showterms')->name('admin.termdata');
 
 

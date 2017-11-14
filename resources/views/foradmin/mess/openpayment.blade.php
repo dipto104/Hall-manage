@@ -5,7 +5,9 @@
         <div class="col-md-10 col-md-offset-4">
             <h1>Term No :{{$data[0]->termno}} | Mess NO :{{$data[0]->messno}}</h1>
         </div>
-
+        <div class="col-md-3 col-md-offset-1">
+            <a href="{{ route('admin.duemess',$data[0]->id) }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Calculate Due</a>
+        </div>
 
         <div class="col-md-12">
             <hr>
@@ -49,7 +51,7 @@
                         <th>{{ $messdata->remarks }}</th>
                         <th>{{ $messdata->due }}</th>
                         <td><a href="{{ route('admin.openterm', $messdata->id) }}" class="btn btn-default btn-sm">Open</a>
-                            <a href="{{ route('admin.editmess',$messdata->id) }}" class="btn btn-default btn-sm">Edit</a></td>
+                            <a href="{{ route('admin.editpayment',$messdata->id) }}" class="btn btn-default btn-sm">Edit</a></td>
                     </tr>
 
                 @endforeach
