@@ -48,8 +48,11 @@ Route::prefix('admin')->group(function (){
     Route::get('/editmess/{id}','MessController@editmess')->name('admin.editmess');
     Route::post('/editmess/{id}','MessController@messupdate')->name('admin.editmess.submit');
 
-
     Route::get('/hallmess','MessController@index')->name('admin.hallmess');
+
+    Route::get('/openpayment/{id}','MessController@openpayment')->name('admin.openpayment');
+
+
 
     Route::get('/editterm/{id}','MessController@editterm')->name('admin.editterm');
     Route::post('/editterm/{id}','MessController@updateterm')->name('admin.editterm.submit');

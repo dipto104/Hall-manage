@@ -166,6 +166,16 @@ class MessController extends Controller
             $payment->save();
         }
     }
+    public function openpayment($id)
+    {
+        $mess=Mess::find($id);
+        $termno=$mess->termno;
+        $messno=$mess->messno;
+        $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+        return view('foradmin.mess.openpayment',compact('data'));
+
+
+    }
     public function showmess($id)
     {
         $data=DB::select('select * from messes where  termno = :termno', ['termno' => $id]);
