@@ -54,6 +54,19 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="form-group{{ $errors->has('fee') ? ' has-error' : '' }}">
+                                <label for="fee" class="col-md-4 control-label">Payment(-/taka)</label>
+
+                                <div class="col-md-6">
+                                    <input id="rfee" type="text" class="form-control" name="fee" value="{{ $data->fee }}" required>
+
+                                    @if ($errors->has('fee'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('fee') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
                             <div class="form-group{{ $errors->has('remarks') ? ' has-error' : '' }}">
                                 <label for="remarks" class="col-md-4 control-label">Remarks</label>
 

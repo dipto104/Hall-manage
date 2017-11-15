@@ -26,6 +26,7 @@
                 <th>Hall Scroll NO</th>
                 <th>Bank Scroll NO</th>
                 <th>Receive Date</th>
+                <th>Payment</th>
                 <th>Remarks</th>
                 <th>Due</th>
                 </thead>
@@ -48,6 +49,7 @@
                         @else
                             <td>Empty</td>
                         @endif
+                        <th>{{$messdata->fee}}</th>
                         <th>{{ $messdata->remarks }}</th>
                         <th>{{ $messdata->due }}</th>
                         <td><a href="{{ route('admin.openterm', $messdata->id) }}" class="btn btn-default btn-sm">Open</a>

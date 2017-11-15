@@ -15,7 +15,7 @@ class Payment extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'termno','messno','studentid','name','roomno','department','hallscroll','bankscroll','receivedate','remarks', 'due',
+        'termno','messno','studentid','name','roomno','department','hallscroll','bankscroll','receivedate','fee','remarks', 'due',
     ];
 
     /**

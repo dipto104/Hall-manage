@@ -15,7 +15,7 @@ class Mess extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'termno','messno', 'startat', 'finishat','vacstartat','vacfinishat','fine',
+        'termno','messno', 'startat', 'finishat','vacstartat','vacfinishat','messfee','extrafee','fine',
     ];
 
     /**

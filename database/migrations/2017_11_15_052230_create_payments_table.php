@@ -24,6 +24,7 @@ class CreatePaymentsTable extends Migration
             $table->integer('hallscroll')->nullable();
             $table->integer('bankscroll')->nullable();
             $table->date('receivedate')->nullable();
+            $table->integer('fee')->nullable();
             $table->string('remarks')->nullable();
             $table->integer('due')->nullable();
             $table->timestamps();

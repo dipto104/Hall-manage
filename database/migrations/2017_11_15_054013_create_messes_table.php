@@ -21,6 +21,8 @@ class CreateMessesTable extends Migration
             $table->date('finishat');
             $table->date('vacstartat')->nullable();
             $table->date('vacfinishat')->nullable();
+            $table->integer('messfee');
+            $table->integer('extrafee')->nullable();
             $table->integer('fine');
             $table->timestamps();
         });

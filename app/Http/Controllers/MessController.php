@@ -96,7 +96,9 @@ class MessController extends Controller
             'messno' => 'required|numeric',
             'startat' =>'required',
             'finishat' =>'required',
-            'fine' => 'required|numeric'
+            'fine' => 'required|numeric',
+            'messfee' => 'required|numeric'
+
 
 
         ]);
@@ -110,6 +112,8 @@ class MessController extends Controller
         $vacstartat=$request['vacstartat'];
         $vacfinishat=$request['vacfinishat'];
         $fine=$request['fine'];
+        $messfee=$request['messfee'];
+        $extrafee=$request['extrafee'];
 
 
         $results = DB::select('select * from messes where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
@@ -126,6 +130,7 @@ class MessController extends Controller
         $data->startat=$startat;
         $data->finishat=$finishat;
         $data->fine=$fine;
+        $data->messfee=$messfee;
 
         if(strlen($vacstartat)){
             $data->vacstartat=$vacstartat;
@@ -140,6 +145,13 @@ class MessController extends Controller
         else{
             $vacfinishat=null;
             $data->vacfinishat=$vacfinishat;
+        }
+        if(strlen($extrafee)){
+            $data->extrafee=$extrafee;
+        }
+        else{
+            $extrafee=null;
+            $data->extrafee=$extrafee;
         }
         $data->save();
         $this->autopaymentcreate($termno,$messno);
@@ -199,6 +211,7 @@ class MessController extends Controller
                     $datediff = $finishdate - $startdate;
                     $days = floor($datediff / (60 * 60 * 24));
                     $fine = $days * $datames->fine;
+                    $fine=$fine+$datames->messfee+$datames->extrafee;
 
                     $temp = Payment::find($pay->id);
 
@@ -216,6 +229,7 @@ class MessController extends Controller
                     $fine = $datames->fine;
                     $fine = (int)$fine;
                     $fine = $days * $fine;
+                    $fine=$fine+$datames->messfee+$datames->extrafee;
                     $temp = Payment::find($pay->id);
 
                     $temp->due = $fine;
@@ -234,6 +248,7 @@ class MessController extends Controller
             'hallscroll' => 'required|numeric',
             'bankscroll' =>'required|numeric',
             'receivedate'=>'required',
+            'fee' => 'required|numeric',
             'remarks' => 'required',
 
 
@@ -242,6 +257,7 @@ class MessController extends Controller
         $hallscroll=$request['hallscroll'];
         $bankscroll=$request['bankscroll'];
         $receivedate=$request['receivedate'];
+        $fee=$request['fee'];
         $remarks=$request['remarks'];
 
 
@@ -250,6 +266,7 @@ class MessController extends Controller
         $data->hallscroll=$hallscroll;
         $data->bankscroll=$bankscroll;
         $data->receivedate=$receivedate;
+        $data->fee=$fee;
         $data->remarks=$remarks;
 
 
@@ -282,7 +299,8 @@ class MessController extends Controller
             'messno' => 'required|numeric',
             'startat' =>'required',
             'finishat' =>'required',
-            'fine' => 'required|numeric'
+            'fine' => 'required|numeric',
+            'messfee' => 'required|numeric'
 
 
         ]);
@@ -296,6 +314,8 @@ class MessController extends Controller
         $vacstartat=$request['vacstartat'];
         $vacfinishat=$request['vacfinishat'];
         $fine=$request['fine'];
+        $messfee=$request['messfee'];
+        $extrafee=$request['extrafee'];
 
         $data= Mess::find($id);
 
@@ -314,6 +334,7 @@ class MessController extends Controller
         $data->startat=$startat;
         $data->finishat=$finishat;
         $data->fine=$fine;
+        $data->messfee=$messfee;
 
         if(strlen($vacstartat)){
             $data->vacstartat=$vacstartat;
@@ -328,6 +349,13 @@ class MessController extends Controller
         else{
             $vacfinishat=null;
             $data->vacfinishat=$vacfinishat;
+        }
+        if(strlen($extrafee)){
+            $data->extrafee=$extrafee;
+        }
+        else{
+            $extrafee=null;
+            $data->extrafee=$extrafee;
         }
         $data->save();
         Session::flash('success', 'This Mess has been Updated Successfully.');

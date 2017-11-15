@@ -22,6 +22,8 @@
                 <th>Finished At</th>
                 <th>Vacation started At</th>
                 <th>Vacation finished At</th>
+                <th>Mess Payment</th>
+                <th>Hall Payment</th>
                 <th>Fine Rate</th>
                 <th></th>
                 </thead>
@@ -43,6 +45,12 @@
                         @endif
                         @if($messdata->vacfinishat!=null)
                             <td>{{ date('M j, Y', strtotime($messdata->vacfinishat)) }}</td>
+                        @else
+                            <td>Empty</td>
+                        @endif
+                        <th>{{ $messdata->messfee }}</th>
+                        @if($messdata->extrafee!=null)
+                            <td>{{$messdata->extrafee}}</td>
                         @else
                             <td>Empty</td>
                         @endif

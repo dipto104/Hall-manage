@@ -80,6 +80,32 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="form-group{{ $errors->has('messfee') ? ' has-error' : '' }}">
+                                <label for="messfee" class="col-md-4 control-label">Mess Payment (-/taka)</label>
+
+                                <div class="col-md-6">
+                                    <input id="messfee" type="text" class="form-control" name="messfee" value="{{$data->messfee }}" required>
+
+                                    @if ($errors->has('messfee'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('messfee') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('extrafee') ? ' has-error' : '' }}">
+                                <label for="extrafee" class="col-md-4 control-label">Hall Payment (-/taka)</label>
+
+                                <div class="col-md-6">
+                                    <input id="extrafee" type="text" class="form-control" name="extrafee" value="{{$data->extrafee }}" >
+
+                                    @if ($errors->has('extrafee'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('extrafee') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
 
                             <div class="form-group{{ $errors->has('fine') ? ' has-error' : '' }}">
                                 <label for="fine" class="col-md-4 control-label">Fine (-/taka)</label>
