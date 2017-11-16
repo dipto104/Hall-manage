@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Term;
 use App\User;
 use App\Mess;
+use App\Termdue;
 use Session;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -217,7 +218,8 @@ class MessController extends Controller
 
                     $temp->due = $fine;
                     $temp->save();
-                } else {
+                }
+                else {
                     $startdate = strtotime($datames->startat);
                     $receivedate = strtotime($pay->receivedate);
                     $datediff = $receivedate - $startdate;
@@ -229,9 +231,11 @@ class MessController extends Controller
                     $fine = $datames->fine;
                     $fine = (int)$fine;
                     $fine = $days * $fine;
-                    $fine=$fine+$datames->messfee+$datames->extrafee;
+                    if($fine>($datames->fine*30)){
+                        $fine=$datames->fine*30;
+                    }
+                    $fine=$fine+$datames->messfee+$datames->extrafee-$pay->fee;
                     $temp = Payment::find($pay->id);
-
                     $temp->due = $fine;
                     $temp->save();
                 }
@@ -240,6 +244,72 @@ class MessController extends Controller
         }
         $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
         return view('foradmin.mess.openpayment',compact('data'));
+    }
+    public function showdueperterm($id)
+    {
+        $termdata=Term::find($id);
+        $datatermdue=DB::select('select * from termdues where  termno = :termno', ['termno' => $termdata->termno]);
+        return view('foradmin.mess.termdue',compact('datatermdue'));
+    }
+    public function dueperterm($id)
+    {
+        $termdata=Term::find($id);
+        $students=User::all();
+        $test=DB::select('select * from payments where  termno = :termno', ['termno' => $termdata->termno]);
+        if($test==null){
+            $datatermdue=null;
+            return view('foradmin.mess.termdue',compact('datatermdue'));
+        }
+        else {
+            $totaldue = 0;
+            $datatermdue = DB::select('select * from termdues where  termno = :termno', ['termno' => $termdata->termno]);
+            foreach ($students as $student) {
+                $payments = DB::select('select * from payments where studentid = :studentid and termno = :termno', ['studentid' => $student->studentid, 'termno' => $termdata->termno]);
+                $i = 0;
+                foreach ($payments as $pay) {
+                    $totaldue = $totaldue + $pay->due;
+                    $i++;
+                }
+
+                if ($datatermdue == null) {
+                    $data = new Termdue();
+                    $data->termno = $termdata->termno;
+                    $data->studentid = $student->studentid;
+                    $data->totalmess = $i;
+                    $data->due = $totaldue;
+                    $data->remarks = "due";
+                    $data->save();
+                } else {
+                    $datastudent = DB::select('select * from termdues where studentid = :studentid and termno = :termno', ['studentid' => $student->studentid, 'termno' => $termdata->termno]);
+                    if ($datastudent == null) {
+                        $data = new Termdue();
+                        $data->termno = $termdata->termno;
+                        $data->studentid = $student->studentid;
+                        $data->totalmess = $i;
+                        $data->due = $totaldue;
+                        $data->remarks = "due";
+                        $data->save();
+                    } else {
+                        foreach ($datastudent as $datastu) {
+                            $data = Termdue::find($datastu->id);
+                            $data->termno = $termdata->termno;
+                            $data->studentid = $student->studentid;
+                            $data->totalmess = $i;
+                            $data->due = $totaldue;
+                            $data->remarks = "due";
+                            $data->save();
+                        }
+                    }
+
+
+                }
+                $totaldue = 0;
+            }
+            //$totalmess=DB::select('select * from messes where termno = :termno', ['termno' => $termdata->termno]);
+            $datatermdue = DB::select('select * from termdues where  termno = :termno', ['termno' => $termdata->termno]);
+            return view('foradmin.mess.termdue', compact('datatermdue'));
+        }
+
     }
 
     public function updatepayment(Request $request,$id)

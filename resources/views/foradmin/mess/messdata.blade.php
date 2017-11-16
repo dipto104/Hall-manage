@@ -1,7 +1,12 @@
 @extends('layouts.appall')
 @section('content')
-
+    @if($data==null)
+        <div class="col-md-6 col-md-offset-3 alert-danger">
+            <h1>No Mess Data In This Term</h1>
+        </div>
+    @else
     <div class="row">
+
         <div class="col-md-10 col-md-offset-4">
             <h1>Term No {{$data[0]->termno}} : All Mess List</h1>
         </div>
@@ -34,8 +39,8 @@
                 @foreach ($data as $messdata)
 
                     <tr>
-                        <th>{{ $messdata->id }}</th>
-                        <th>{{ $messdata->messno }}</th>
+                        <td>{{ $messdata->id }}</td>
+                        <td>{{ $messdata->messno }}</td>
                         <td>{{ date('M j, Y', strtotime($messdata->startat)) }}</td>
                         <td>{{ date('M j, Y', strtotime($messdata->finishat)) }}</td>
                         @if($messdata->vacstartat!=null)
@@ -65,5 +70,6 @@
             </table>
         </div>
     </div>
+    @endif
 
 @endsection

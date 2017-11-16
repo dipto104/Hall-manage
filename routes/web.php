@@ -49,6 +49,8 @@ Route::prefix('admin')->group(function (){
     Route::post('/editmess/{id}','MessController@messupdate')->name('admin.editmess.submit');
     Route::get('/hallmess','MessController@index')->name('admin.hallmess');
     Route::get('/duemess/{id}','MessController@finepermess')->name('admin.duemess');
+    Route::get('/termduecal/{id}','MessController@dueperterm')->name('admin.termduecal');
+    Route::get('/termdueshow/{id}','MessController@showdueperterm')->name('admin.termdueshow');
 
     Route::get('/openpayment/{id}','MessController@openpayment')->name('admin.openpayment');
     Route::get('/editpayment/{id}','MessController@editpayment')->name('admin.editpayment');
