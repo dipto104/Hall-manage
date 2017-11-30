@@ -11,6 +11,7 @@ use App\Termdue;
 use Session;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Yajra\Datatables\Datatables;
 
 class MessController extends Controller
 {
@@ -23,6 +24,8 @@ class MessController extends Controller
     {
         $this->middleware('auth:admin');
     }
+
+
     public function index()
     {
         return view('foradmin.hallmess'); // this return the view with all button the dining payment view
@@ -205,8 +208,8 @@ class MessController extends Controller
 
 
         foreach ($datapay as $pay){
-            foreach ($datamess as $datames) {
-                if ($pay->remarks == null) {
+            foreach ($datamess as $datames){
+                if ($pay->remarks == null){
                     $startdate = strtotime($datames->startat);
                     $finishdate = strtotime($datames->finishat);
                     $datediff = $finishdate - $startdate;
@@ -260,7 +263,7 @@ class MessController extends Controller
             $datatermdue=null;
             return view('foradmin.mess.termdue',compact('datatermdue'));
         }
-        else {
+        else{
             $totaldue = 0;
             $datatermdue = DB::select('select * from termdues where  termno = :termno', ['termno' => $termdata->termno]);
             foreach ($students as $student) {

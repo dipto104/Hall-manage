@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Session;
+use Yajra\Datatables\Datatables;
 
 class StudentdataController extends Controller
 {
@@ -13,6 +14,14 @@ class StudentdataController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+    }
+    public function getIndex()
+    {
+        return view('forstudent.datatable');
+    }
+    public function anyData()
+    {
+        return Datatables::of(User::query())->make(true);
     }
     public function showdata()
     {
