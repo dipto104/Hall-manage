@@ -25,6 +25,7 @@
                     { data: 'name', name: 'name' },
                     { data: 'studentid', name: 'studentid' },
                     { data: 'created_at', name: 'created_at' },
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });
         });

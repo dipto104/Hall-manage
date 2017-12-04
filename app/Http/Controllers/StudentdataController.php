@@ -21,7 +21,14 @@ class StudentdataController extends Controller
     }
     public function anyData()
     {
-        return Datatables::of(User::query())->make(true);
+        $users = User::select(['id', 'name', 'studentid', 'created_at']);
+
+        return Datatables::of($users)
+            ->addColumn('action', function ($user) {
+                return "<a href='/admin/perstudentinfo/$user->id' class='btn btn-xs btn-primary'></i> View</a>";
+            })
+            ->removeColumn('id')
+            ->make(true);
     }
     public function showdata()
     {
