@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Session;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\DB;
 
 class StudentdataController extends Controller
 {
@@ -21,13 +22,13 @@ class StudentdataController extends Controller
     }
     public function anyData()
     {
-        $users = User::select(['id', 'name', 'studentid', 'created_at']);
+        //$users = User::select(['id', 'name', 'studentid', 'created_at']);
+        $users= DB::select('select * from users');
 
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
                 return "<a href='/admin/perstudentinfo/$user->id' class='btn btn-xs btn-primary'></i> View</a>";
             })
-            ->removeColumn('id')
             ->make(true);
     }
     public function showdata()

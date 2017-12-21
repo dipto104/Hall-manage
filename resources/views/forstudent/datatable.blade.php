@@ -8,6 +8,7 @@
             <th>Name</th>
             <th>Student ID</th>
             <th>Created At</th>
+            <th>Action</th>
         </tr>
         </thead>
     </table>
@@ -21,7 +22,7 @@
                 serverSide: true,
                 ajax: '{!! route('admin.tabledata') !!}',
                 columns: [
-                    { data: 'id', name: 'id' },
+                    {data:'id',name:'id'},
                     { data: 'name', name: 'name' },
                     { data: 'studentid', name: 'studentid' },
                     { data: 'created_at', name: 'created_at' },
