@@ -79,9 +79,19 @@ class MessController extends Controller
     }
     public function showterms()
     {
-        $data=Term::all();
 
-        return view('foradmin.mess.termdata',compact('data'));
+        return view('foradmin.mess.termdata');
+
+    }
+    public function showtermdata()
+    {
+        $users= DB::select('select * from terms');
+
+        return Datatables::of($users)
+            ->addColumn('action', function ($user) {
+                return "<a href='/admin/perterminfo/$user->id' class='btn btn-xs btn-primary'></i><span class=\"glyphicon glyphicon-folder-open\"></span> OPEN</a>";
+            })
+            ->make(true);
     }
     public function editterm($id)
     {

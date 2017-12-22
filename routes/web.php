@@ -66,6 +66,7 @@ Route::prefix('admin')->group(function (){
     Route::get('/insertterm','MessController@termindex')->name('admin.insertterm');
     Route::post('/insertterm','MessController@termcreate')->name('admin.insertterm.submit');
     Route::get('/termdata','MessController@showterms')->name('admin.termdata');
+    Route::get('/termdatashow','MessController@showtermdata')->name('admin.termdatashow');
     Route::get('/perterminfo/{id}','MessController@perterm')->name('admin.perterm');
 
 
