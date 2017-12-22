@@ -33,10 +33,10 @@
                 serverSide: true,
                 ajax: '{!! route('admin.termdatashow') !!}',
                 columns: [
-                    {data:'id',name:'id'},
+                    {data:'id',name:'id',searchable: false},
                     { data: 'termno', name: 'termno' },
-                    { data: 'startat', name: 'startat' },
-                    { data: 'finishat', name: 'finishat' },
+                    { data: 'startat', name: 'startat',searchable: false },
+                    { data: 'finishat', name: 'finishat',searchable: false },
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });

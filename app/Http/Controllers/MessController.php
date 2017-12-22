@@ -389,6 +389,12 @@ class MessController extends Controller
 
         return view('foradmin.mess.editmess',compact('data'));
     }
+    public function permess($id)
+    {
+        $data=Mess::find($id);
+
+        return view('foradmin.mess.permessinfo',compact('data'));
+    }
     public function messupdate(Request $request,$id)
     {
         $this->validate($request, [
