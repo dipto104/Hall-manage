@@ -46,8 +46,11 @@ Route::prefix('admin')->group(function (){
     Route::post('/insertstudent','AdminController@insertstudent')->name('admin.insertstudent.submit');
 
     Route::get('/messdata/{id}','MessController@showmess')->name('admin.messdata');
+    Route::get('/messdatashow','MessController@showmessdata')->name('admin.messdatashow');
     Route::get('/createmess/{id}','MessController@indexmess')->name('admin.createmess');
     Route::post('/createmess/{id}','MessController@messcreate')->name('admin.createmess.submit');
+
+    Route::get('/termdatashow','MessController@showtermdata')->name('admin.termdatashow');
     Route::get('/permessinfo/{id}','MessController@permess')->name('admin.permess');
     Route::get('/editmess/{id}','MessController@editmess')->name('admin.editmess');
     Route::post('/editmess/{id}','MessController@messupdate')->name('admin.editmess.submit');

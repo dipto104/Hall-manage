@@ -20,6 +20,9 @@ class MessController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public $datamess=Mess::class;
+    public $termid=1;
+    public $counter=0;
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -379,9 +382,24 @@ class MessController extends Controller
     }
     public function showmess($id)
     {
-        $data=DB::select('select * from messes where  termno = :termno', ['termno' => $id]);
+        //$this->datamess=DB::select('select * from messes where  termno = :termno', ['termno' => $id]);
+        $this->termid=$id;
+       // echo "$this->termid";
+        //echo "$this->counter";
+        $this->showmessdata();
+        return view('foradmin.mess.messdata');
+    }
 
-        return view('foradmin.mess.messdata',compact('data'));
+    public function showmessdata()
+    {
+        $this->counter++;
+
+        $users= DB::select('select * from messes where  termno = :termno', ['termno' => $this->termid]);
+        return Datatables::of($users)
+            ->addColumn('action', function ($user) {
+                return "<a href='/admin/perterminfo/$user->id' class='btn btn-xs btn-primary'></i><span class=\"glyphicon glyphicon-folder-open\"></span> OPEN</a>";
+            })
+            ->make(true);
     }
     public function editmess($id)
     {
