@@ -83,12 +83,25 @@ class MessController extends Controller
 
         return view('foradmin.mess.termdata',compact('data'));
     }
+    public function editterm($id)
+    {
+        $data=Term::find($id);
+
+        return view('foradmin.mess.editterm',compact('data'));
+    }
+    public function perterm($id)
+    {
+        $data=Term::find($id);
+
+        return view('foradmin.mess.perterminfo',compact('data'));
+    }
     public function openterm($id)
     {
         $data=Term::find($id);
 
         return view('foradmin.mess.messpayment',compact('data'));
     }
+
     public function indexmess($id)
     {
         $datamess=Term::find($id);
@@ -480,12 +493,7 @@ class MessController extends Controller
 
 
 
-    public function editterm($id)
-    {
-        $data=Term::find($id);
 
-        return view('foradmin.mess.editterm',compact('data'));
-    }
 
     /**
      * Update the specified resource in storage.

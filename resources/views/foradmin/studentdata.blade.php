@@ -2,11 +2,11 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-10 col-md-offset-4">
+        <div class="col-md-5 col-md-offset-4">
             <h1>Students Data</h1>
         </div>
 
-        <div class="col-md-2 col-md-offset-10">
+        <div class="col-md-2 col-md-offset-2">
             <a href="{{ route('admin.insertstudent') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">InsertStudent</a>
         </div>
         <div class="col-md-12">
@@ -14,35 +14,34 @@
         </div>
     </div> <!-- end of .row -->
 
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <thead>
-                <th>#</th>
-                <th>Name</th>
-                <th>Student ID</th>
-                <th>Created At</th>
-                <th></th>
-                </thead>
+    <table class="table table-bordered" id="users-table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Student ID</th>
+            <th>Created At</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+    </table>
+@stop
 
-                <tbody>
-
-                @foreach ($data as $studentdata)
-
-                    <tr>
-                        <th>{{ $studentdata->id }}</th>
-                        <th>{{ $studentdata->name }}</th>
-                        <td>{{ $studentdata->studentid }}</td>
-                        <td>{{ date('M j, Y', strtotime($studentdata->created_at)) }}</td>
-                        <td><a href="{{ route('admin.perstudent', $studentdata->id) }}" class="btn btn-default btn-sm">View</a>
-                            <a href="{{ route('admin.editstudent',$studentdata->id) }}" class="btn btn-default btn-sm">Edit</a></td>
-                    </tr>
-
-                @endforeach
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-@endsection
+@push('scripts')
+    <script>
+        $(function() {
+            $('#users-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{!! route('admin.studentdatashow') !!}',
+                columns: [
+                    {data:'id',name:'id'},
+                    { data: 'name', name: 'name' },
+                    { data: 'studentid', name: 'studentid' },
+                    { data: 'created_at', name: 'created_at' },
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                ]
+            });
+        });
+    </script>
+@endpush

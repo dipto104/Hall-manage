@@ -28,7 +28,9 @@ Route::prefix('admin')->group(function (){
     Route::get('/login','Auth\AdminLoginController@showloginform')->name('admin.login');
     Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
 
-    Route::get('/studentdata','StudentdataController@showdata')->name('admin.studentdata');
+    Route::get('/studentdata','StudentdataController@showstudentIndex')->name('admin.studentdata');
+    Route::get('/studentdatashow','StudentdataController@showdata')->name('admin.studentdatashow');
+
     Route::get('/datatable','StudentdataController@getIndex')->name('admin.datatable');
     Route::get('/tabledata','StudentdataController@anyData')->name('admin.tabledata');
     Route::get('/editstudent/{id}','StudentdataController@edit')->name('admin.editstudent');
@@ -64,6 +66,7 @@ Route::prefix('admin')->group(function (){
     Route::get('/insertterm','MessController@termindex')->name('admin.insertterm');
     Route::post('/insertterm','MessController@termcreate')->name('admin.insertterm.submit');
     Route::get('/termdata','MessController@showterms')->name('admin.termdata');
+    Route::get('/perterminfo/{id}','MessController@perterm')->name('admin.perterm');
 
 
     Route::get('/logout','Auth\AdminLoginController@adminlogout')->name('admin.logout');

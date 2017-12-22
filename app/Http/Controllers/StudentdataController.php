@@ -20,6 +20,10 @@ class StudentdataController extends Controller
     {
         return view('forstudent.datatable');
     }
+    public function showstudentIndex()
+    {
+        return view('foradmin.studentdata');
+    }
     public function anyData()
     {
         //$users = User::select(['id', 'name', 'studentid', 'created_at']);
@@ -27,15 +31,19 @@ class StudentdataController extends Controller
 
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
-                return "<a href='/admin/perstudentinfo/$user->id' class='btn btn-xs btn-primary'></i> View</a>";
+                return "<a href='/admin/perstudentinfo/$user->id' class='btn btn-xs btn-primary'></i> OPEN</a>";
             })
             ->make(true);
     }
     public function showdata()
     {
-        $data=User::all();
+        $users= DB::select('select * from users');
 
-        return view('foradmin.studentdata',compact('data'));
+        return Datatables::of($users)
+            ->addColumn('action', function ($user) {
+                return "<a href='/admin/perstudentinfo/$user->id' class='btn btn-xs btn-primary'></i><span class=\"glyphicon glyphicon-folder-open\"></span> OPEN</a>";
+            })
+            ->make(true);
     }
     public function show($id)
     {
