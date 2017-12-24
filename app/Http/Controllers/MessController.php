@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Payment;
-use Request;
+
+use  Illuminate\Http\Request;
 use App\Term;
 use App\User;
 use App\Mess;
@@ -215,9 +216,27 @@ class MessController extends Controller
         $messno=$mess->messno;
         $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
         return view('foradmin.mess.openpayment',compact('data'));
-
+        //return view('foradmin.mess.openpayment');
 
     }
+    public function showpaymentdata($id)
+    {
+
+        $mess=Mess::find($id);
+        $termno=$mess->termno;
+        $messno=$mess->messno;
+        $users = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+        return Datatables::of($users)
+            ->addColumn('action', function ($user) {
+                return "<a href='/admin/perpaymentinfo/$user->id' class='btn btn-xs btn-primary'></i><span class=\"glyphicon glyphicon-folder-open\"></span> OPEN</a>";
+            })
+            ->make(true);
+    }
+    public function perpayment($id){
+        $data=Payment::find($id);
+        return view('foradmin.mess.perpaymentinfo',compact('data'));
+    }
+
     public function editpayment($id)
     {
        $data=Payment::find($id);
@@ -379,11 +398,13 @@ class MessController extends Controller
         $messno=$data->messno;
         $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
         return view('foradmin.mess.openpayment',compact('data'));
+        //$this->openpayment($messno);
+        //$this->showpaymentdata($messno);
     }
     public function showmess($id)
     {
-
-        return view('foradmin.mess.messdata');
+        $data= DB::select('select * from messes where  termno = :termno', ['termno' => $id]);
+        return view('foradmin.mess.messdata',compact('data'));
     }
 
     public function showmessdata($id)

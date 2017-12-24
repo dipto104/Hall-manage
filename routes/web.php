@@ -55,14 +55,16 @@ Route::prefix('admin')->group(function (){
     Route::get('/editmess/{id}','MessController@editmess')->name('admin.editmess');
     Route::post('/editmess/{id}','MessController@messupdate')->name('admin.editmess.submit');
     Route::get('/hallmess','MessController@index')->name('admin.hallmess');
+
     Route::get('/duemess/{id}','MessController@finepermess')->name('admin.duemess');
     Route::get('/termduecal/{id}','MessController@dueperterm')->name('admin.termduecal');
     Route::get('/termdueshow/{id}','MessController@showdueperterm')->name('admin.termdueshow');
 
     Route::get('/openpayment/{id}','MessController@openpayment')->name('admin.openpayment');
+    Route::get('/showpaymentdata/{id}','MessController@showpaymentdata')->name('admin.showpayment');
     Route::get('/editpayment/{id}','MessController@editpayment')->name('admin.editpayment');
     Route::post('/editpayment/{id}','MessController@updatepayment')->name('admin.editpayment.submit');
-
+    Route::get('/perpaymentinfo/{id}','MessController@perpayment')->name('admin.perpayment');
 
     Route::get('/editterm/{id}','MessController@editterm')->name('admin.editterm');
     Route::post('/editterm/{id}','MessController@updateterm')->name('admin.editterm.submit');

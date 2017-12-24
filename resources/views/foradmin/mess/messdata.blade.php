@@ -4,7 +4,7 @@
     <div class="row">
 
         <div class="col-md-5 col-md-offset-4">
-            <h1>Term No : All Mess List</h1>
+            <h1>Term No :{{$data[0]->termno}} | All Mess List</h1>
         </div>
 
 
@@ -35,7 +35,7 @@
                 @push('scripts')
                     <script>
                         var table;
-                        var url = '{{ route('admin.messdatashow', Request::segment(3)) }}';
+                        var url = '{{ route('admin.messdatashow', $data[0]->termno) }}';
                         $(function() {
                             table=$('#users-table').DataTable({
                                 processing: true,
