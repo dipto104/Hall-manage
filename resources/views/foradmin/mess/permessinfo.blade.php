@@ -12,7 +12,7 @@
                         <p class="lead">Started At : {{ $data->startat }}</p>
                         <p class="lead">Finished At : {{ $data->finishat }}</p>
                         <p class="lead">Mess Payment : {{ $data->messfee }}</p>
-                        @if($data->finishat!=null)
+                        @if($data->extrafee!=null)
                             <p class="lead">Hall Payment : {{ $data->extrafee }}</p>
                         @else
                             <p class="lead">Hall Payment : Empty</p>
@@ -38,7 +38,7 @@
                             <a href="{{route('admin.openpayment',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-folder-open"></span> Payment</a>
                         </div>
                         <div class="col-sm-6">
-                            <a href="{{route('admin.editterm',$data->id)}}" class="btn btn-primary btn-block">Edit</a>
+                            <a href="{{route('admin.editmess',$data->id)}}" class="btn btn-primary btn-block">Edit</a>
                         </div>
                     </div>
                     <hr>

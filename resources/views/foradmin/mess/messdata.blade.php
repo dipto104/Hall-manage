@@ -35,11 +35,12 @@
                 @push('scripts')
                     <script>
                         var table;
+                        var url = '{{ route('admin.messdatashow', Request::segment(3)) }}';
                         $(function() {
                             table=$('#users-table').DataTable({
                                 processing: true,
                                 serverSide: true,
-                                ajax: '{!! route('admin.messdatashow') !!}',
+                                ajax: url,
                                 columns: [
                                     {data:'id',name:'id',searchable: false},
                                     { data: 'messno', name: 'messno' },

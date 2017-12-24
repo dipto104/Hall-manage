@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Payment;
-use Illuminate\Http\Request;
+use Request;
 use App\Term;
 use App\User;
 use App\Mess;
@@ -382,22 +382,16 @@ class MessController extends Controller
     }
     public function showmess($id)
     {
-        //$this->datamess=DB::select('select * from messes where  termno = :termno', ['termno' => $id]);
-        $this->termid=$id;
-       // echo "$this->termid";
-        //echo "$this->counter";
-        $this->showmessdata();
+
         return view('foradmin.mess.messdata');
     }
 
-    public function showmessdata()
+    public function showmessdata($id)
     {
-        $this->counter++;
-
-        $users= DB::select('select * from messes where  termno = :termno', ['termno' => $this->termid]);
+        $users= DB::select('select * from messes where  termno = :termno', ['termno' => $id]);
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
-                return "<a href='/admin/perterminfo/$user->id' class='btn btn-xs btn-primary'></i><span class=\"glyphicon glyphicon-folder-open\"></span> OPEN</a>";
+                return "<a href='/admin/permessinfo/$user->id' class='btn btn-xs btn-primary'></i><span class=\"glyphicon glyphicon-folder-open\"></span> OPEN</a>";
             })
             ->make(true);
     }
