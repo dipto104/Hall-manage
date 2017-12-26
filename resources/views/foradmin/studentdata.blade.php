@@ -20,6 +20,8 @@
             <th>Id</th>
             <th>Name</th>
             <th>Student ID</th>
+            <th>Department</th>
+            <th>Room NO</th>
             <th>Created At</th>
             <th>Action</th>
         </tr>
@@ -38,6 +40,8 @@
                     {data:'id',name:'id'},
                     { data: 'name', name: 'name' },
                     { data: 'studentid', name: 'studentid' },
+                    { data: 'department', name: 'department' },
+                    { data: 'roomno', name: 'roomno' },
                     { data: 'created_at', name: 'created_at' },
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]

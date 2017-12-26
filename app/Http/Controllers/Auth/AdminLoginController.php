@@ -29,7 +29,7 @@ class AdminLoginController extends Controller
         ]);
 
 
-        if (Auth::guard('admin')->attempt(['userid' => $request['userid'], 'password' => $request['password']])) {
+        if (Auth::guard('admin')->attempt(['userid' => $request['userid'], 'password' => $request['password']],$request->remember)) {
             return redirect()->route('admin.dashboard');
         }
 

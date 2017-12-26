@@ -48,26 +48,9 @@
                             <li class="{{Request::is(route('admin.login')) ? 'active' : ''}}">
                                 <a href="{{ route('admin.login') }}">Admin Login</a>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Option <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
+                            <li>
+                                <a href="{{ route('student.logout') }}">Log Out</a>
                             </li>
-
                         @elseif(Auth::guard('admin')->check())
                             <li class="{{Request::is(route('admin.hallmess')) ? 'active' : ''}}">
                                 <a href="{{ route('admin.hallmess') }}">Dining Payment</a>
@@ -78,24 +61,8 @@
                             <li class="{{Request::is(route('student.login')) ? 'active' : ''}}">
                                 <a href="{{ route('student.login') }}">Student Login</a>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Option <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
+                            <li>
+                                <a href="{{ route('admin.logout') }}">Log Out</a>
                             </li>
                         @else
                             <li class="{{Request::is(route('student.login')) ? 'active' : ''}}">

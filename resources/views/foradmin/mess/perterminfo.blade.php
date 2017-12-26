@@ -35,7 +35,7 @@
                             <a href="{{route('admin.openterm',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-folder-open"></span>  Open Mess</a>
                         </div>
                         <div class="col-sm-6">
-                            <a href="{{route('admin.editterm',$data->id)}}" class="btn btn-primary btn-block">Edit</a>
+                            <a href="{{route('admin.editterm',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                         </div>
                     </div>
                     <hr>
@@ -43,7 +43,7 @@
                         <div class="col-sm-6 col-md-offset-3">
 
 
-                            <a  class="btn btn-danger btn-block">Delete</a>
+                            <a  class="btn btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 
 
                         </div>

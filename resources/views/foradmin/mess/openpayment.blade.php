@@ -2,12 +2,19 @@
 @section('content')
 
     <<div class="row">
-        <div class="col-md-5 col-md-offset-4">
-            <h1>Term No :{{$data[0]->termno}} | Mess NO :{{$data[0]->messno}}</h1>
-        </div>
-        <div class="col-md-3 col-md-offset-1">
-            <a href=" {{route('admin.duemess',$data[0]->id) }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Calculate Due</a>
-        </div>
+        @if($data!=null)
+            <div class="col-md-5 col-md-offset-4">
+                <h1>Term No :{{$data[0]->termno}} | Mess NO :{{$data[0]->messno}}</h1>
+            </div>
+            <div class="col-md-3 col-md-offset-1">
+                <a href=" {{route('admin.duemess',$data[0]->id) }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Calculate Due</a>
+            </div>
+        @else
+            <div class="col-md-6 col-md-offset-3 alert-danger">
+                <h1>No Mess Data In This Term</h1>
+            </div>
+        @endif
+
 
         <div class="col-md-12">
             <hr>
@@ -37,7 +44,7 @@
                 @push('scripts')
                     <script>
                         var table;
-                        var url='{{ route('admin.showpayment', $data[0]->messno) }}';
+                        var url='{{ route('admin.showpayment', (!empty($data) ) ? $data[0]->fine : -1000 ) }}';///big big big problem with bug here
                         $(function() {
                             table=$('#users-table').DataTable({
                                 processing: true,

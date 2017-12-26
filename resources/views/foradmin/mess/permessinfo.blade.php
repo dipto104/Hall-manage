@@ -6,9 +6,9 @@
         <div class="row">
             <div class="col-md-8 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Mess No {{ $data->termno }} 's Data</div>
+                    <div class="panel-heading">Mess No {{ $data->messno }} 's Data</div>
                     <div class="panel-body">
-                        <p class="lead">Mess No : {{ $data->termno }}</p>
+                        <p class="lead">Mess No : {{ $data->messno }}</p>
                         <p class="lead">Started At : {{ $data->startat }}</p>
                         <p class="lead">Finished At : {{ $data->finishat }}</p>
                         <p class="lead">Mess Payment : {{ $data->messfee }}</p>
@@ -38,7 +38,7 @@
                             <a href="{{route('admin.openpayment',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-folder-open"></span> Payment</a>
                         </div>
                         <div class="col-sm-6">
-                            <a href="{{route('admin.editmess',$data->id)}}" class="btn btn-primary btn-block">Edit</a>
+                            <a href="{{route('admin.editmess',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                         </div>
                     </div>
                     <hr>
@@ -46,7 +46,7 @@
                         <div class="col-sm-6 col-md-offset-3">
 
 
-                            <a  class="btn btn-danger btn-block">Delete</a>
+                            <a  class="btn btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 
 
                         </div>

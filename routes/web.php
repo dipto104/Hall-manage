@@ -27,7 +27,7 @@ Route::prefix('home')->group(function (){
 Route::prefix('admin')->group(function (){
     Route::get('/login','Auth\AdminLoginController@showloginform')->name('admin.login');
     Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
-
+    Route::get('/logout','Auth\AdminLoginController@adminlogout')->name('admin.logout');
     Route::get('/studentdata','StudentdataController@showstudentIndex')->name('admin.studentdata');
     Route::get('/studentdatashow','StudentdataController@showdata')->name('admin.studentdatashow');
 
@@ -76,7 +76,7 @@ Route::prefix('admin')->group(function (){
     Route::get('/perterminfo/{id}','MessController@perterm')->name('admin.perterm');
 
 
-    Route::get('/logout','Auth\AdminLoginController@adminlogout')->name('admin.logout');
+
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
 
 

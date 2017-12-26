@@ -2,11 +2,17 @@
 @section('content')
 
     <div class="row">
+        @if($data!=null)
+            <div class="col-md-5 col-md-offset-4">
 
-        <div class="col-md-5 col-md-offset-4">
-            <h1>Term No :{{$data[0]->termno}} | All Mess List</h1>
-        </div>
+                    <h1>Term No :{{$data[0]->termno}} | All Mess List</h1>
 
+            </div>
+        @else
+            <div class="col-md-6 col-md-offset-3 alert-danger">
+                <h1>No Mess Data In This Term</h1>
+            </div>
+        @endif
 
         <div class="col-md-12">
             <hr>
@@ -34,8 +40,10 @@
 
                 @push('scripts')
                     <script>
+
                         var table;
-                        var url = '{{ route('admin.messdatashow', $data[0]->termno) }}';
+                        var url;
+                        url = '{{ route('admin.messdatashow', (!empty($data) ) ? $data[0]->termno : -1000 ) }}';
                         $(function() {
                             table=$('#users-table').DataTable({
                                 processing: true,

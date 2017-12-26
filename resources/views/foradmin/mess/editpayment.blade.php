@@ -91,7 +91,7 @@
                                     </button>
                                 </div>
                                 <div class="col-md-3 ">
-                                    <a href="{{route('admin.openpayment', $data->id)}}" class="btn btn-danger btn-block">Cancel</a>
+                                    <a href="{{route('admin.hallmess')}}" class="btn btn-danger btn-block">Cancel</a>
                                 </div>
 
                             </div>

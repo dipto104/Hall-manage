@@ -58,7 +58,7 @@
                             <a href="{{route('admin.editpayment',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                         </div>
                         <div class="col-sm-6">
-                            <a  class="btn btn-danger btn-block">Delete</a>
+                            <a  class="btn btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                         </div>
                     </div>
                 </div>

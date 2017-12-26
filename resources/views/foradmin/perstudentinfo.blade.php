@@ -30,12 +30,12 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-6">
-                            <a href="{{route('admin.editstudent',$data->id)}}" class="btn btn-primary btn-block">Edit</a>
+                            <a href="{{route('admin.editstudent',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                         </div>
                         <div class="col-sm-6">
 
 
-                            <a href="{{route('admin.deletestudent',$data->id)}}" class="btn btn-danger btn-block">Delete</a>
+                            <a href="{{route('admin.deletestudent',$data->id)}}" class="btn btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 
 
                         </div>

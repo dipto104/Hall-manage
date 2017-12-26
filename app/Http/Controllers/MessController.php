@@ -215,6 +215,7 @@ class MessController extends Controller
         $termno=$mess->termno;
         $messno=$mess->messno;
         $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+        $data[0]->fine=$id;///big big big problem with bug here
         return view('foradmin.mess.openpayment',compact('data'));
         //return view('foradmin.mess.openpayment');
 
@@ -291,6 +292,8 @@ class MessController extends Controller
 
         }
         $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+        $data[0]->fine=$datamess[0]->id;//this is done for remove error
+        ////sending needed messid show datatable for accurate mess
         return view('foradmin.mess.openpayment',compact('data'));
     }
     public function showdueperterm($id)
@@ -397,6 +400,10 @@ class MessController extends Controller
         $termno=$data->termno;
         $messno=$data->messno;
         $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+
+        //below is done for remove error to give mess id to the function of show paymentdata
+        $data2 = DB::select('select * from messes where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+        $data[0]->fine=$data2[0]->id;
         return view('foradmin.mess.openpayment',compact('data'));
         //$this->openpayment($messno);
         //$this->showpaymentdata($messno);
