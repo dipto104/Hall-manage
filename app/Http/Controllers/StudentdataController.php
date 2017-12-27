@@ -92,6 +92,44 @@ class StudentdataController extends Controller
         return view('foradmin.studentdata',compact('data'));
 
     }
+    public function importstudent(Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required|',
+
+        ]);
+        if(($handle = fopen($_FILES['file']['tmp_name'],"r"))!=false){
+            fgetcsv($handle);
+            while (($data=fgetcsv($handle,1000,","))!=false){
+                //echo $data[0];
+                $name=$data[0];
+                $studentid=$data[1];
+                $department=$data[2];
+                $roomno=$data[3];
+                $userid=$studentid;
+                $password=bcrypt($studentid);
+
+                $student=new User();
+                $student->name=$name;
+                $student->studentid=$studentid;
+                $student->department=$department;
+                $student->roomno=$roomno;
+                $student->userid=$userid;
+                $student->password=$password;
+
+                $student->save();
+                Session::flash('success', 'All students data were successfully saved.');
+
+
+
+
+
+
+            }
+        }
+        $data=User::all();
+        return view('foradmin.studentdata',compact('data'));
+    }
     public function destroy($id)
     {
         $data = User::find($id);
