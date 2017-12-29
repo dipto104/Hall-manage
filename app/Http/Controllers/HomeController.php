@@ -8,6 +8,7 @@ use App\Term;
 use App\User;
 use App\Mess;
 use App\Termdue;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -34,11 +35,17 @@ class HomeController extends Controller
 
     {
         $data= User::find($id);
+        if(Auth::user()!=$data){
+            return redirect()->back();
+        }
         return view('home',compact('data'));
     }
     public function showduestatus($id)
     {
         $student= User::find($id);
+        if(Auth::user()!=$student){
+            return redirect()->back();
+        }
         $data=DB::select('select * from termdues where  studentid = :studentid', ['studentid' => $student->studentid]);
         return view('forstudent.duestatus',compact('data'));
     }
