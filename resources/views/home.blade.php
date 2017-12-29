@@ -15,8 +15,15 @@
                             {{ session('status') }}
                         </div>
                     @endif
+
+                            <div class="col-sm-6">
+                                <a href="{{route('student.duestatus',$data->id)}}" class="btn btn-primary btn-block"> Due Status</a>
+                            </div>
+
                 </div>
+
             </div>
+
         </div>
     </div>
 </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Session;
+use Illuminate\Support\Facades\DB;
 
 class StudentLoginController extends Controller
 {
@@ -29,7 +30,10 @@ class StudentLoginController extends Controller
 
 
         if (Auth::guard('web')->attempt(['userid' => $request['userid'], 'password' => $request['password']])) {
-            return redirect()->route('student.dashboard');
+            $data= DB::select('select * from users where studentid = :studentid ', ['studentid' => $request['userid']]);
+
+                return redirect()->route('student.dashboard', $data[0]->id);
+
         }
         Session::flash('danger', 'User ID or Password is incorrect.');
 

@@ -19,10 +19,11 @@ Auth::routes();
 
 
 Route::prefix('home')->group(function (){
+    Route::get('/duestatus/{id}','HomeController@showduestatus')->name('student.duestatus');
     Route::get('/login','Auth\StudentLoginController@showloginform')->name('student.login');
     Route::post('/login','Auth\StudentLoginController@login')->name('student.login.submit');
     Route::get('/logout','Auth\StudentLoginController@studentlogout')->name('student.logout');
-    Route::get('/', 'HomeController@index')->name('student.dashboard');
+    Route::get('/{id}', 'HomeController@index')->name('student.dashboard');
 });
 Route::prefix('admin')->group(function (){
     Route::get('/login','Auth\AdminLoginController@showloginform')->name('admin.login');

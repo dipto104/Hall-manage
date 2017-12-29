@@ -3,6 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Payment;
+use App\Term;
+use App\User;
+use App\Mess;
+use App\Termdue;
+use Session;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use Yajra\Datatables\Datatables;
 
 class HomeController extends Controller
 {
@@ -13,7 +22,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:web');
     }
 
     /**
@@ -21,8 +30,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
+
     {
-        return view('home');
+        $data= User::find($id);
+        return view('home',compact('data'));
+    }
+    public function showduestatus($id)
+    {
+        $student= User::find($id);
+        $data=DB::select('select * from termdues where  studentid = :studentid', ['studentid' => $student->studentid]);
+        return view('forstudent.duestatus',compact('data'));
     }
 }
