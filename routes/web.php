@@ -45,7 +45,7 @@ Route::prefix('admin')->group(function (){
     Route::get('/insertstudent','AdminController@showinsertstudent')->name('admin.insertstudent');
     Route::post('/insertstudent','AdminController@insertstudent')->name('admin.insertstudent.submit');
     Route::post('/importstudent','StudentdataController@importstudent')->name('admin.importstudent');
-
+    Route::get('/exportstudent','StudentdataController@exportstudent')->name('admin.exportstudent');
 
 
     Route::get('/messdata/{id}','MessController@showmess')->name('admin.messdata');
@@ -62,6 +62,8 @@ Route::prefix('admin')->group(function (){
     Route::get('/duemess/{id}','MessController@finepermess')->name('admin.duemess');
     Route::get('/termduecal/{id}','MessController@dueperterm')->name('admin.termduecal');
     Route::get('/termdueshow/{id}','MessController@showdueperterm')->name('admin.termdueshow');
+    Route::get('/exporttermdue/{id}','MessController@exporttermdue')->name('admin.exporttermdue');
+
 
     Route::get('/openpayment/{id}','MessController@openpayment')->name('admin.openpayment');
     Route::get('/showpaymentdata/{id}','MessController@showpaymentdata')->name('admin.showpayment');

@@ -328,7 +328,15 @@ class MessController extends Controller
                     $data->studentid = $student->studentid;
                     $data->totalmess = $i;
                     $data->due = $totaldue;
-                    $data->remarks = "due";
+                    if($totaldue==0){
+                        $data->remarks = "cleared";
+                    }
+                    else if($totaldue<0){
+                        $data->remarks = "extrapaid";
+                    }
+                    else{
+                        $data->remarks = "due";
+                    }
                     $data->save();
                 } else {
                     $datastudent = DB::select('select * from termdues where studentid = :studentid and termno = :termno', ['studentid' => $student->studentid, 'termno' => $termdata->termno]);
@@ -338,7 +346,15 @@ class MessController extends Controller
                         $data->studentid = $student->studentid;
                         $data->totalmess = $i;
                         $data->due = $totaldue;
-                        $data->remarks = "due";
+                        if($totaldue==0){
+                            $data->remarks = "cleared";
+                        }
+                        else if($totaldue<0){
+                            $data->remarks = "extrapaid";
+                        }
+                        else{
+                            $data->remarks = "due";
+                        }
                         $data->save();
                     } else {
                         foreach ($datastudent as $datastu) {
@@ -347,7 +363,15 @@ class MessController extends Controller
                             $data->studentid = $student->studentid;
                             $data->totalmess = $i;
                             $data->due = $totaldue;
-                            $data->remarks = "due";
+                            if($totaldue==0){
+                                $data->remarks = "cleared";
+                            }
+                            else if($totaldue<0){
+                                $data->remarks = "extrapaid";
+                            }
+                            else{
+                                $data->remarks = "due";
+                            }
                             $data->save();
                         }
                     }
@@ -360,6 +384,38 @@ class MessController extends Controller
             $datatermdue = DB::select('select * from termdues where  termno = :termno', ['termno' => $termdata->termno]);
             return view('foradmin.mess.termdue', compact('datatermdue'));
         }
+
+    }
+    public function exporttermdue($termno)
+    {
+        $datas = DB::select('select * from termdues where  termno = :termno and due <>:due', ['termno' => $termno , 'due' =>0]);
+        $student="";
+        if(count($datas)>0){
+            $student.= '<table>
+            <tr>
+                <th>Student ID</th>
+                <th>Total Mess</th>
+                <th>Due Payment</th>
+                <th>Remarks</th>
+            </tr>';
+
+
+        }
+        foreach ($datas as $data){
+            $student.='
+            <tr>
+            <td>'.$data->studentid.'</td>
+            <td>'.$data->totalmess.'</td>
+            <td>'.$data->due.'</td>
+            <td>'.$data->remarks.'</td>
+            </tr>';
+
+        }
+        $student.='</table>';
+        header('Content_Type: application/xls');
+        header('Content-Disposition: atttachment; filename=termdue.xls');
+
+        echo $student;
 
     }
 

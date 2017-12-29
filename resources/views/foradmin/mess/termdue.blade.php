@@ -9,13 +9,18 @@
             <div class="col-md-10 col-md-offset-4">
                 <h1>Term No {{$datatermdue[0]->termno}} : Due List</h1>
             </div>
-
-
             <div class="col-md-12">
                 <hr>
             </div>
-        </div> <!-- end of .row -->
-
+        </div>
+        <div class="row"><!-- end of .row -->
+            <div class="col-md-2">
+                <a href="{{ route('admin.exporttermdue',$datatermdue[0]->termno) }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Download</a>
+            </div>
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <table class="table">

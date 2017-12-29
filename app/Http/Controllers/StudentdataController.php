@@ -94,8 +94,9 @@ class StudentdataController extends Controller
     }
     public function importstudent(Request $request)
     {
+        //dd( $request->file('file') );
         $this->validate($request, [
-            'file' => 'required|',
+            'file' => 'required|mimes:csv,txt',
 
         ]);
         if(($handle = fopen($_FILES['file']['tmp_name'],"r"))!=false){
@@ -129,6 +130,39 @@ class StudentdataController extends Controller
         }
         $data=User::all();
         return view('foradmin.studentdata',compact('data'));
+
+    }
+    public function exportstudent()
+    {
+        $datas = User::all();
+        $student="";
+        if(count($datas)>0){
+            $student.= '<table>
+            <tr>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Deaprtment</th>
+                <th>Room NO</th>
+            </tr>';
+
+
+        }
+        foreach ($datas as $data){
+            $student.='
+            <tr>
+            <td>'.$data->name.'</td>
+            <td>'.$data->studentid.'</td>
+            <td>'.$data->department.'</td>
+            <td>'.$data->roomno.'</td>
+            </tr>';
+      
+        }
+        $student.='</table>';
+        header('Content_Type: application/xls');
+        header('Content-Disposition: atttachment; filename=student.xls');
+
+        echo $student;
+
     }
     public function destroy($id)
     {
