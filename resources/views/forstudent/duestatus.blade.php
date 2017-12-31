@@ -11,7 +11,7 @@
         <div class="row">
             @foreach($data as $datum)
                 @if(!($datum->due==0))
-                    <div class="col-md-6 col-md-offset-3">
+                    <div class="col-md-6 col-md-offset-1">
                         <div class="panel panel-default">
                         <div class="panel-heading">Term No : {{$datum->termno}}</div>
 
@@ -23,7 +23,6 @@
                         </div>
                     </div>
                 @endif
-        </div>
             @endforeach
         </div>
 

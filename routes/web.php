@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('layouts.appall');
+    return view('index');
 });
 
 Auth::routes();
@@ -83,7 +83,7 @@ Route::prefix('admin')->group(function (){
 
 
 
-    Route::get('/', 'AdminController@index')->name('admin.dashboard');
+    Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
 
 
 });

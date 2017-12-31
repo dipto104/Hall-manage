@@ -1,97 +1,135 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-<head>
+<html lang="en">
+
+  <head>
+
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Modern Business - Start Bootstrap Template</title>
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
-</head>
-<body>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
+              @if (Auth::guard('web')->check())
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('admin.login') }}">Admin Login</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Option
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
+                          <a class="dropdown-item" href="{{ route('student.logout') }}">Log Out</a>
+                      </div>
+                  </li>
+              @elseif(Auth::guard('admin')->check())
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('admin.hallmess') }}">Dining Payment</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('admin.studentdata') }}">Student Data</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('student.login') }}">Student Login</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Option
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guard('web')->check())
-                            <li class="{{Request::is(route('admin.login')) ? 'active' : ''}}">
-                                <a href="{{ route('admin.login') }}">Admin Login</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('student.logout') }}">Log Out</a>
-                            </li>
-                        @elseif(Auth::guard('admin')->check())
-                            <li class="{{Request::is(route('admin.hallmess')) ? 'active' : ''}}">
-                                <a href="{{ route('admin.hallmess') }}">Dining Payment</a>
-                            </li>
-                            <li class="{{Request::is(route('admin.insertstudent')) ? 'active' : ''}}">
-                                <a href="{{ route('admin.studentdata') }}">Student Data</a>
-                            </li>
-                            <li class="{{Request::is(route('student.login')) ? 'active' : ''}}">
-                                <a href="{{ route('student.login') }}">Student Login</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.logout') }}">Log Out</a>
-                            </li>
-                        @else
-                            <li class="{{Request::is(route('student.login')) ? 'active' : ''}}">
-                                <a href="{{ route('student.login') }}">Student Login</a>
-                            </li>
-                            <li class="{{Request::is(route('admin.login')) ? 'active' : ''}}">
-                                <a href="{{ route('admin.login') }}">Admin Login</a>
-                            </li>
+                          <a class="dropdown-item" href="{{ route('admin.logout') }}">Log Out</a>
+                      </div>
+                  </li>
 
+              @else
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('student.login') }}">Student Login</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('admin.login') }}">Admin Login</a>
+                  </li>
+              @endif
 
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
+          </ul>
+        </div>
+      </div>
+    </nav>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
 
         @include('includes.flashmesseges')
         @yield('content')
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
+        <hr>
     </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="//code.jquery.com/jquery.js"></script>
-    <!-- DataTables -->
-    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-    <!-- Bootstrap JavaScript -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <!-- App scripts -->
-    @stack('scripts')
-</body>
+        <script src="//code.jquery.com/jquery.js"></script>
+        <!-- DataTables -->
+        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        <!-- Bootstrap JavaScript -->
+
+        <!-- App scripts -->
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+        @stack('scripts')
+
+
+
+
+    <!-- Page Content -->
+
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Dipto Roy 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
 </html>
