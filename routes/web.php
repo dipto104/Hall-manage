@@ -29,20 +29,16 @@ Route::prefix('admin')->group(function (){
     Route::get('/login','Auth\AdminLoginController@showloginform')->name('admin.login');
     Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('/logout','Auth\AdminLoginController@adminlogout')->name('admin.logout');
+
+
     Route::get('/studentdata','StudentdataController@showstudentIndex')->name('admin.studentdata');
     Route::get('/studentdatashow','StudentdataController@showdata')->name('admin.studentdatashow');
-
     Route::get('/datatable','StudentdataController@getIndex')->name('admin.datatable');
     Route::get('/tabledata','StudentdataController@anyData')->name('admin.tabledata');
     Route::get('/editstudent/{id}','StudentdataController@edit')->name('admin.editstudent');
-
-
     Route::get('/deletestudent/{id}','StudentdataController@destroy')->name('admin.deletestudent');
-
     Route::post('/updatestudent/{id}','StudentdataController@update')->name('admin.updatestudent');
-
     Route::get('/perstudentinfo/{id}','StudentdataController@show')->name('admin.perstudent');
-
     Route::get('/insertstudent','AdminController@showinsertstudent')->name('admin.insertstudent');
     Route::post('/insertstudent','AdminController@insertstudent')->name('admin.insertstudent.submit');
     Route::post('/importstudent','StudentdataController@importstudent')->name('admin.importstudent');
@@ -81,6 +77,10 @@ Route::prefix('admin')->group(function (){
     Route::get('/termdatashow','MessController@showtermdata')->name('admin.termdatashow');
     Route::get('/perterminfo/{id}','MessController@perterm')->name('admin.perterm');
 
+
+
+    Route::get('/showinsertroom','Roomcontroller@showinsertroom')->name('admin.showinsertroom');
+    Route::post('/insertroom','Roomcontroller@insertroom')->name('admin.insertroom');
 
 
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
