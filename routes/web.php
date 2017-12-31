@@ -81,8 +81,8 @@ Route::prefix('admin')->group(function (){
 
     Route::get('/showinsertroom','Roomcontroller@showinsertroom')->name('admin.showinsertroom');
     Route::post('/insertroom','Roomcontroller@insertroom')->name('admin.insertroom');
-
-
+    Route::get('/roomdata','Roomcontroller@roomdata')->name('admin.roomdata');
+    Route::get('/roomdatashow','Roomcontroller@roomdatashow')->name('admin.roomdatashow');
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
 
 

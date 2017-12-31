@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Room;
+use Illuminate\Validation\Rule;
 use Session;
+use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\DB;
 class Roomcontroller extends Controller
 {
     //
@@ -44,7 +47,22 @@ class Roomcontroller extends Controller
 
 
         //$data=User::all();
+        return redirect()->route('admin.roomdata');
 
        // return view('foradmin.studentdata',compact('data'));
+    }
+    public function roomdata()
+    {
+        return view('foradmin.room.roomdata');
+    }
+    public function roomdatashow()
+    {
+        $rooms= DB::select('select * from rooms');
+
+        return Datatables::of($rooms)
+            ->addColumn('action', function ($room) {
+                return "<a href='/admin/perstudentinfo/$room->id' class='btn btn-xs btn-primary'></i> OPEN</a>";
+            })
+            ->make(true);
     }
 }
