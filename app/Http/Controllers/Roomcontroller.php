@@ -31,7 +31,7 @@ class Roomcontroller extends Controller
         $roomno=$request['roomno'];
         $roomtype=$request['roomtype'];
         $capacity=$request['capacity'];
-        $occupy=0;
+        $occupy=3;
 
 
         $room=new Room();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\Room;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -79,6 +80,32 @@ class StudentdataController extends Controller
         $student->name=$name;
         $student->studentid=$studentid;
         $student->department=$department;
+
+
+        if($student->roomno!=$roomno){
+            $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $roomno]);
+            if($dataroom==null){
+                Session::flash('danger', 'Room number is not available.');
+                return redirect()->back()->withInput();
+            }
+            else {
+                if ($dataroom[0]->occupy == $dataroom[0]->capacity) {
+                    Session::flash('danger', 'No Sit is available in this Room.');
+                    return redirect()->back()->withInput();
+                }
+                //new room added student
+                $data=Room::find($dataroom[0]->id);
+                $data->occupy=$data->occupy+1;
+                $data->save();
+
+
+                //previous room substract student
+                $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $student->roomno]);
+                $data=Room::find($dataroom[0]->id);
+                $data->occupy=$data->occupy-1;
+                $data->save();
+            }
+        }
         $student->roomno=$roomno;
         $student->userid=$userid;
 
@@ -168,6 +195,13 @@ class StudentdataController extends Controller
     public function destroy($id)
     {
         $data = User::find($id);
+        //room purpose room data updating
+        $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $data->roomno]);
+        $room=Room::find($dataroom[0]->id);
+        $room->occupy=$room->occupy-1;
+        $room->save();
+        //room data upadting end
+
 
         $data->delete();
 

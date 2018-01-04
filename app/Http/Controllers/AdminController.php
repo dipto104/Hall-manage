@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Room;
 use Illuminate\Http\Request;
 use Session;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -50,6 +52,20 @@ class AdminController extends Controller
         $userid=$request['userid'];
         $password=bcrypt($request['password']);
 
+        $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $roomno]);
+        if($dataroom==null){
+            Session::flash('danger', 'Room number is not available.');
+            return redirect()->back()->withInput();
+        }
+        else{
+            if($dataroom[0]->occupy==$dataroom[0]->capacity){
+                Session::flash('danger', 'No Sit is available in this Room.');
+                return redirect()->back()->withInput();
+            }
+            $data=Room::find($dataroom[0]->id);
+            $data->occupy=$data->occupy+1;
+            $data->save();
+        }
         $student=new User();
         $student->name=$name;
         $student->studentid=$studentid;
