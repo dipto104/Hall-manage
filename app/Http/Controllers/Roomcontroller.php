@@ -31,7 +31,7 @@ class Roomcontroller extends Controller
         $roomno=$request['roomno'];
         $roomtype=$request['roomtype'];
         $capacity=$request['capacity'];
-        $occupy=3;
+        $occupy=0;
 
 
         $room=new Room();
@@ -86,15 +86,24 @@ class Roomcontroller extends Controller
             'roomtype' => 'required|',
             'capacity' => 'required|numeric',
         ]);
-
         $roomno=$request['roomno'];
         $roomtype=$request['roomtype'];
         $capacity=$request['capacity'];
 
 
         $room=Room::find($id);
+        if($room->roomno!=$roomno){
+            if($room->occupy>0){
+                Session::flash('danger', 'Present room must be empty to change into a new room number.');
+                return redirect()->back()->withInput();
+            }
+        }
         $room->roomno=$roomno;
         $room->roomtype=$roomtype;
+        if($room->occupy>$capacity){
+            Session::flash('danger', 'Room capacity is too low to accommodate students.');
+            return redirect()->back()->withInput();
+        }
         $room->capacity=$capacity;
 
 
