@@ -61,8 +61,51 @@ class Roomcontroller extends Controller
 
         return Datatables::of($rooms)
             ->addColumn('action', function ($room) {
-                return "<a href='/admin/perstudentinfo/$room->id' class='btn btn-xs btn-primary'></i> OPEN</a>";
+                return "<a href='/admin/perroominfo/$room->id' class='btn btn-xs btn-primary'></i> OPEN</a>";
             })
             ->make(true);
+    }
+    public function perroom($id)
+    {
+        $data=Room::find($id);
+
+        return view('foradmin.room.perroominfo',compact('data'));
+    }
+    public function showeditroom($id)
+    {
+        $data=Room::find($id);
+
+        return view('foradmin.room.editroom',compact('data'));
+    }
+    public function editroom(Request $request,$id)
+    {
+
+
+        $this->validate($request, [
+            'roomno' => ['required','numeric',Rule::unique('rooms')->ignore($id)],
+            'roomtype' => 'required|',
+            'capacity' => 'required|numeric',
+        ]);
+
+        $roomno=$request['roomno'];
+        $roomtype=$request['roomtype'];
+        $capacity=$request['capacity'];
+
+
+        $room=Room::find($id);
+        $room->roomno=$roomno;
+        $room->roomtype=$roomtype;
+        $room->capacity=$capacity;
+
+
+        $room->save();
+        Session::flash('success', 'This room data were successfully saved.');
+
+
+
+        //$data=User::all();
+        return redirect()->route('admin.roomdata');
+
+        return view('foradmin.room.editroom',compact('data'));
     }
 }
