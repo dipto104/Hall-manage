@@ -119,7 +119,7 @@ class StudentdataController extends Controller
                 $student->password=$password;
 
                 $student->save();
-                Session::flash('success', 'All students data were successfully saved.');
+
 
 
 
@@ -128,6 +128,7 @@ class StudentdataController extends Controller
 
             }
         }
+        Session::flash('success', 'All students data were successfully saved.');
         $data=User::all();
         return view('foradmin.studentdata',compact('data'));
 

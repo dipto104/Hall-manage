@@ -106,6 +106,42 @@ class Roomcontroller extends Controller
         //$data=User::all();
         return redirect()->route('admin.roomdata');
 
-        return view('foradmin.room.editroom',compact('data'));
+
+    }
+    public function importroom(Request $request)
+    {
+        //dd( $request->file('file') );
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,txt',
+
+        ]);
+        if(($handle = fopen($_FILES['file']['tmp_name'],"r"))!=false){
+            fgetcsv($handle);
+            while (($data=fgetcsv($handle,1000,","))!=false){
+                //echo $data[0];
+                $roomno=$data[0];
+                $roomtype=$data[1];
+                $capacity=$data[2];
+                $occupy=$data[3];
+
+
+                $room=new Room();
+                $room->roomno=$roomno;
+                $room->roomtype=$roomtype;
+                $room->capacity=$capacity;
+                $room->occupy=$occupy;
+                $room->save();
+
+
+                Session::flash('success', 'This room data were successfully saved.');
+
+
+
+
+
+            }
+        }
+        return redirect()->route('admin.roomdata');
+
     }
 }

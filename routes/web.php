@@ -97,7 +97,7 @@ Route::prefix('admin')->group(function (){
     Route::get('/perroominfo/{id}','Roomcontroller@perroom')->name('admin.perroominfo');
     Route::get('/showeditroom/{id}','Roomcontroller@showeditroom')->name('admin.showeditroom');
     Route::post('/editroom/{id}','Roomcontroller@editroom')->name('admin.editroom');
-
+    Route::post('/importroom','Roomcontroller@importroom')->name('admin.importroom');
 
 
 

@@ -11,7 +11,7 @@
             <hr>
         </div>
 
-        <form class="form-horizontal" method="POST" action="{{ route('admin.importstudent') }}" enctype="multipart/form-data">
+        <form class="form-horizontal" method="POST" action="{{ route('admin.importroom') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="col-md-10" >
                 <p>Insert Excel File Here
