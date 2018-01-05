@@ -32,7 +32,7 @@
                             <a href="{{route('admin.showeditroom',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                         </div>
                         <div class="col-sm-6">
-                            <a  class="btn btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                            <a href="{{route('admin.deleteroom',$data->id)}}" class="btn btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                         </div>
                     </div>
                 </div>

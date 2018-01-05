@@ -137,6 +137,26 @@ class StudentdataController extends Controller
                 $userid=$studentid;
                 $password=bcrypt($studentid);
 
+
+                $datastudent=DB::select('select * from users where studentid = :studentid',['studentid' => $studentid]);
+                if($datastudent!=null){
+                    Session::flash('danger', "Duplicate student id No : $studentid");
+                    return redirect()->back();
+                }
+                $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $roomno]);
+                if($dataroom==null){
+                    Session::flash('danger', "Room number is not available for student id : $studentid");
+                    return redirect()->back();
+                }
+                else{
+                    if($dataroom[0]->occupy==$dataroom[0]->capacity){
+                        Session::flash('danger', "No Sit is available in Room No : $roomno for student id : $studentid");
+                        return redirect()->back();
+                    }
+                    $data=Room::find($dataroom[0]->id);
+                    $data->occupy=$data->occupy+1;
+                    $data->save();
+                }
                 $student=new User();
                 $student->name=$name;
                 $student->studentid=$studentid;

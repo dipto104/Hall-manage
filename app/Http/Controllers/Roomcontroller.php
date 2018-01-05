@@ -134,6 +134,13 @@ class Roomcontroller extends Controller
                 $occupy=$data[3];
 
 
+                $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $roomno]);
+                if($dataroom!=null){
+                    Session::flash('danger', "Duplicate Room No : $roomno");
+                    return redirect()->back();
+                }
+
+
                 $room=new Room();
                 $room->roomno=$roomno;
                 $room->roomtype=$roomtype;
@@ -150,6 +157,24 @@ class Roomcontroller extends Controller
 
             }
         }
+        return redirect()->route('admin.roomdata');
+
+    }
+    public function destroy($id)
+    {
+        $data = Room::find($id);
+        //room purpose room data updating
+        if($data->occupy>0){
+            Session::flash('danger', 'The room is not empty.');
+            return redirect()->back();
+        }
+        //room data upadting end
+
+
+        $data->delete();
+
+        Session::flash('success', 'The room was successfully deleted.');
+
         return redirect()->route('admin.roomdata');
 
     }
