@@ -85,7 +85,7 @@ Route::prefix('admin')->group(function (){
     Route::get('/termdata','MessController@showterms')->name('admin.termdata');
     Route::get('/termdatashow','MessController@showtermdata')->name('admin.termdatashow');
     Route::get('/perterminfo/{id}','MessController@perterm')->name('admin.perterm');
-
+    Route::get('/deleteterm/{id}','MessController@destroyterm')->name('admin.deleteterm');
 
 
     Route::get('/showinsertroom','Roomcontroller@showinsertroom')->name('admin.showinsertroom');

@@ -3,10 +3,11 @@
 
 @section('content')
     <div class="container">
+        @include('includes.delconfirmterm')
         <div class="row">
             <div class="col-md-8 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Term No {{ $data->termno }} 's Data</div>
+                    <div class="panel-heading"><h5>Term No {{ $data->termno }} 's Data</h5></div>
                     <div class="panel-body">
                         <p class="lead">Term No : {{ $data->termno }}</p>
                         <p class="lead">Started At : {{ $data->startat }}</p>
@@ -43,8 +44,9 @@
                         <div class="col-sm-6 col-md-offset-3">
 
 
-                            <a  class="btn btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-
+                            <button type="button" class="btn btn-danger btn-block " data-toggle="modal" data-target="#confirm">
+                                Delete
+                            </button>
 
                         </div>
                     </div>

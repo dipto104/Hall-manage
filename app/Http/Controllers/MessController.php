@@ -97,6 +97,20 @@ class MessController extends Controller
             })
             ->make(true);
     }
+    public function destroyterm($id)
+    {
+        $dataterm=Term::find($id);
+        $termno=$dataterm->termno;
+        //$datamess=DB::table('messes')->where('termno','=',$termno)->get();
+        $datamess=DB::select('select * from messes where  termno = :termno', ['termno' => $termno]);
+        if($datamess!=null){
+            Session::flash('danger', 'The Term is not empty.');
+            return redirect()->back();
+        }
+        DB::table('termdues')->where('termno','=',$termno)->delete();
+        $dataterm->delete();
+        return redirect()->route('admin.termdata');
+    }
     public function editterm($id)
     {
         $data=Term::find($id);
