@@ -3,12 +3,12 @@
 
 @section('content')
     <div class="container">
+        @include('includes.delconfirmstudent')
         <div class="row">
             <div class="col-md-8 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ $data->name }} 's Data</div>
+                    <div class="panel-heading"><h4>{{ $data->name }} 's Data</h4></div>
                         <div class="panel-body">
-                            <h1>{{ $data->id }}</h1>
                             <p class="lead">Name : {{ $data->name }}</p>
                             <p class="lead">Student Id : {{ $data->studentid }}</p>
                             <p class="lead">Department : {{ $data->department }}</p>
@@ -32,13 +32,9 @@
                         <div class="col-sm-6">
                             <a href="{{route('admin.editstudent',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                         </div>
-                        <div class="col-sm-6">
-
-
-                            <a href="{{route('admin.deletestudent',$data->id)}}" class="btn btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-
-
-                        </div>
+                        <button type="button" class="btn btn-danger btn-block col-sm-5" data-toggle="modal" data-target="#confirm">
+                            Delete
+                        </button>
                     </div>
 
                 </div>

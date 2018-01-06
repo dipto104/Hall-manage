@@ -160,8 +160,7 @@ class Roomcontroller extends Controller
         return redirect()->route('admin.roomdata');
 
     }
-    public function destroy($id)
-    {
+    public function destroy($id){
         $data = Room::find($id);
         //room purpose room data updating
         if($data->occupy>0){
@@ -176,6 +175,5 @@ class Roomcontroller extends Controller
         Session::flash('success', 'The room was successfully deleted.');
 
         return redirect()->route('admin.roomdata');
-
     }
 }

@@ -3,6 +3,7 @@
 
 @section('content')
     <div class="container">
+        @include('includes.delconfirmroom')
         <div class="row">
             <div class="col-md-8 ">
                 <div class="panel panel-default">
@@ -31,9 +32,9 @@
                         <div class="col-sm-6">
                             <a href="{{route('admin.showeditroom',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                         </div>
-                        <div class="col-sm-6">
-                            <a href="{{route('admin.deleteroom',$data->id)}}" class="btn btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-                        </div>
+                        <button type="button" class="btn btn-danger btn-block col-sm-5" data-toggle="modal" data-target="#confirm">
+                            Delete
+                        </button>
                     </div>
                 </div>
             </div>
