@@ -491,6 +491,22 @@ class MessController extends Controller
 
         return view('foradmin.mess.permessinfo',compact('data'));
     }
+    public function destroymess($id)
+    {
+        $data=Mess::find($id);
+        $termno=$data->termno;
+        $messno=$data->messno;
+        DB::table('payments')->where([
+            ['messno', '=', $messno],
+            ['termno', '=', $termno],
+        ])->delete();
+
+        $dataterm=DB::table('terms')->where('termno','=',$termno)->get();
+        $data->delete();
+        Session::flash('success', 'The room was successfully deleted.');
+
+        return redirect()->route('admin.messdata',$dataterm[0]->id);
+    }
     public function messupdate(Request $request,$id)
     {
         $this->validate($request, [

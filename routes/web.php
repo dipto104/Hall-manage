@@ -51,14 +51,12 @@ Route::prefix('admin')->group(function (){
     Route::get('/messdatashow/{id}','MessController@showmessdata')->name('admin.messdatashow');
     Route::get('/createmess/{id}','MessController@indexmess')->name('admin.createmess');
     Route::post('/createmess/{id}','MessController@messcreate')->name('admin.createmess.submit');
-
-
-
-
     Route::get('/termdatashow','MessController@showtermdata')->name('admin.termdatashow');
     Route::get('/permessinfo/{id}','MessController@permess')->name('admin.permess');
     Route::get('/editmess/{id}','MessController@editmess')->name('admin.editmess');
     Route::post('/editmess/{id}','MessController@messupdate')->name('admin.editmess.submit');
+    Route::get('/deletemess/{id}','MessController@destroymess')->name('admin.deletemess');
+
     Route::get('/hallmess','MessController@index')->name('admin.hallmess');
 
 

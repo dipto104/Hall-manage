@@ -3,10 +3,11 @@
 
 @section('content')
     <div class="container">
+        @include('includes.delconfirmmess')
         <div class="row">
             <div class="col-md-8 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Mess No {{ $data->messno }} 's Data</div>
+                    <div class="panel-heading"><h5>Mess No {{ $data->messno }} 's Data</h5></div>
                     <div class="panel-body">
                         <p class="lead">Mess No : {{ $data->messno }}</p>
                         <p class="lead">Started At : {{ $data->startat }}</p>
@@ -46,8 +47,9 @@
                         <div class="col-sm-6 col-md-offset-3">
 
 
-                            <a  class="btn btn-danger btn-block"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-
+                            <button type="button" class="btn btn-danger btn-block " data-toggle="modal" data-target="#confirm">
+                                Delete
+                            </button>
 
                         </div>
                     </div>
