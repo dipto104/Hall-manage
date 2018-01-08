@@ -26,7 +26,7 @@ class MessController extends Controller
     public $counter=0;
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        $this->middleware('auth:admin' or 'auth:provost');
     }
 
 
@@ -313,7 +313,7 @@ class MessController extends Controller
     public function showdueperterm($id)
     {
         $termdata=Term::find($id);
-        $datatermdue=DB::select('select * from termdues where  termno = :termno', ['termno' => $termdata->termno]);
+        $datatermdue=DB::select('select * from termdues where  termno = :termno and due > :due', ['termno' => $termdata->termno,'due' => 0]);
         return view('foradmin.mess.termdue',compact('datatermdue'));
     }
     public function dueperterm($id)

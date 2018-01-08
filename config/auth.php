@@ -53,6 +53,14 @@ return [
             'driver' => 'token',
             'provider' => 'admins',
         ],
+        'provost' => [
+            'driver' => 'session',
+            'provider' => 'provosts',
+        ],
+        'provost-api' => [
+            'driver' => 'token',
+            'provider' => 'provosts',
+        ],
     ],
 
     /*
@@ -80,6 +88,10 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
+        ],
+        'provosts' => [
+            'driver' => 'eloquent',
+            'model' => App\Provost::class,
         ],
 
         // 'users' => [
@@ -111,6 +123,11 @@ return [
         ],
         'admins' => [
             'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 15,
+        ],
+        'provosts' => [
+            'provider' => 'provosts',
             'table' => 'password_resets',
             'expire' => 15,
         ],
