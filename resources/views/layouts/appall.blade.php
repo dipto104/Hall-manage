@@ -59,6 +59,19 @@
                   @elseif (Auth::guard('provost')->check())
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Request
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                          <a class="dropdown-item" href="{{ route('provost.studentreqinsertshow') }}">Student Insert</a>
+                          <a class="dropdown-item" href="{{ route('admin.showinsertroom') }}">Student Edit</a>
+                          <a class="dropdown-item" href="{{ route('admin.showinsertroom') }}">Student Delete</a>
+                          <a class="dropdown-item" href="{{ route('admin.roomdata') }}">Room Insert</a>
+                          <a class="dropdown-item" href="{{ route('admin.roomdata') }}">Room Edit</a>
+                          <a class="dropdown-item" href="{{ route('admin.roomdata') }}">Room Delete</a>
+                      </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Room
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">

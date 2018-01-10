@@ -22,6 +22,11 @@ Route::prefix('provost')->group(function (){
     Route::post('/login','Auth\ProvostLoginController@login')->name('provost.login.submit');
     Route::get('/logout','Auth\ProvostLoginController@provostlogout')->name('provost.logout');
     Route::get('/dashboard', 'ProvostController@index')->name('provost.dashboard');
+
+
+    Route::get('/studentreqinsertshow','Requestcontroller@showstudentinsertreq')->name('provost.studentreqinsertshow');
+    Route::get('/studentreqinsert','Requestcontroller@studentinsertreq')->name('provost.studentreqinsert');
+    Route::get('/perstudentreqinfo','Requestcontroller@perstudentinsertreq')->name('provost.perstudentinsertreq');
 });
 Route::prefix('home')->group(function (){
     Route::get('/duestatus/{id}','HomeController@showduestatus')->name('student.duestatus');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Room;
+use App\Requeststudent;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\DB;
@@ -74,7 +75,18 @@ class AdminController extends Controller
         $student->userid=$userid;
         $student->password=$password;
 
+
+
+        $requeststudent=new Requeststudent();
+        $requeststudent->name=$name;
+        $requeststudent->studentid=$studentid;
+        $requeststudent->department=$department;
+        $requeststudent->roomno=$roomno;
+        $requeststudent->studenttype="resident";
+        $requeststudent->requesttype="insert";
+
         $student->save();
+        $requeststudent->save();
         Session::flash('success', 'This student data were successfully saved.');
 
 
