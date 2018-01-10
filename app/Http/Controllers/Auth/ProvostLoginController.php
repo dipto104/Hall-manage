@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -31,7 +32,10 @@ class ProvostLoginController extends Controller
 
 
         if (Auth::guard('provost')->attempt(['userid' => $request['userid'], 'password' => $request['password']],$request->remember)) {
-
+            $data= DB::select('select * from admins');
+            $admin=Admin::find($data[0]->id);
+            Auth::guard('admin')->login($admin);
+            //logging to provost both as admin and provost role
             return redirect()->route('provost.dashboard');
         }
 
@@ -44,6 +48,7 @@ class ProvostLoginController extends Controller
     public function provostlogout()
     {
         Auth::guard('provost')->logout();
+        Auth::guard('admin')->logout();
         return redirect('/');
     }
 }

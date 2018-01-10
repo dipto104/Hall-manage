@@ -57,6 +57,23 @@
                       </div>
                   </li>
                   @elseif (Auth::guard('provost')->check())
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Room
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+
+                          <a class="dropdown-item" href="{{ route('admin.showinsertroom') }}">Insert Room</a>
+                          <a class="dropdown-item" href="{{ route('admin.roomdata') }}">Room Data</a>
+                      </div>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('admin.hallmess') }}">Dining Payment</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('admin.studentdata') }}">Student Data</a>
+                  </li>
+
                       <li class="nav-item">
                           <a class="nav-link" href="{{ route('provost.dashboard') }}">Provost</a>
                       </li>
