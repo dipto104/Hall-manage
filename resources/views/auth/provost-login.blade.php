@@ -8,7 +8,7 @@
                 <div class="panel-heading"><h4>PROVOST Login</h4></div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('admin.login.submit') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('provost.login.submit') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('userid') ? ' has-error' : '' }}">

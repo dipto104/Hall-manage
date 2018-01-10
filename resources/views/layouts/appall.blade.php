@@ -56,6 +56,19 @@
                           <a class="dropdown-item" href="{{ route('student.logout') }}">Log Out</a>
                       </div>
                   </li>
+                  @elseif (Auth::guard('provost')->check())
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('provost.dashboard') }}">Provost</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Option
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+
+                              <a class="dropdown-item" href="{{ route('provost.logout') }}">Log Out</a>
+                          </div>
+                      </li>
               @elseif(Auth::guard('admin')->check())
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
