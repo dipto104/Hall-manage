@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Room;
+use App\Requeststudent;
 use Illuminate\Http\Request;
 use Session;
 use Yajra\Datatables\Datatables;
@@ -33,6 +34,19 @@ class Requestcontroller extends Controller
     }
     public function perstudentinsertreq($id)
     {
-
+        $data=Requeststudent::find($id);
+        return view('forprovost.studentreqinfo',compact('data'));
+    }
+    public function studentinsertallow($id){
+        $data=Requeststudent::find($id);
+        $data->delete();
+        Session::flash('success', 'This srudent data is inserted permanently.');
+        return redirect()->route('provost.studentreqinsertshow');
+    }
+    public function studentinsertreject($id){
+        $data=Requeststudent::find($id);
+        DB::table('users')->where('studentid','=',$data->studentid)->delete();
+        $data->delete();
+        return redirect()->route('provost.studentreqinsertshow');
     }
 }

@@ -26,7 +26,9 @@ Route::prefix('provost')->group(function (){
 
     Route::get('/studentreqinsertshow','Requestcontroller@showstudentinsertreq')->name('provost.studentreqinsertshow');
     Route::get('/studentreqinsert','Requestcontroller@studentinsertreq')->name('provost.studentreqinsert');
-    Route::get('/perstudentreqinfo','Requestcontroller@perstudentinsertreq')->name('provost.perstudentinsertreq');
+    Route::get('/perstudentreqinfo/{id}','Requestcontroller@perstudentinsertreq')->name('provost.perstudentinsertreq');
+    Route::get('/studentinsertallow/{id}','Requestcontroller@studentinsertallow')->name('provost.studentinsertallow');
+    Route::get('/studentinsertreject/{id}','Requestcontroller@studentinsertreject')->name('provost.studentinsertreject');
 });
 Route::prefix('home')->group(function (){
     Route::get('/duestatus/{id}','HomeController@showduestatus')->name('student.duestatus');

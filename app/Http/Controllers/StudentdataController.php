@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Room;
+use App\Requeststudent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -215,17 +216,32 @@ class StudentdataController extends Controller
     public function destroy($id)
     {
         $data = User::find($id);
+
+        $reqstudent=DB::select('select * from requeststudents where studentid = :studentid',['studentid' => $data->studentid]);
+        if($reqstudent==null){
+            $requeststudent = new Requeststudent();
+            $requeststudent->name = $data->name;
+            $requeststudent->studentid = $data->studentid;
+            $requeststudent->department = $data->department;
+            $requeststudent->roomno = $data->roomno;
+            $requeststudent->studenttype = "RESEDENT";
+            $requeststudent->requesttype = "DELETE";
+            $requeststudent->save();
+            Session::flash('success', 'The DELETE request is sent to Provost Sir.');
+        }
+        else{
+            Session::flash('danger', 'The DELETE request is in process please wait.');
+        }
         //room purpose room data updating
-        $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $data->roomno]);
+
+        /*$dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $data->roomno]);
         $room=Room::find($dataroom[0]->id);
         $room->occupy=$room->occupy-1;
         $room->save();
         //room data upadting end
 
 
-        $data->delete();
-
-        Session::flash('success', 'The data was successfully deleted.');
+        $data->delete();*/
         $data=User::all();
 
         return view('foradmin.studentdata',compact('data'));

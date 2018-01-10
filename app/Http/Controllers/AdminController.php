@@ -82,8 +82,8 @@ class AdminController extends Controller
         $requeststudent->studentid=$studentid;
         $requeststudent->department=$department;
         $requeststudent->roomno=$roomno;
-        $requeststudent->studenttype="resident";
-        $requeststudent->requesttype="insert";
+        $requeststudent->studenttype="RESEDENT";
+        $requeststudent->requesttype="INSERT";
 
         $student->save();
         $requeststudent->save();
