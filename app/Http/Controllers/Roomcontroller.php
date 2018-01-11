@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Room;
+use App\Requestroom;
 use Illuminate\Validation\Rule;
 use Session;
 use Yajra\Datatables\Datatables;
@@ -41,6 +42,14 @@ class Roomcontroller extends Controller
         $room->occupy=$occupy;
 
 
+        $requestroom = new Requestroom();
+        $requestroom->roomno = $roomno;
+        $requestroom->roomtype = $roomtype;
+        $requestroom->capacity = $capacity;
+        $requestroom->occupy = $occupy;
+        $requestroom->requesttype = "INSERT";
+
+        $requestroom->save();
         $room->save();
         Session::flash('success', 'This room data were successfully saved.');
 

@@ -21,6 +21,12 @@ Route::prefix('asstprovost')->group(function (){
     Route::post('/login','Auth\AsstprovostLoginController@login')->name('asstprovost.login.submit');
     Route::get('/logout','Auth\AsstprovostLoginController@asstprovostlogout')->name('asstprovost.logout');
     Route::get('/dashboard', 'AsstprovostController@index')->name('asstprovost.dashboard');
+
+
+    Route::get('/roomreqinsertshow','Requestroomcontroller@showroominsertreq')->name('asstprovost.roomreqinsertshow');
+    Route::get('/roomreqinsert','Requestroomcontroller@roominsertreq')->name('asstprovost.roomreqinsert');
+    Route::get('/perstudentreqinfo/{id}','Requestroomcontroller@perroominsertreq')->name('asstprovost.perroominsertreq');
+
 });
 Route::prefix('provost')->group(function (){
     Route::get('/login','Auth\ProvostLoginController@showloginform')->name('provost.login');
