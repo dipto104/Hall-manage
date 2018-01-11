@@ -74,4 +74,65 @@ class Requestroomcontroller extends Controller
         Session::flash('success', 'ALL the Request is rejected.');
         return redirect()->route('provost.studentreqinsertshow');
     }
+
+
+
+    public function showroomdeletereq()
+    {
+        return view('forasstprovost.roomdelreqdata');
+    }
+    public function roomdeletereq()
+    {
+        //$users = User::select(['id', 'name', 'studentid', 'created_at']);
+        $requesttype="DELETE";
+        $users= DB::select('select * from requestrooms  where requesttype =:requesttype',['requesttype' =>$requesttype]);
+        return Datatables::of($users)
+            ->addColumn('action', function ($user) {
+                return "<a href='/asstprovost/perroomdeletereqinfo/$user->id' class='btn btn-xs btn-primary'></i> OPEN</a>";
+            })
+            ->make(true);
+    }
+    public function perroomdeletereq($id)
+    {
+        $data=Requestroom::find($id);
+        return view('forasstprovost.roomdelreqinfo',compact('data'));
+    }
+    public function roomdeleteallow($id){
+        $data=Requestroom::find($id);
+        DB::table('rooms')->where('roomno','=',$data->roomno)->delete();
+        $data->delete();
+        Session::flash('success', 'The Room Delete request is accepted.');
+        return redirect()->route('asstprovost.roomreqdeleteshow');
+    }
+    public function roomdeletereject($id){
+        $data=Requestroom::find($id);
+        $data->delete();
+        Session::flash('success', 'This Request is rejected.');
+        return redirect()->route('asstprovost.roomreqdeleteshow');
+    }
+    public function roomdeleteallowall(){
+        $datas=Requeststudent::all();
+        foreach ($datas as $data) {
+            DB::table('users')->where('studentid', '=', $data->studentid)->delete();
+
+
+            $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $data->roomno]);
+            $room = Room::find($dataroom[0]->id);
+            $room->occupy = $room->occupy - 1;
+            $room->save();
+
+
+            $data->delete();
+        }
+        Session::flash('success', 'All Srudent_delete Request are accpted.');
+        return redirect()->route('provost.studentreqdeleteshow');
+    }
+    public function roomdeleterejectall(){
+        $data=Requeststudent::all();
+        foreach ($data as $singledata) {
+            $singledata->delete();
+        }
+        Session::flash('success', 'All The Request are rejected.');
+        return redirect()->route('provost.studentreqdeleteshow');
+    }
 }

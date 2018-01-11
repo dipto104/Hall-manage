@@ -178,10 +178,19 @@ class Roomcontroller extends Controller
         }
         //room data upadting end
 
-
-        $data->delete();
-
-        Session::flash('success', 'The room was successfully deleted.');
+        $reqroom = DB::select('select * from requestrooms where roomno = :roomno', ['roomno' => $data->roomno]);
+        if ($reqroom == null) {
+            $requestroom = new Requestroom();
+            $requestroom->roomno = $data->roomno;
+            $requestroom->roomtype = $data->roomtype;
+            $requestroom->capacity = $data->capacity;
+            $requestroom->occupy = $data->occupy;
+            $requestroom->requesttype = "DELETE";
+            $requestroom->save();
+            Session::flash('success', 'The DELETE request is sent to Provost Sir.');
+        } else {
+            Session::flash('danger', 'The Previous request is in process please wait.');
+        }
 
         return redirect()->route('admin.roomdata');
     }

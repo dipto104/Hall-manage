@@ -63,8 +63,7 @@
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
                           <a class="dropdown-item" href="{{ route('asstprovost.roomreqinsertshow') }}">Room Insert</a>
-                          <a class="dropdown-item" href="{{ route('admin.roomdata') }}">Room Edit</a>
-                          <a class="dropdown-item" href="{{ route('admin.roomdata') }}">Room Delete</a>
+                          <a class="dropdown-item" href="{{ route('asstprovost.roomreqdeleteshow') }}">Room Delete</a>
                       </div>
                   </li>
                   <li class="nav-item dropdown">

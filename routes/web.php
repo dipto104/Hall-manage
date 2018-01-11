@@ -29,6 +29,14 @@ Route::prefix('asstprovost')->group(function (){
     Route::get('/roominsertallow/{id}','Requestroomcontroller@roominsertallow')->name('asstprovost.roominsertallow');
     Route::get('/roominsertreject/{id}','Requestroomcontroller@roominsertreject')->name('asstprovost.roominsertreject');
 
+
+
+    Route::get('/roomreqdeleteshow','Requestroomcontroller@showroomdeletereq')->name('asstprovost.roomreqdeleteshow');
+    Route::get('/roomreqdelete','Requestroomcontroller@roomdeletereq')->name('asstprovost.roomreqdelete');
+    Route::get('/perroomdeletereqinfo/{id}','Requestroomcontroller@perroomdeletereq')->name('asstprovost.perroomdeletereq');
+    Route::get('/roomdeleteallow/{id}','Requestroomcontroller@roomdeleteallow')->name('asstprovost.roomdeleteallow');
+    Route::get('/roomdeletereject/{id}','Requestroomcontroller@roomdeletereject')->name('asstprovost.roomdeletereject');
+
 });
 Route::prefix('provost')->group(function (){
     Route::get('/login','Auth\ProvostLoginController@showloginform')->name('provost.login');
