@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Room;
+use App\Requestroom;
 use App\Requeststudent;
 use Illuminate\Http\Request;
 use Session;
@@ -37,24 +38,18 @@ class Requestroomcontroller extends Controller
         $data=Requestroom::find($id);
         return view('forasstprovost.roominsertreqinfo',compact('data'));
     }
-    public function studentinsertallow($id){
-        $data=Requeststudent::find($id);
+    public function roominsertallow($id){
+        $data=Requestroom::find($id);
         $data->delete();
-        Session::flash('success', 'This srudent data is inserted permanently.');
-        return redirect()->route('provost.studentreqinsertshow');
+        Session::flash('success', 'This Room data is inserted permanently.');
+        return redirect()->route('asstprovost.roomreqinsertshow');
     }
-    public function studentinsertreject($id){
-        $data=Requeststudent::find($id);
-        DB::table('users')->where('studentid','=',$data->studentid)->delete();
-
-        $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $data->roomno]);
-        $room=Room::find($dataroom[0]->id);
-        $room->occupy=$room->occupy-1;
-        $room->save();
-
+    public function roominsertreject($id){
+        $data=Requestroom::find($id);
+        DB::table('rooms')->where('roomno','=',$data->roomno)->delete();
         $data->delete();
         Session::flash('success', 'This Request is rejected.');
-        return redirect()->route('provost.studentreqinsertshow');
+        return redirect()->route('asstprovost.roomreqinsertshow');
     }
     public function studentinsertallowall(){
         $data=Requeststudent::all();

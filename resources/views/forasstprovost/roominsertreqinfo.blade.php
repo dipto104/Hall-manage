@@ -3,17 +3,16 @@
 
 @section('content')
     <div class="container">
-        @include('includes.delinsertstudentreq')
+        @include('includes.delinsertroomreq')
         <div class="row">
             <div class="col-md-8 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h4>{{ $data->name }} 's Insert Request</h4></div>
+                    <div class="panel-heading"><h4>Room No :{{ $data->roomno }} 's Insert Request</h4></div>
                         <div class="panel-body">
-                            <p class="lead">Name : {{ $data->name }}</p>
-                            <p class="lead">Student Id : {{ $data->studentid }}</p>
-                            <p class="lead">Department : {{ $data->department }}</p>
                             <p class="lead">Room NO : {{ $data->roomno }}</p>
-                            <p class="lead">Student Type : {{ $data->studenttype }}</p>
+                            <p class="lead">Room Type : {{ $data->roomtype }}</p>
+                            <p class="lead">Capacity : {{ $data->capacity }}</p>
+                            <p class="lead">Number Of Students : {{ $data->occupy }}</p>
                     </div>
                 </div>
             </div>
@@ -31,7 +30,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-6">
-                            <a href="{{route('provost.studentinsertallow',$data->id)}}" class="btn btn-success btn-block"><span class="glyphicon glyphicon-edit"></span> Accept</a>
+                            <a href="{{route('asstprovost.roominsertallow',$data->id)}}" class="btn btn-success btn-block"><span class="glyphicon glyphicon-edit"></span> Accept</a>
                         </div>
                         <button type="button" class="btn btn-danger btn-block col-sm-5" data-toggle="modal" data-target="#confirm">
                             Reject
