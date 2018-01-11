@@ -230,7 +230,7 @@ class StudentdataController extends Controller
                 $requeststudent->save();
                 Session::flash('success', 'The DELETE request is sent to Provost Sir.');
             } else {
-                Session::flash('danger', 'The DELETE request is in process please wait.');
+                Session::flash('danger', 'The Previous request is in process please wait.');
             }
         }
         else{

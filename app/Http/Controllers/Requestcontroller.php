@@ -111,13 +111,38 @@ class Requestcontroller extends Controller
 
 
         $data->delete();
-        Session::flash('success', 'This srudent data is deleted permanently.');
+        Session::flash('success', 'This student data is deleted permanently.');
         return redirect()->route('provost.studentreqdeleteshow');
     }
     public function studentdeletereject($id){
         $data=Requeststudent::find($id);
         $data->delete();
         Session::flash('success', 'This Request is rejected.');
+        return redirect()->route('provost.studentreqdeleteshow');
+    }
+    public function studentdeleteallowall(){
+        $datas=Requeststudent::all();
+        foreach ($datas as $data) {
+            DB::table('users')->where('studentid', '=', $data->studentid)->delete();
+
+
+            $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $data->roomno]);
+            $room = Room::find($dataroom[0]->id);
+            $room->occupy = $room->occupy - 1;
+            $room->save();
+
+
+            $data->delete();
+        }
+        Session::flash('success', 'All Srudent_delete Request are accpted.');
+        return redirect()->route('provost.studentreqdeleteshow');
+    }
+    public function studentdeleterejectall(){
+        $data=Requeststudent::all();
+        foreach ($data as $singledata) {
+            $singledata->delete();
+        }
+        Session::flash('success', 'All The Request are rejected.');
         return redirect()->route('provost.studentreqdeleteshow');
     }
 }

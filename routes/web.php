@@ -38,6 +38,8 @@ Route::prefix('provost')->group(function (){
     Route::get('/perstudentdeletereqinfo/{id}','Requestcontroller@perstudentdeletereq')->name('provost.perstudentdeletereq');
     Route::get('/studentdeleteallow/{id}','Requestcontroller@studentdeleteallow')->name('provost.studentdeleteallow');
     Route::get('/studentdeletereject/{id}','Requestcontroller@studentdeletereject')->name('provost.studentdeletereject');
+    Route::get('/studentdeleteallowall','Requestcontroller@studentdeleteallowall')->name('provost.studentdeleteallowall');
+    Route::get('/studentdeleterejectall','Requestcontroller@studentdeleterejectall')->name('provost.studentdeleterejectall');
 
 });
 Route::prefix('home')->group(function (){
