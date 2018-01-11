@@ -29,6 +29,9 @@ Route::prefix('provost')->group(function (){
     Route::get('/perstudentreqinfo/{id}','Requestcontroller@perstudentinsertreq')->name('provost.perstudentinsertreq');
     Route::get('/studentinsertallow/{id}','Requestcontroller@studentinsertallow')->name('provost.studentinsertallow');
     Route::get('/studentinsertreject/{id}','Requestcontroller@studentinsertreject')->name('provost.studentinsertreject');
+    Route::get('/studentinsertallowall','Requestcontroller@studentinsertallowall')->name('provost.studentinsertallow');
+    Route::get('/studentinsertrejectall','Requestcontroller@studentinsertrejectall')->name('provost.studentinsertrejectall');
+
 
     Route::get('/studentreqdeleteshow','Requestcontroller@showstudentdeletereq')->name('provost.studentreqdeleteshow');
     Route::get('/studentreqdelete','Requestcontroller@studentdeletereq')->name('provost.studentreqdelete');

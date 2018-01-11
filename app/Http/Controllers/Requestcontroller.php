@@ -56,6 +56,29 @@ class Requestcontroller extends Controller
         Session::flash('success', 'This Request is rejected.');
         return redirect()->route('provost.studentreqinsertshow');
     }
+    public function studentinsertallowall(){
+        $data=Requeststudent::all();
+        foreach ($data as $singledata){
+            $singledata->delete();
+        }
+
+        Session::flash('success', 'All Srudent_Insert Request is accpted.');
+        return redirect()->route('provost.studentreqinsertshow');
+    }
+    public function studentinsertrejectall(){
+        $data=Requeststudent::all();
+        foreach ($data as $singledata){
+            DB::table('users')->where('studentid','=',$singledata->studentid)->delete();
+
+            $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $singledata->roomno]);
+            $room=Room::find($dataroom[0]->id);
+            $room->occupy=$room->occupy-1;
+            $room->save();
+            $singledata->delete();
+        }
+        Session::flash('success', 'ALL the Request is rejected.');
+        return redirect()->route('provost.studentreqinsertshow');
+    }
     public function showstudentdeletereq()
     {
         return view('forprovost.studelreqdata');
