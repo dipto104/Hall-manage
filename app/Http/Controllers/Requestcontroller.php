@@ -24,7 +24,7 @@ class Requestcontroller extends Controller
     public function studentinsertreq()
     {
         //$users = User::select(['id', 'name', 'studentid', 'created_at']);
-        $requesttype="insert";
+        $requesttype="INSERT";
         $users= DB::select('select * from requeststudents  where requesttype =:requesttype',['requesttype' =>$requesttype]);
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
@@ -47,6 +47,48 @@ class Requestcontroller extends Controller
         $data=Requeststudent::find($id);
         DB::table('users')->where('studentid','=',$data->studentid)->delete();
         $data->delete();
+        Session::flash('success', 'This Request is rejected.');
         return redirect()->route('provost.studentreqinsertshow');
+    }
+    public function showstudentdeletereq()
+    {
+        return view('forprovost.studelreqdata');
+    }
+    public function studentdeletereq()
+    {
+        //$users = User::select(['id', 'name', 'studentid', 'created_at']);
+        $requesttype="DELETE";
+        $users= DB::select('select * from requeststudents  where requesttype =:requesttype',['requesttype' =>$requesttype]);
+        return Datatables::of($users)
+            ->addColumn('action', function ($user) {
+                return "<a href='/provost/perstudentdeletereqinfo/$user->id' class='btn btn-xs btn-primary'></i> OPEN</a>";
+            })
+            ->make(true);
+    }
+    public function perstudentdeletereq($id)
+    {
+        $data=Requeststudent::find($id);
+        return view('forprovost.studelreqinfo',compact('data'));
+    }
+    public function studentdeleteallow($id){
+        $data=Requeststudent::find($id);
+        DB::table('users')->where('studentid','=',$data->studentid)->delete();
+
+
+        $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $data->roomno]);
+        $room=Room::find($dataroom[0]->id);
+        $room->occupy=$room->occupy-1;
+        $room->save();
+
+
+        $data->delete();
+        Session::flash('success', 'This srudent data is deleted permanently.');
+        return redirect()->route('provost.studentreqdeleteshow');
+    }
+    public function studentdeletereject($id){
+        $data=Requeststudent::find($id);
+        $data->delete();
+        Session::flash('success', 'This Request is rejected.');
+        return redirect()->route('provost.studentreqdeleteshow');
     }
 }

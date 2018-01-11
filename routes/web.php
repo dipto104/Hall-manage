@@ -29,6 +29,13 @@ Route::prefix('provost')->group(function (){
     Route::get('/perstudentreqinfo/{id}','Requestcontroller@perstudentinsertreq')->name('provost.perstudentinsertreq');
     Route::get('/studentinsertallow/{id}','Requestcontroller@studentinsertallow')->name('provost.studentinsertallow');
     Route::get('/studentinsertreject/{id}','Requestcontroller@studentinsertreject')->name('provost.studentinsertreject');
+
+    Route::get('/studentreqdeleteshow','Requestcontroller@showstudentdeletereq')->name('provost.studentreqdeleteshow');
+    Route::get('/studentreqdelete','Requestcontroller@studentdeletereq')->name('provost.studentreqdelete');
+    Route::get('/perstudentdeletereqinfo/{id}','Requestcontroller@perstudentdeletereq')->name('provost.perstudentdeletereq');
+    Route::get('/studentdeleteallow/{id}','Requestcontroller@studentdeleteallow')->name('provost.studentdeleteallow');
+    Route::get('/studentdeletereject/{id}','Requestcontroller@studentdeletereject')->name('provost.studentdeletereject');
+
 });
 Route::prefix('home')->group(function (){
     Route::get('/duestatus/{id}','HomeController@showduestatus')->name('student.duestatus');
