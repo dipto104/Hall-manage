@@ -167,7 +167,26 @@ class StudentdataController extends Controller
                 $student->userid=$userid;
                 $student->password=$password;
 
-                $student->save();
+                if(!Auth::guard('provost')->check()) {
+                    $requeststudent = new Requeststudent();
+                    $requeststudent->name = $name;
+                    $requeststudent->studentid = $studentid;
+                    $requeststudent->department = $department;
+                    $requeststudent->roomno = $roomno;
+                    $requeststudent->studenttype = "RESEDENT";
+                    $requeststudent->requesttype = "INSERT";
+
+                    $student->save();
+                    $requeststudent->save();
+                    Session::flash('success', 'All The INSERT request is sent to Provost Sir.');
+
+                }
+                else{
+                    $student->save();
+                    Session::flash('success', 'All students data were successfully saved.');
+                }
+
+
 
 
 
@@ -177,7 +196,7 @@ class StudentdataController extends Controller
 
             }
         }
-        Session::flash('success', 'All students data were successfully saved.');
+        //Session::flash('success', 'All students data were successfully saved.');
         $data=User::all();
         return view('foradmin.studentdata',compact('data'));
 

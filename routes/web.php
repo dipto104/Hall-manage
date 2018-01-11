@@ -16,7 +16,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::prefix('asstprovost')->group(function (){
+    Route::get('/login','Auth\AsstprovostLoginController@showloginform')->name('asstprovost.login');
+    Route::post('/login','Auth\AsstprovostLoginController@login')->name('asstprovost.login.submit');
+    Route::get('/logout','Auth\AsstprovostLoginController@asstprovostlogout')->name('asstprovost.logout');
+    Route::get('/dashboard', 'AsstprovostController@index')->name('asstprovost.dashboard');
+});
 Route::prefix('provost')->group(function (){
     Route::get('/login','Auth\ProvostLoginController@showloginform')->name('provost.login');
     Route::post('/login','Auth\ProvostLoginController@login')->name('provost.login.submit');

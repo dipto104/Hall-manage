@@ -68,6 +68,9 @@ class Handler extends ExceptionHandler
             case 'provost':
                 $login='provost.login';
                 break;
+            case 'asstprovost':
+                $login='asstprovost.login';
+                break;
             default:
                 $login='student.login';
                 break;

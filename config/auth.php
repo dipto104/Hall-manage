@@ -61,6 +61,14 @@ return [
             'driver' => 'token',
             'provider' => 'provosts',
         ],
+        'asstprovost' => [
+            'driver' => 'session',
+            'provider' => 'asstprovosts',
+        ],
+        'asstprovost-api' => [
+            'driver' => 'token',
+            'provider' => 'asstprovosts',
+        ],
     ],
 
     /*
@@ -92,6 +100,10 @@ return [
         'provosts' => [
             'driver' => 'eloquent',
             'model' => App\Provost::class,
+        ],
+        'asstprovosts' => [
+            'driver' => 'eloquent',
+            'model' => App\Asstprovost::class,
         ],
 
         // 'users' => [
@@ -128,6 +140,11 @@ return [
         ],
         'provosts' => [
             'provider' => 'provosts',
+            'table' => 'password_resets',
+            'expire' => 15,
+        ],
+        'asstprovosts' => [
+            'provider' => 'asstprovosts',
             'table' => 'password_resets',
             'expire' => 15,
         ],
