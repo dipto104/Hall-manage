@@ -46,6 +46,12 @@ class Requestcontroller extends Controller
     public function studentinsertreject($id){
         $data=Requeststudent::find($id);
         DB::table('users')->where('studentid','=',$data->studentid)->delete();
+
+        $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $data->roomno]);
+        $room=Room::find($dataroom[0]->id);
+        $room->occupy=$room->occupy-1;
+        $room->save();
+
         $data->delete();
         Session::flash('success', 'This Request is rejected.');
         return redirect()->route('provost.studentreqinsertshow');

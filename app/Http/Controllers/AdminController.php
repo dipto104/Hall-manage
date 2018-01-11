@@ -8,6 +8,7 @@ use App\Requeststudent;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -76,20 +77,24 @@ class AdminController extends Controller
         $student->password=$password;
 
 
+        if(!Auth::guard('provost')->check()) {
+            $requeststudent = new Requeststudent();
+            $requeststudent->name = $name;
+            $requeststudent->studentid = $studentid;
+            $requeststudent->department = $department;
+            $requeststudent->roomno = $roomno;
+            $requeststudent->studenttype = "RESEDENT";
+            $requeststudent->requesttype = "INSERT";
 
-        $requeststudent=new Requeststudent();
-        $requeststudent->name=$name;
-        $requeststudent->studentid=$studentid;
-        $requeststudent->department=$department;
-        $requeststudent->roomno=$roomno;
-        $requeststudent->studenttype="RESEDENT";
-        $requeststudent->requesttype="INSERT";
+            $student->save();
+            $requeststudent->save();
+            Session::flash('success', 'The INSERT request is sent to Provost Sir.');
 
-        $student->save();
-        $requeststudent->save();
-        Session::flash('success', 'This student data were successfully saved.');
-
-
+        }
+        else{
+            $student->save();
+            Session::flash('success', 'The Student Data is saved.');
+        }
 
         $data=User::all();
 

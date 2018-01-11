@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Session;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class StudentdataController extends Controller
 {
@@ -216,21 +217,33 @@ class StudentdataController extends Controller
     public function destroy($id)
     {
         $data = User::find($id);
-
-        $reqstudent=DB::select('select * from requeststudents where studentid = :studentid',['studentid' => $data->studentid]);
-        if($reqstudent==null){
-            $requeststudent = new Requeststudent();
-            $requeststudent->name = $data->name;
-            $requeststudent->studentid = $data->studentid;
-            $requeststudent->department = $data->department;
-            $requeststudent->roomno = $data->roomno;
-            $requeststudent->studenttype = "RESEDENT";
-            $requeststudent->requesttype = "DELETE";
-            $requeststudent->save();
-            Session::flash('success', 'The DELETE request is sent to Provost Sir.');
+        if(!Auth::guard('provost')->check()) {
+            $reqstudent = DB::select('select * from requeststudents where studentid = :studentid', ['studentid' => $data->studentid]);
+            if ($reqstudent == null) {
+                $requeststudent = new Requeststudent();
+                $requeststudent->name = $data->name;
+                $requeststudent->studentid = $data->studentid;
+                $requeststudent->department = $data->department;
+                $requeststudent->roomno = $data->roomno;
+                $requeststudent->studenttype = "RESEDENT";
+                $requeststudent->requesttype = "DELETE";
+                $requeststudent->save();
+                Session::flash('success', 'The DELETE request is sent to Provost Sir.');
+            } else {
+                Session::flash('danger', 'The DELETE request is in process please wait.');
+            }
         }
         else{
-            Session::flash('danger', 'The DELETE request is in process please wait.');
+            $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $data->roomno]);
+            $room=Room::find($dataroom[0]->id);
+            $room->occupy=$room->occupy-1;
+            $room->save();
+            //room data upadting end
+
+
+            $data->delete();
+            Session::flash('success', 'This Data is successfully deleted.');
+
         }
         //room purpose room data updating
 
