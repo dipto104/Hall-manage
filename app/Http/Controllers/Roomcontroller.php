@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Session;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 class Roomcontroller extends Controller
 {
     //
@@ -41,19 +42,22 @@ class Roomcontroller extends Controller
         $room->capacity=$capacity;
         $room->occupy=$occupy;
 
+        if(!Auth::guard('provost')->check() && !Auth::guard('asstprovost')->check() ) {
+            $requestroom = new Requestroom();
+            $requestroom->roomno = $roomno;
+            $requestroom->roomtype = $roomtype;
+            $requestroom->capacity = $capacity;
+            $requestroom->occupy = $occupy;
+            $requestroom->requesttype = "INSERT";
 
-        $requestroom = new Requestroom();
-        $requestroom->roomno = $roomno;
-        $requestroom->roomtype = $roomtype;
-        $requestroom->capacity = $capacity;
-        $requestroom->occupy = $occupy;
-        $requestroom->requesttype = "INSERT";
-
-        $requestroom->save();
-        $room->save();
-        Session::flash('success', 'This room data were successfully saved.');
-
-
+            $requestroom->save();
+            $room->save();
+            Session::flash('success', 'The INSERT request is sent to Provost Sir.');
+        }
+        else{
+            $room->save();
+            Session::flash('success', 'This room data were successfully saved.');
+        }
 
         //$data=User::all();
         return redirect()->route('admin.roomdata');
@@ -140,7 +144,7 @@ class Roomcontroller extends Controller
                 $roomno=$data[0];
                 $roomtype=$data[1];
                 $capacity=$data[2];
-                $occupy=$data[3];
+                $occupy=0;
 
 
                 $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $roomno]);
@@ -155,10 +159,24 @@ class Roomcontroller extends Controller
                 $room->roomtype=$roomtype;
                 $room->capacity=$capacity;
                 $room->occupy=$occupy;
-                $room->save();
 
+                if(!Auth::guard('provost')->check() && !Auth::guard('asstprovost')->check() ) {
+                    $requestroom = new Requestroom();
+                    $requestroom->roomno = $roomno;
+                    $requestroom->roomtype = $roomtype;
+                    $requestroom->capacity = $capacity;
+                    $requestroom->occupy = $occupy;
+                    $requestroom->requesttype = "INSERT";
 
-                Session::flash('success', 'This room data were successfully saved.');
+                    $requestroom->save();
+                    $room->save();
+                    Session::flash('success', 'The INSERT request is sent to Provost Sir.');
+                }
+                else{
+                    $room->save();
+                    Session::flash('success', 'All The room data are successfully saved.');
+                }
+
 
 
 
@@ -177,19 +195,24 @@ class Roomcontroller extends Controller
             return redirect()->back();
         }
         //room data upadting end
-
-        $reqroom = DB::select('select * from requestrooms where roomno = :roomno', ['roomno' => $data->roomno]);
-        if ($reqroom == null) {
-            $requestroom = new Requestroom();
-            $requestroom->roomno = $data->roomno;
-            $requestroom->roomtype = $data->roomtype;
-            $requestroom->capacity = $data->capacity;
-            $requestroom->occupy = $data->occupy;
-            $requestroom->requesttype = "DELETE";
-            $requestroom->save();
-            Session::flash('success', 'The DELETE request is sent to Provost Sir.');
-        } else {
-            Session::flash('danger', 'The Previous request is in process please wait.');
+        if(!Auth::guard('provost')->check() && !Auth::guard('asstprovost')->check() ) {
+            $reqroom = DB::select('select * from requestrooms where roomno = :roomno', ['roomno' => $data->roomno]);
+            if ($reqroom == null) {
+                $requestroom = new Requestroom();
+                $requestroom->roomno = $data->roomno;
+                $requestroom->roomtype = $data->roomtype;
+                $requestroom->capacity = $data->capacity;
+                $requestroom->occupy = $data->occupy;
+                $requestroom->requesttype = "DELETE";
+                $requestroom->save();
+                Session::flash('success', 'The DELETE request is sent to Provost Sir.');
+            } else {
+                Session::flash('danger', 'The Previous request is in process please wait.');
+            }
+        }
+        else{
+            $data->delete();
+            Session::flash('success', 'This Room data is deleted Successfully.');
         }
 
         return redirect()->route('admin.roomdata');

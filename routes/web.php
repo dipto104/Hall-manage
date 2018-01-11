@@ -28,6 +28,8 @@ Route::prefix('asstprovost')->group(function (){
     Route::get('/perroomreqinfo/{id}','Requestroomcontroller@perroominsertreq')->name('asstprovost.perroominsertreq');
     Route::get('/roominsertallow/{id}','Requestroomcontroller@roominsertallow')->name('asstprovost.roominsertallow');
     Route::get('/roominsertreject/{id}','Requestroomcontroller@roominsertreject')->name('asstprovost.roominsertreject');
+    Route::get('/roominsertallowall','Requestroomcontroller@roominsertallowall')->name('asstprovost.roominsertallow');
+    Route::get('/roominsertrejectall','Requestroomcontroller@roominsertrejectall')->name('asstprovost.roominsertrejectall');
 
 
 
@@ -36,6 +38,8 @@ Route::prefix('asstprovost')->group(function (){
     Route::get('/perroomdeletereqinfo/{id}','Requestroomcontroller@perroomdeletereq')->name('asstprovost.perroomdeletereq');
     Route::get('/roomdeleteallow/{id}','Requestroomcontroller@roomdeleteallow')->name('asstprovost.roomdeleteallow');
     Route::get('/roomdeletereject/{id}','Requestroomcontroller@roomdeletereject')->name('asstprovost.roomdeletereject');
+    Route::get('/roomdeleteallowall','Requestroomcontroller@roomdeleteallowall')->name('asstprovost.roomdeleteallowall');
+    Route::get('/roomdeleterejectall','Requestroomcontroller@roomdeleterejectall')->name('asstprovost.roomdeleterejectall');
 
 });
 Route::prefix('provost')->group(function (){

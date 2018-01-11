@@ -41,7 +41,7 @@ class Requestroomcontroller extends Controller
     public function roominsertallow($id){
         $data=Requestroom::find($id);
         $data->delete();
-        Session::flash('success', 'This Room data is inserted permanently.');
+        Session::flash('success', 'This Room_Insert Request is accepted.');
         return redirect()->route('asstprovost.roomreqinsertshow');
     }
     public function roominsertreject($id){
@@ -51,28 +51,23 @@ class Requestroomcontroller extends Controller
         Session::flash('success', 'This Request is rejected.');
         return redirect()->route('asstprovost.roomreqinsertshow');
     }
-    public function studentinsertallowall(){
-        $data=Requeststudent::all();
+    public function roominsertallowall(){
+        $data=Requestroom::all();
         foreach ($data as $singledata){
             $singledata->delete();
         }
 
-        Session::flash('success', 'All Srudent_Insert Request is accpted.');
-        return redirect()->route('provost.studentreqinsertshow');
+        Session::flash('success', 'All Room_Insert Request is accpted.');
+        return redirect()->route('asstprovost.roomreqinsertshow');
     }
-    public function studentinsertrejectall(){
-        $data=Requeststudent::all();
+    public function roominsertrejectall(){
+        $data=Requestroom::all();
         foreach ($data as $singledata){
-            DB::table('users')->where('studentid','=',$singledata->studentid)->delete();
-
-            $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $singledata->roomno]);
-            $room=Room::find($dataroom[0]->id);
-            $room->occupy=$room->occupy-1;
-            $room->save();
+            DB::table('rooms')->where('roomno','=',$singledata->roomno)->delete();
             $singledata->delete();
         }
         Session::flash('success', 'ALL the Request is rejected.');
-        return redirect()->route('provost.studentreqinsertshow');
+        return redirect()->route('asstprovost.roomreqinsertshow');
     }
 
 
@@ -111,28 +106,20 @@ class Requestroomcontroller extends Controller
         return redirect()->route('asstprovost.roomreqdeleteshow');
     }
     public function roomdeleteallowall(){
-        $datas=Requeststudent::all();
+        $datas=Requestroom::all();
         foreach ($datas as $data) {
-            DB::table('users')->where('studentid', '=', $data->studentid)->delete();
-
-
-            $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $data->roomno]);
-            $room = Room::find($dataroom[0]->id);
-            $room->occupy = $room->occupy - 1;
-            $room->save();
-
-
+            DB::table('rooms')->where('roomno', '=', $data->roomno)->delete();
             $data->delete();
         }
-        Session::flash('success', 'All Srudent_delete Request are accpted.');
-        return redirect()->route('provost.studentreqdeleteshow');
+        Session::flash('success', 'All Room_delete Request are accpted.');
+        return redirect()->route('asstprovost.roomreqdeleteshow');
     }
     public function roomdeleterejectall(){
-        $data=Requeststudent::all();
+        $data=Requestroom::all();
         foreach ($data as $singledata) {
             $singledata->delete();
         }
         Session::flash('success', 'All The Request are rejected.');
-        return redirect()->route('provost.studentreqdeleteshow');
+        return redirect()->route('asstprovost.roomreqdeleteshow');
     }
 }
