@@ -28,7 +28,7 @@ Route::prefix('asstprovost')->group(function (){
     Route::get('/perroomreqinfo/{id}','Requestroomcontroller@perroominsertreq')->name('asstprovost.perroominsertreq');
     Route::get('/roominsertallow/{id}','Requestroomcontroller@roominsertallow')->name('asstprovost.roominsertallow');
     Route::get('/roominsertreject/{id}','Requestroomcontroller@roominsertreject')->name('asstprovost.roominsertreject');
-    Route::get('/roominsertallowall','Requestroomcontroller@roominsertallowall')->name('asstprovost.roominsertallow');
+    Route::get('/roominsertallowall','Requestroomcontroller@roominsertallowall')->name('asstprovost.roominsertallowall');
     Route::get('/roominsertrejectall','Requestroomcontroller@roominsertrejectall')->name('asstprovost.roominsertrejectall');
 
 

@@ -52,7 +52,7 @@ class Roomcontroller extends Controller
 
             $requestroom->save();
             $room->save();
-            Session::flash('success', 'The INSERT request is sent to Provost Sir.');
+            Session::flash('success', 'The INSERT request is sent to Asst. Provost Sir.');
         }
         else{
             $room->save();
@@ -170,7 +170,7 @@ class Roomcontroller extends Controller
 
                     $requestroom->save();
                     $room->save();
-                    Session::flash('success', 'The INSERT request is sent to Provost Sir.');
+                    Session::flash('success', 'The INSERT request is sent to Asst. Provost Sir.');
                 }
                 else{
                     $room->save();
