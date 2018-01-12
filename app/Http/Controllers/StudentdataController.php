@@ -77,42 +77,46 @@ class StudentdataController extends Controller
         $roomno=$request['roomno'];
         $userid=$request['userid'];
 
+        $reqstudent = DB::select('select * from requeststudents where studentid = :studentid', ['studentid' => $studentid]);
+        if ($reqstudent == null) {
+            $student = User::find($id);
+            $student->name = $name;
+            $student->studentid = $studentid;
+            $student->department = $department;
 
-        $student=User::find($id);
-        $student->name=$name;
-        $student->studentid=$studentid;
-        $student->department=$department;
 
-
-        if($student->roomno!=$roomno){
-            $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $roomno]);
-            if($dataroom==null){
-                Session::flash('danger', 'Room number is not available.');
-                return redirect()->back()->withInput();
-            }
-            else {
-                if ($dataroom[0]->occupy == $dataroom[0]->capacity) {
-                    Session::flash('danger', 'No Sit is available in this Room.');
+            if ($student->roomno != $roomno) {
+                $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $roomno]);
+                if ($dataroom == null) {
+                    Session::flash('danger', 'Room number is not available.');
                     return redirect()->back()->withInput();
+                } else {
+                    if ($dataroom[0]->occupy == $dataroom[0]->capacity) {
+                        Session::flash('danger', 'No Sit is available in this Room.');
+                        return redirect()->back()->withInput();
+                    }
+                    //new room added student
+                    $data = Room::find($dataroom[0]->id);
+                    $data->occupy = $data->occupy + 1;
+                    $data->save();
+
+
+                    //previous room substract student
+                    $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $student->roomno]);
+                    $data = Room::find($dataroom[0]->id);
+                    $data->occupy = $data->occupy - 1;
+                    $data->save();
                 }
-                //new room added student
-                $data=Room::find($dataroom[0]->id);
-                $data->occupy=$data->occupy+1;
-                $data->save();
-
-
-                //previous room substract student
-                $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $student->roomno]);
-                $data=Room::find($dataroom[0]->id);
-                $data->occupy=$data->occupy-1;
-                $data->save();
             }
-        }
-        $student->roomno=$roomno;
-        $student->userid=$userid;
+            $student->roomno = $roomno;
+            $student->userid = $userid;
 
-        $student->save();
-        Session::flash('success', 'This data was successfully updated.');
+            $student->save();
+            Session::flash('success', 'This data was successfully updated.');
+        }
+        else{
+            Session::flash('danger', 'The Student data cant be edited now.');
+        }
 
 
 
