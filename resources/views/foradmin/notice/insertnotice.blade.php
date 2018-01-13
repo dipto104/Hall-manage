@@ -7,7 +7,7 @@
                 <div class="panel-heading"> <h5>Compose Notice</h5></div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('admin.insertnotice.submit') }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('admin.insertnotice.submit') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('noticename') ? ' has-error' : '' }}">
@@ -27,7 +27,7 @@
                                 <label for="noticebody" class="col-md-4 control-label">Notice Description</label>
 
                                 <div class="col-md-10">
-                                    <textarea class="form-control" rows="5" id="noticebody" name="noticebody" value="{{ old('noticebody') }}" required autofocus></textarea>
+                                    <textarea class="form-control" rows="5" id="noticebody" name="noticebody"    required autofocus>{{old('noticebody')}}</textarea>
 
                                     @if ($errors->has('noticebody'))
                                         <span class="help-block">
@@ -36,7 +36,15 @@
                                     @endif
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label for="upload_file" class="control-label col-sm-3">Upload File</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="file" name="upload_file" id="upload_file">
+                                    <span class="alert-danger">
+                                        <strong>{{ $errors->first('upload_file') }}</strong>
+                                    </span>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">

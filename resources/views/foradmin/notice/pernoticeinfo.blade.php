@@ -15,7 +15,7 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Learn More</a>
+                        <a href="notices/{{$data->uniquefilename}}" download="notices/{{$data->uniquefilename}}" class="btn btn-primary">Download {{$data->givenfilename}}</a>
                     </div>
                 </div>
             </div>
