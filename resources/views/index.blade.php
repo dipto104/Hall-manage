@@ -152,6 +152,9 @@
 
             @else
               <li class="nav-item">
+                <a class="nav-link" href="{{ route('publicnotice') }}">Notice</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="{{ route('student.login') }}">Student Login</a>
               </li>
               <li class="nav-item">

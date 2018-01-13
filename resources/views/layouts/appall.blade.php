@@ -45,7 +45,7 @@
 
               @if (Auth::guard('web')->check())
                   <li class="nav-item">
-                      <a class="nav-link" href="{{ route('admin.login') }}">Admin Login</a>
+                      <a class="nav-link" href="{{ route('publicnotice') }}">Notice</a>
                   </li>
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -65,6 +65,7 @@
 
                           <a class="dropdown-item" href="{{ route('admin.insertnotice') }}">Compose Notice</a>
                           <a class="dropdown-item" href="{{ route('admin.shownotice') }}">All Notice</a>
+                          <a class="dropdown-item" href="{{ route('publicnotice') }}">Notice view</a>
                       </div>
                   </li>
                   <li class="nav-item dropdown">
@@ -114,6 +115,7 @@
 
                           <a class="dropdown-item" href="{{ route('admin.insertnotice') }}">Compose Notice</a>
                           <a class="dropdown-item" href="{{ route('admin.shownotice') }}">All Notice</a>
+                          <a class="dropdown-item" href="{{ route('publicnotice') }}">Notice view</a>
                       </div>
                   </li>
                   <li class="nav-item dropdown">
@@ -163,6 +165,7 @@
 
                           <a class="dropdown-item" href="{{ route('admin.insertnotice') }}">Compose Notice</a>
                           <a class="dropdown-item" href="{{ route('admin.shownotice') }}">All Notice</a>
+                          <a class="dropdown-item" href="{{ route('publicnotice') }}">Notice view</a>
                       </div>
                   </li>
                   <li class="nav-item dropdown">
@@ -195,6 +198,9 @@
                   </li>
 
               @else
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('publicnotice') }}">Notice</a>
+                  </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('student.login') }}">Student Login</a>
                   </li>

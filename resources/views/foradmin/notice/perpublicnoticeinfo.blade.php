@@ -3,7 +3,6 @@
 
 @section('content')
     <div class="container">
-        @include('includes.delconfirmnotice')
         <div class="row">
             <div class="col-md-8">
                 <div class="card h-100">
@@ -15,7 +14,7 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <a href='{{\Storage::url($data->uniquefilename)}}' download class="btn btn-primary">Download {{$data->givenfilename}}</a>
+                        <a href="#" download class="btn btn-primary">Download</a>
                     </div>
                 </div>
             </div>
@@ -31,14 +30,6 @@
                         <dd>{{ date('M j, Y h:ia', strtotime($data->updated_at)) }}</dd>
                     </dl>
                     <hr>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a href="{{route('admin.editnotice',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                        </div>
-                        <button type="button" class="btn btn-danger btn-block col-sm-5" data-toggle="modal" data-target="#confirm">
-                            Delete
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>

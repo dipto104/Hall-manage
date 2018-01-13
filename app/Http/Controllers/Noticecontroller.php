@@ -18,7 +18,7 @@ class Noticecontroller extends Controller
     //
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        $this->middleware('auth:admin',['except'=>'publicnotice']);
     }
 
     public function shownoticeinsert()
@@ -157,5 +157,11 @@ class Noticecontroller extends Controller
         Session::flash('success', 'This Notice is successfully deleted.');
         return redirect()->route('admin.shownotice');
 
+    }
+
+    public function publicnotice()
+    {
+        $data = Notice::orderBy('id','desc')->paginate(5);
+        return view('foradmin.notice.publicnotice', compact('data'));
     }
 }

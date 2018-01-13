@@ -166,3 +166,5 @@ Route::prefix('admin')->group(function (){
 
 });
 
+Route::get('/publicnotice','Publicnoticecontroller@publicnotice')->name('publicnotice');
+Route::get('/perpublicnotice/{id}','Publicnoticecontroller@perpublicnotice')->name('perpublicnotice');
