@@ -153,6 +153,7 @@ Route::prefix('admin')->group(function (){
 
     Route::get('/insertnoticeshow','Noticecontroller@shownoticeinsert')->name('admin.insertnotice');
     Route::post('/insertnotice','Noticecontroller@insertnotice')->name('admin.insertnotice.submit');
+    Route::get('/shownoticedata','Noticecontroller@shownoticedata')->name('admin.shownotice');
 
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
 

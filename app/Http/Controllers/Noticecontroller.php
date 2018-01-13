@@ -47,7 +47,12 @@ class Noticecontroller extends Controller
             $notice->noticeby="Hall Office";
         }
         $notice->save();
-        return ;
+        return redirect()->route('admin.shownotice');
+    }
+    public function shownoticedata()
+    {
+        $data=Notice::paginate(2);
+        return view('foradmin.notice.noticedata',compact('data'));
     }
     //
 }

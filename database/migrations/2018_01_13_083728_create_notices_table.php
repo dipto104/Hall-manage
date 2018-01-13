@@ -15,11 +15,11 @@ class CreateNoticesTable extends Migration
     {
         Schema::create('notices', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('noticename');
-            $table->string('noticebody');
+            $table->text('noticename');
+            $table->longText('noticebody');
             $table->string('noticeby');
-            $table->string('uniquefilename')->nullable();
-            $table->string('givenfilename')->nullable();
+            $table->text('uniquefilename')->nullable();
+            $table->text('givenfilename')->nullable();
             $table->timestamps();
         });
     }
@@ -34,5 +34,3 @@ class CreateNoticesTable extends Migration
         Schema::dropIfExists('notices');
     }
 }
-
-
