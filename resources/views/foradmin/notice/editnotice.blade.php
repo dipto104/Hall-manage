@@ -39,9 +39,13 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Insert
+                                    <button type="submit" class="btn btn-success">
+                                        Save Changes
                                     </button>
+                                </div>
+                                <hr>
+                                <div class="col-sm-3">
+                                    <a href="{{route('admin.shownotice')}}" class="btn btn-danger btn-block"> Cancel</a>
                                 </div>
                             </div>
                         </form>

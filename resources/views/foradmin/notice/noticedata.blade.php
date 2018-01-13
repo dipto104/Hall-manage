@@ -17,12 +17,11 @@
 
             <div class="col-md-12">
                 <table class="table">
-                    <thead>
+                    <thead class="bg-info text-white">
                     <th>Notice Title</th>
                     <th>Notice Description</th>
                     <th>Notice Given By</th>
                     <th>Action</th>
-                    <th></th>
                     </thead>
 
                     <tbody>

@@ -59,6 +59,16 @@
               @elseif (Auth::guard('asstprovost')->check())
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Notice
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+
+                          <a class="dropdown-item" href="{{ route('admin.insertnotice') }}">Compose Notice</a>
+                          <a class="dropdown-item" href="{{ route('admin.shownotice') }}">All Notice</a>
+                      </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Request
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
@@ -96,6 +106,16 @@
                       </div>
                   </li>
                   @elseif (Auth::guard('provost')->check())
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Notice
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+
+                          <a class="dropdown-item" href="{{ route('admin.insertnotice') }}">Compose Notice</a>
+                          <a class="dropdown-item" href="{{ route('admin.shownotice') }}">All Notice</a>
+                      </div>
+                  </li>
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Request

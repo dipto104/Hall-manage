@@ -35,7 +35,7 @@
     </div> <!-- end of .row -->
 
     <table class="table table-bordered" id="users-table">
-        <thead>
+        <thead class="bg-info text-white">
         <tr>
             <th>Id</th>
             <th>Room No</th>
