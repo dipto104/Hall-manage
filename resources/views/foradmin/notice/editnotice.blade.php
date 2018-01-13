@@ -7,14 +7,14 @@
                     <div class="panel-heading"> <h5>Edit Notice</h5></div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('admin.edittnotice.submit') }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('admin.editnotice.submit',$data->id) }}">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('noticename') ? ' has-error' : '' }}">
                                 <label for="noticename" class="col-md-4 control-label">Notice Title</label>
 
                                 <div class="col-md-10">
-                                    <input id="noticename" type="text" class="form-control" name="noticename" value="{{ old('noticename') }}" required autofocus>
+                                    <input id="noticename" type="text" class="form-control" name="noticename" value="{{ $data->noticename }}" required autofocus>
 
                                     @if ($errors->has('noticename'))
                                         <span class="help-block">
@@ -27,7 +27,7 @@
                                 <label for="noticebody" class="col-md-4 control-label">Notice Description</label>
 
                                 <div class="col-md-10">
-                                    <textarea class="form-control" rows="5" id="noticebody" name="noticebody" value="{{ old('noticebody') }}" required autofocus></textarea>
+                                    <textarea class="form-control" rows="5" id="noticebody" name="noticebody" required autofocus>{{ $data->noticebody }}</textarea>
 
                                     @if ($errors->has('noticebody'))
                                         <span class="help-block">

@@ -31,13 +31,13 @@
                     @foreach ($data as $singledata)
 
                         <tr>
-                            <td>{{ str_limit($singledata->noticename, $limit = 15, $end = '...') }}</td>
-                            <td>{{ str_limit($singledata->noticebody, $limit = 15, $end = '...') }}</td>
+                            <td>{{ str_limit($singledata->noticename, $limit = 30, $end = '...') }}</td>
+                            <td>{{ str_limit($singledata->noticebody, $limit = 30, $end = '...') }}</td>
                             <td>{{ $singledata->noticeby }}</td>
 
 
-                            <td><a href="{{ route('admin.openpayment', $singledata->id) }}" class="btn btn-primary btn-sm">Open</a>
-                                <a href="{{ route('admin.editmess',$singledata->id) }}" class="btn btn-secondary btn-sm">Edit</a></td>
+                            <td><a href="{{ route('admin.pernotice', $singledata->id) }}" class="btn btn-primary btn-sm">View</a>
+                                <a href="{{ route('admin.editnotice',$singledata->id) }}" class="btn btn-secondary btn-sm">Edit</a></td>
                         </tr>
 
 

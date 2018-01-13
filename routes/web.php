@@ -154,6 +154,14 @@ Route::prefix('admin')->group(function (){
     Route::get('/insertnoticeshow','Noticecontroller@shownoticeinsert')->name('admin.insertnotice');
     Route::post('/insertnotice','Noticecontroller@insertnotice')->name('admin.insertnotice.submit');
     Route::get('/shownoticedata','Noticecontroller@shownoticedata')->name('admin.shownotice');
+    Route::get('/pernoticeinfo/{id}','Noticecontroller@pernotice')->name('admin.pernotice');
+    Route::get('/editnoticeshow/{id}','Noticecontroller@editnoticeshow')->name('admin.editnotice');
+    Route::post('/editnotice/{id}','Noticecontroller@editnotice')->name('admin.editnotice.submit');
+    Route::get('/deletenotice/{id}','Noticecontroller@destroy')->name('admin.deletenotice');
+
+
+
+
 
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
 

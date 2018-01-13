@@ -3,20 +3,20 @@
 
 @section('content')
     <div class="container">
-        @include('includes.delconfirmroom')
+        @include('includes.delconfirmnotice')
         <div class="row">
-            <div class="col-md-8 ">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h5>Notice Title: {{ $data->noticename }}</h5></div>
-                    <form class="form-horizontal" method="POST" action="{{ route('admin.edittnotice.submit') }}">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <label for="noticebody" class="col-md-4 control-label">Notice Description</label>
-
-                            <div class="col-md-10">
-                                <textarea class="form-control" rows="5" id="noticebody" name="noticebody" disabled="disabled" value="{{ old('noticebody') }}" required autofocus></textarea>
-                            </div>
-                        </div>
+            <div class="col-md-8">
+                <div class="card h-100">
+                    <h4 class="card-header bg-info text-white">Notice Title : {{$data->noticename}}</h4>
+                    <div class="card-body">
+                        <ul>
+                        <li><p class="card-text">Notice Description : {{$data->noticebody}}</p></li>
+                            <li><p class="card-text">Notice Given By : {{$data->noticeby}}</p></li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
@@ -33,7 +33,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-6">
-                            <a href="{{route('admin.showeditroom',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                            <a href="{{route('admin.editnotice',$data->id)}}" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                         </div>
                         <button type="button" class="btn btn-danger btn-block col-sm-5" data-toggle="modal" data-target="#confirm">
                             Delete
