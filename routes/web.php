@@ -20,6 +20,10 @@ Route::prefix('asstprovost')->group(function (){
     Route::get('/login','Auth\AsstprovostLoginController@showloginform')->name('asstprovost.login');
     Route::post('/login','Auth\AsstprovostLoginController@login')->name('asstprovost.login.submit');
     Route::get('/logout','Auth\AsstprovostLoginController@asstprovostlogout')->name('asstprovost.logout');
+    Route::get('/changepasswordshow', 'AsstprovostController@resetpasswordshow')->name('asstprovost.changepassshow');
+    Route::post('/changepassword', 'AsstprovostController@resetpassword')->name('asstprovost.changepass');
+
+
     Route::get('/dashboard', 'AsstprovostController@index')->name('asstprovost.dashboard');
 
 
@@ -46,6 +50,10 @@ Route::prefix('provost')->group(function (){
     Route::get('/login','Auth\ProvostLoginController@showloginform')->name('provost.login');
     Route::post('/login','Auth\ProvostLoginController@login')->name('provost.login.submit');
     Route::get('/logout','Auth\ProvostLoginController@provostlogout')->name('provost.logout');
+
+    Route::get('/changepasswordshow', 'ProvostController@resetpasswordshow')->name('provost.changepassshow');
+    Route::post('/changepassword', 'ProvostController@resetpassword')->name('provost.changepass');
+
     Route::get('/dashboard', 'ProvostController@index')->name('provost.dashboard');
 
 

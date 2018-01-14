@@ -134,7 +134,7 @@ class AdminController extends Controller
             $student->save();
 
             Session::flash('success', 'Password successfully updated.');
-            return redirect()->route('admin.dashboard',$id);
+            return redirect()->route('admin.dashboard');
         }
 
 

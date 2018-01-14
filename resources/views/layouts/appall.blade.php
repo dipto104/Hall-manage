@@ -103,7 +103,7 @@
                           Option
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-
+                          <a class="dropdown-item" href="{{ route('asstprovost.changepassshow') }}">Change Password</a>
                           <a class="dropdown-item" href="{{ route('asstprovost.logout') }}">Log Out</a>
                       </div>
                   </li>
@@ -153,7 +153,7 @@
                               Option
                           </a>
                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-
+                              <a class="dropdown-item" href="{{ route('provost.changepassshow') }}">Change Password</a>
                               <a class="dropdown-item" href="{{ route('provost.logout') }}">Log Out</a>
                           </div>
                       </li>
