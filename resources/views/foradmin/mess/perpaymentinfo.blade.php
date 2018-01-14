@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-8 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Term No :{{ $data->termno }}|Mess No :{{ $data->messno }} 's Data</div>
+                    <div class="panel-heading"><h4>Term No :{{ $data->termno }}|Mess No :{{ $data->messno }} 's Data</h4></div>
                     <div class="panel-body">
                         <p class="lead">Student ID : {{ $data->studentid }}</p>
                         <p class="lead">Name : {{ $data->name }}</p>

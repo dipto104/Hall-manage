@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-8 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h5>Term No {{ $data->termno }} 's Data</h5></div>
+                    <div class="panel-heading"><h5>Term No : {{ $data->termno }} 's Data</h5></div>
                     <div class="panel-body">
                         <p class="lead">Term No : {{ $data->termno }}</p>
                         <p class="lead">Started At : {{ $data->startat }}</p>

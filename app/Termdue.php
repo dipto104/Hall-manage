@@ -15,7 +15,7 @@ class Termdue extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'termno','studentid','totalmess','due','remarks',
+        'termno','studentid','name','roomno','totalmess','due','remarks',
     ];
 
     /**

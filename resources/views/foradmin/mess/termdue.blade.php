@@ -27,6 +27,8 @@
                     <thead>
                     <th>#</th>
                     <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Room NO</th>
                     <th>Total Mess</th>
                     <th>Due Payment</th>
                     <th>Remarks</th>
@@ -41,6 +43,8 @@
                         <tr>
                             <td>{{ $messdata->id }}</td>
                             <td>{{ $messdata->studentid }}</td>
+                            <td>{{ $messdata->name }}</td>
+                            <td>{{ $messdata->roomno }}</td>
                             <th>{{ $messdata->totalmess }}</th>
                             @if($messdata->due!=null)
                                 <td>{{$messdata->due}}</td>

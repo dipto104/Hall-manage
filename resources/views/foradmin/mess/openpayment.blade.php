@@ -8,6 +8,8 @@
             </div>
             <div class="col-md-3 col-md-offset-1">
                 <a href=" {{route('admin.duemess',$data[0]->id) }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Calculate Due</a>
+                <hr>
+                <h5 class="text-danger">Fine Starts At : {{$data[0]->finestartat}}</h5>
             </div>
 
         @else
@@ -15,6 +17,7 @@
                 <h1>No Mess Data In This Term</h1>
             </div>
             <div class="col-md-12">
+                <hr>
                 <hr>
                 <hr>
                 <hr>

@@ -15,12 +15,13 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('termno');
+            $table->string('termno');
             $table->integer('messno');
             $table->integer('studentid');
             $table->string('name');
             $table->integer('roomno');
             $table->string('department');
+            $table->date('finestartat')->nullable();
             $table->integer('hallscroll')->nullable();
             $table->integer('bankscroll')->nullable();
             $table->date('receivedate')->nullable();

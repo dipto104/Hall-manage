@@ -21,9 +21,10 @@ class MessController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $datamess=Mess::class;
-    public $termid=1;
-    public $counter=0;
+    public $datamess = Mess::class;
+    public $termid = 1;
+    public $counter = 0;
+
     public function __construct()
     {
         $this->middleware('auth:admin' or 'auth:provost');
@@ -34,6 +35,7 @@ class MessController extends Controller
     {
         return view('foradmin.hallmess'); // this return the view with all button the dining payment view
     }
+
     public function termindex()
     {
         return view('foradmin.mess.insertterm');//this will give the view of insert new term
@@ -48,48 +50,47 @@ class MessController extends Controller
     public function termcreate(Request $request)
     {
         $this->validate($request, [
-            'termno' => 'required|numeric|unique:terms',
-            'startat' =>'required',
+            'termno' => 'required|unique:terms',
+            'startat' => 'required',
 
 
         ]);
 
-        $termno=$request['termno'];
-        $startat=$request['startat'];
-        $finishat=$request['finishat'];
+        $termno = $request['termno'];
+        $startat = $request['startat'];
+        $finishat = $request['finishat'];
 
 
+        $data = new Term();
+        $data->termno = $termno;
+        $data->startat = $startat;
 
-        $data=new Term();
-        $data->termno=$termno;
-        $data->startat=$startat;
-
-        if(strlen($finishat)){
-            $data->finishat=$finishat;
-        }
-        else{
-            $finishat=null;
-            $data->finishat=$finishat;
+        if (strlen($finishat)) {
+            $data->finishat = $finishat;
+        } else {
+            $finishat = null;
+            $data->finishat = $finishat;
         }
         $data->save();
         Session::flash('success', 'New Term has been Created Successfully.');
 
 
+        $data = Term::all();
 
-        $data=Term::all();
-
-        return view('foradmin.mess.termdata',compact('data'));
+        return view('foradmin.mess.termdata', compact('data'));
 
     }
+
     public function showterms()
     {
 
         return view('foradmin.mess.termdata');
 
     }
+
     public function showtermdata()
     {
-        $users= DB::select('select * from terms');
+        $users = DB::select('select * from terms');
 
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
@@ -97,196 +98,202 @@ class MessController extends Controller
             })
             ->make(true);
     }
+
     public function destroyterm($id)
     {
-        $dataterm=Term::find($id);
-        $termno=$dataterm->termno;
+        $dataterm = Term::find($id);
+        $termno = $dataterm->termno;
         //$datamess=DB::table('messes')->where('termno','=',$termno)->get();
-        $datamess=DB::select('select * from messes where  termno = :termno', ['termno' => $termno]);
-        if($datamess!=null){
+        $datamess = DB::select('select * from messes where  termno = :termno', ['termno' => $termno]);
+        if ($datamess != null) {
             Session::flash('danger', 'The Term is not empty.');
             return redirect()->back();
         }
-        DB::table('termdues')->where('termno','=',$termno)->delete();
+        DB::table('termdues')->where('termno', '=', $termno)->delete();
         $dataterm->delete();
         return redirect()->route('admin.termdata');
     }
+
     public function editterm($id)
     {
-        $data=Term::find($id);
+        $data = Term::find($id);
 
-        return view('foradmin.mess.editterm',compact('data'));
+        return view('foradmin.mess.editterm', compact('data'));
     }
+
     public function perterm($id)
     {
-        $data=Term::find($id);
+        $data = Term::find($id);
 
-        return view('foradmin.mess.perterminfo',compact('data'));
+        return view('foradmin.mess.perterminfo', compact('data'));
     }
+
     public function openterm($id)
     {
-        $data=Term::find($id);
+        $data = Term::find($id);
 
-        return view('foradmin.mess.messpayment',compact('data'));
+        return view('foradmin.mess.messpayment', compact('data'));
     }
 
     public function indexmess($id)
     {
-        $datamess=Term::find($id);
-        return view('foradmin.mess.createmess',compact('datamess'));
+        $datamess = Term::find($id);
+        return view('foradmin.mess.createmess', compact('datamess'));
     }
-    public function messcreate(Request $request,$id)
+
+    public function messcreate(Request $request, $id)
     {
         $this->validate($request, [
             'messno' => 'required|numeric',
-            'startat' =>'required',
-            'finishat' =>'required',
+            'startat' => 'required',
+            'finishat' => 'required',
             'fine' => 'required|numeric',
             'messfee' => 'required|numeric'
-
 
 
         ]);
 
 
-
-        $termno=$id;
-        $messno=$request['messno'];
-        $startat=$request['startat'];
-        $finishat=$request['finishat'];
-        $vacstartat=$request['vacstartat'];
-        $vacfinishat=$request['vacfinishat'];
-        $fine=$request['fine'];
-        $messfee=$request['messfee'];
-        $extrafee=$request['extrafee'];
+        $termno = $id;
+        $messno = $request['messno'];
+        $startat = $request['startat'];
+        $finishat = $request['finishat'];
+        $vacnumber = $request['vacnumber'];
+        $fine = $request['fine'];
+        $messfee = $request['messfee'];
+        $extrafee = $request['extrafee'];
 
 
-        $results = DB::select('select * from messes where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+        $results = DB::select('select * from messes where messno = :messno and termno = :termno', ['messno' => $messno, 'termno' => $termno]);
 
-        if($results!=null){
+        if ($results != null) {
             Session::flash('danger', 'Duplicate Mess No in this term.');
             return redirect()->back()->withInput();
 
         }
 
-        $data=new Mess();
-        $data->messno=$messno;
-        $data->termno=$termno;
-        $data->startat=$startat;
-        $data->finishat=$finishat;
-        $data->fine=$fine;
-        $data->messfee=$messfee;
+        $data = new Mess();
+        $data->messno = $messno;
+        $data->termno = $termno;
+        $data->startat = $startat;
+        $data->finishat = $finishat;
+        $data->fine = $fine;
+        $data->messfee = $messfee;
 
-        if(strlen($vacstartat)){
-            $data->vacstartat=$vacstartat;
+        if (strlen($vacnumber)) {
+            $data->vacnumber = $vacnumber;
+        } else {
+            $vacnumber = null;
+            $data->vacnumber = $vacnumber;
         }
-        else{
-            $vacstartat=null;
-            $data->vacstartat=$vacstartat;
-        }
-        if(strlen($vacfinishat)){
-            $data->vacfinishat=$vacfinishat;
-        }
-        else{
-            $vacfinishat=null;
-            $data->vacfinishat=$vacfinishat;
-        }
-        if(strlen($extrafee)){
-            $data->extrafee=$extrafee;
-        }
-        else{
-            $extrafee=null;
-            $data->extrafee=$extrafee;
+        if (strlen($extrafee)) {
+            $data->extrafee = $extrafee;
+        } else {
+            $extrafee = null;
+            $data->extrafee = $extrafee;
         }
         $data->save();
-        $this->autopaymentcreate($termno,$messno);
+        $this->autopaymentcreate($termno, $messno);
         Session::flash('success', 'New Mess has been Created Successfully.');
 
 
+        $data = DB::select('select * from messes where  termno = :termno', ['termno' => $termno]);
 
-        $data=DB::select('select * from messes where  termno = :termno', ['termno' => $termno]);
-
-        return view('foradmin.mess.messdata',compact('data'));
+        return view('foradmin.mess.messdata', compact('data'));
 
     }
-    public function autopaymentcreate($termno,$messno){
-        $alldata=User::all();
 
-        foreach ($alldata as $data){
-            $payment=new Payment();
-            $payment->termno=$termno;
-            $payment->messno=$messno;
-            $payment->studentid=$data->studentid;
-            $payment->name=$data->name;
-            $payment->roomno=$data->roomno;
-            $payment->department=$data->department;
+    public function autopaymentcreate($termno, $messno)
+    {
+        $alldata = User::all();
+        $datamess = DB::select('select * from messes where  termno = :termno and messno = :messno', ['termno' => $termno, 'messno' => $messno]);
+        $finedate = date('Y-m-d', strtotime($datamess[0]->startat . ' + 7 days'));
+        foreach ($alldata as $data) {
+            $payment = new Payment();
+            $payment->termno = $termno;
+            $payment->messno = $messno;
+            $payment->studentid = $data->studentid;
+            $payment->finestartat = $finedate;
+            $payment->name = $data->name;
+            $payment->roomno = $data->roomno;
+            $payment->department = $data->department;
             $payment->save();
         }
     }
+
     public function openpayment($id)
     {
-        $mess=Mess::find($id);
-        $termno=$mess->termno;
-        $messno=$mess->messno;
-        $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
-        $data[0]->fine=$id;///big big big problem with bug here
-        return view('foradmin.mess.openpayment',compact('data'));
+        $mess = Mess::find($id);
+        $termno = $mess->termno;
+        $messno = $mess->messno;
+        $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno, 'termno' => $termno]);
+        $data[0]->fine = $id;///big big big problem with bug here
+        return view('foradmin.mess.openpayment', compact('data'));
         //return view('foradmin.mess.openpayment');
 
     }
+
     public function showpaymentdata($id)
     {
 
-        $mess=Mess::find($id);
-        $termno=$mess->termno;
-        $messno=$mess->messno;
-        $users = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+        $mess = Mess::find($id);
+        $termno = $mess->termno;
+        $messno = $mess->messno;
+        $users = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno, 'termno' => $termno]);
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
                 return "<a href='/admin/perpaymentinfo/$user->id' class='btn btn-xs btn-primary'></i><span class=\"glyphicon glyphicon-folder-open\"></span> OPEN</a>";
             })
             ->make(true);
     }
-    public function perpayment($id){
-        $data=Payment::find($id);
-        return view('foradmin.mess.perpaymentinfo',compact('data'));
+
+    public function perpayment($id)
+    {
+        $data = Payment::find($id);
+        return view('foradmin.mess.perpaymentinfo', compact('data'));
     }
 
     public function editpayment($id)
     {
-       $data=Payment::find($id);
-       return view('foradmin.mess.editpayment',compact('data'));
+        $data = Payment::find($id);
+        return view('foradmin.mess.editpayment', compact('data'));
 
     }
-    public function finepermess($id){
-        $mess=Payment::find($id);
-        $termno=$mess->termno;
-        $messno=$mess->messno;
-        $datapay = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
-        $datamess = DB::select('select * from messes where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
+
+    public function finepermess($id)
+    {
+        $mess = Payment::find($id);
+        $termno = $mess->termno;
+        $messno = $mess->messno;
+        $datapay = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno, 'termno' => $termno]);
+        $datamess = DB::select('select * from messes where messno = :messno and termno = :termno', ['messno' => $messno, 'termno' => $termno]);
 
 
-
-        foreach ($datapay as $pay){
-            foreach ($datamess as $datames){
-                if ($pay->remarks == null){
+        foreach ($datapay as $pay) {
+            foreach ($datamess as $datames) {
+                if ($pay->remarks == null) {
                     $startdate = strtotime($datames->startat);
                     $finishdate = strtotime($datames->finishat);
                     $datediff = $finishdate - $startdate;
-                    $days = floor($datediff / (60 * 60 * 24));
+                    $days = floor($datediff / (60 * 60 * 24))+1;
+                    if ($datames->vacnumber != null) {
+                        $days = $days - $datames->vacnumber;
+                    }
                     $fine = $days * $datames->fine;
-                    $fine=$fine+$datames->messfee+$datames->extrafee;
+                    $fine = $fine + $datames->messfee + $datames->extrafee;
 
                     $temp = Payment::find($pay->id);
 
                     $temp->due = $fine;
                     $temp->save();
-                }
-                else {
+                } else {
                     $startdate = strtotime($datames->startat);
                     $receivedate = strtotime($pay->receivedate);
                     $datediff = $receivedate - $startdate;
-                    $days = floor($datediff / (60 * 60 * 24));
+                    $days = floor($datediff / (60 * 60 * 24))+1;
+                    if ($datames->vacnumber != null) {
+                        $days = $days - $datames->vacnumber;
+                    }
                     $days = $days - 7;
                     if ($days < 0) {
                         $days = 0;
@@ -294,10 +301,10 @@ class MessController extends Controller
                     $fine = $datames->fine;
                     $fine = (int)$fine;
                     $fine = $days * $fine;
-                    if($fine>($datames->fine*30)){
-                        $fine=$datames->fine*30;
-                    }
-                    $fine=$fine+$datames->messfee+$datames->extrafee-$pay->fee;
+                    //if($fine>($datames->fine*30)){
+                    //    $fine=$datames->fine*30;
+                    //}
+                    $fine = $fine + $datames->messfee + $datames->extrafee - $pay->fee;
                     $temp = Payment::find($pay->id);
                     $temp->due = $fine;
                     $temp->save();
@@ -305,11 +312,12 @@ class MessController extends Controller
             }
 
         }
-        $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno,'termno' => $termno]);
-        $data[0]->fine=$datamess[0]->id;//this is done for remove error
+        $data = DB::select('select * from payments where messno = :messno and termno = :termno', ['messno' => $messno, 'termno' => $termno]);
+        $data[0]->fine = $datamess[0]->id;//this is done for remove error
         ////sending needed messid show datatable for accurate mess
-        return view('foradmin.mess.openpayment',compact('data'));
+        return view('foradmin.mess.openpayment', compact('data'));
     }
+
     public function showdueperterm($id)
     {
         $termdata=Term::find($id);
@@ -340,6 +348,8 @@ class MessController extends Controller
                     $data = new Termdue();
                     $data->termno = $termdata->termno;
                     $data->studentid = $student->studentid;
+                    $data->name=$student->name;
+                    $data->roomno=$student->roomno;
                     $data->totalmess = $i;
                     $data->due = $totaldue;
                     if($totaldue==0){
@@ -358,6 +368,8 @@ class MessController extends Controller
                         $data = new Termdue();
                         $data->termno = $termdata->termno;
                         $data->studentid = $student->studentid;
+                        $data->name=$student->name;
+                        $data->roomno=$student->roomno;
                         $data->totalmess = $i;
                         $data->due = $totaldue;
                         if($totaldue==0){
@@ -375,6 +387,8 @@ class MessController extends Controller
                             $data = Termdue::find($datastu->id);
                             $data->termno = $termdata->termno;
                             $data->studentid = $student->studentid;
+                            $data->name=$student->name;
+                            $data->roomno=$student->roomno;
                             $data->totalmess = $i;
                             $data->due = $totaldue;
                             if($totaldue==0){
@@ -408,6 +422,8 @@ class MessController extends Controller
             $student.= '<table>
             <tr>
                 <th>Student ID</th>
+                <th>Name</th>
+                <th>Room No</th>
                 <th>Total Mess</th>
                 <th>Due Payment</th>
                 <th>Remarks</th>
@@ -419,6 +435,8 @@ class MessController extends Controller
             $student.='
             <tr>
             <td>'.$data->studentid.'</td>
+            <td>'.$data->name.'</td>
+            <td>'.$data->roomno.'</td>
             <td>'.$data->totalmess.'</td>
             <td>'.$data->due.'</td>
             <td>'.$data->remarks.'</td>
@@ -517,7 +535,7 @@ class MessController extends Controller
 
         $dataterm=DB::table('terms')->where('termno','=',$termno)->get();
         $data->delete();
-        Session::flash('success', 'The room was successfully deleted.');
+        Session::flash('success', 'The mess was successfully deleted.');
 
         return redirect()->route('admin.messdata',$dataterm[0]->id);
     }
@@ -539,8 +557,7 @@ class MessController extends Controller
         $messno=$request['messno'];
         $startat=$request['startat'];
         $finishat=$request['finishat'];
-        $vacstartat=$request['vacstartat'];
-        $vacfinishat=$request['vacfinishat'];
+        $vacnumber=$request['vacnumber'];
         $fine=$request['fine'];
         $messfee=$request['messfee'];
         $extrafee=$request['extrafee'];
@@ -564,19 +581,12 @@ class MessController extends Controller
         $data->fine=$fine;
         $data->messfee=$messfee;
 
-        if(strlen($vacstartat)){
-            $data->vacstartat=$vacstartat;
+        if(strlen($vacnumber)){
+            $data->vacnumber=$vacnumber;
         }
         else{
-            $vacstartat=null;
-            $data->vacstartat=$vacstartat;
-        }
-        if(strlen($vacfinishat)){
-            $data->vacfinishat=$vacfinishat;
-        }
-        else{
-            $vacfinishat=null;
-            $data->vacfinishat=$vacfinishat;
+            $vacnumber=null;
+            $data->vacnumber=$vacnumber;
         }
         if(strlen($extrafee)){
             $data->extrafee=$extrafee;
@@ -647,7 +657,7 @@ class MessController extends Controller
     public function updateterm(Request $request, $id)
     {
         $this->validate($request, [
-            'termno' => ['required','numeric',Rule::unique('terms')->ignore($id)],
+            'termno' => ['required',Rule::unique('terms')->ignore($id)],
             'startat' =>'required',
 
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTermsTable extends Migration
+class CreateTermduesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateTermsTable extends Migration
      */
     public function up()
     {
-        Schema::create('terms', function (Blueprint $table) {
+        Schema::create('termdues', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('termno')->unique();
-            $table->date('startat');
-            $table->date('finishat')->nullable();
+            $table->string('termno');
+            $table->integer('studentid');
+            $table->string('name');
+            $table->string('roomno');
+            $table->integer('totalmess');
+            $table->integer('due');
+            $table->string('remarks');
             $table->timestamps();
         });
     }
@@ -29,6 +33,6 @@ class CreateTermsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('terms');
+        Schema::dropIfExists('termdues');
     }
 }

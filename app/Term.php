@@ -24,4 +24,13 @@ class Term extends Authenticatable
      * @var array
      */
 
+
+
+
+/**
+ * Reverse the migrations.
+ *
+ * @return void
+ */
+
 }

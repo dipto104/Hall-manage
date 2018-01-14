@@ -53,28 +53,15 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('vacstartat') ? ' has-error' : '' }}">
-                                <label for="vacstartat" class="col-md-4 control-label">Vacation Starts At</label>
+                            <div class="form-group{{ $errors->has('vacnumber') ? ' has-error' : '' }}">
+                                <label for="vacnumber" class="col-md-4 control-label">Number Of Vacation</label>
 
                                 <div class="col-md-6">
-                                    <input id="vacstartat" type="date" class="form-control" name="vacstartat" value="{{ old('vacstartat') }}" >
+                                    <input id="vacnumber" type="text" class="form-control" name="vacnumber" value="{{ old('vacnumber') }}" >
 
-                                    @if ($errors->has('vacstartat'))
+                                    @if ($errors->has('vacnumber'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('vacstartat') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group{{ $errors->has('vacfinishat') ? ' has-error' : '' }}">
-                                <label for="vacfinishat" class="col-md-4 control-label">Vacation Finish At</label>
-
-                                <div class="col-md-6">
-                                    <input id="vacfinishat" type="date" class="form-control" name="vacfinishat" value="{{ old('vacfinishat') }}">
-
-                                    @if ($errors->has('vacfinishat'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('vacfinishat') }}</strong>
+                                        <strong>{{ $errors->first('vacnumber') }}</strong>
                                     </span>
                                     @endif
                                 </div>

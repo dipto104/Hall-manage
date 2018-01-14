@@ -15,12 +15,11 @@ class CreateMessesTable extends Migration
     {
         Schema::create('messes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('termno');
+            $table->string('termno');
             $table->integer('messno');
             $table->date('startat');
             $table->date('finishat');
-            $table->date('vacstartat')->nullable();
-            $table->date('vacfinishat')->nullable();
+            $table->integer('vacnumber')->nullable();
             $table->integer('messfee');
             $table->integer('extrafee')->nullable();
             $table->integer('fine');
