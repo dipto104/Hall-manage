@@ -4,6 +4,7 @@
 @section('content')
     <div class="container">
         @include('includes.delconfirmstudent')
+        @include('includes.sturepassword ')
         <div class="row">
             <div class="col-md-8 ">
                 <div class="panel panel-default">
@@ -35,6 +36,15 @@
                         <button type="button" class="btn btn-danger btn-block col-sm-5" data-toggle="modal" data-target="#confirm">
                             Delete
                         </button>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-offset-3">
+                            <button type="button" class="btn btn-danger btn-block " data-toggle="modal" data-target="#reset">
+                                Reset Password
+                            </button>
+
+                        </div>
                     </div>
 
                 </div>

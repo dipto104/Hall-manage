@@ -290,5 +290,13 @@ class StudentdataController extends Controller
 
         return view('foradmin.studentdata',compact('data'));
     }
+    public function resetpassword($id)
+    {
+        $data=User::find($id);
+        $data->password=bcrypt($data->studentid);
+        $data->save();
+        Session::flash('success', 'Student Password Reset has successfully done.');
+        return redirect()->back();
+    }
 
 }

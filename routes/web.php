@@ -92,6 +92,7 @@ Route::prefix('admin')->group(function (){
     Route::post('/insertstudent','AdminController@insertstudent')->name('admin.insertstudent.submit');
     Route::post('/importstudent','StudentdataController@importstudent')->name('admin.importstudent');
     Route::get('/exportstudent','StudentdataController@exportstudent')->name('admin.exportstudent');
+    Route::get('/studentresetpassword/{id}','StudentdataController@resetpassword')->name('admin.sturespassword');
 
 
 
