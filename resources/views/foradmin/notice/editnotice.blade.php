@@ -7,7 +7,7 @@
                     <div class="panel-heading"> <h5>Edit Notice</h5></div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('admin.editnotice.submit',$data->id) }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('admin.editnotice.submit',$data->id) }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('noticename') ? ' has-error' : '' }}">
@@ -36,7 +36,35 @@
                                     @endif
                                 </div>
                             </div>
+                            @if($data->uniquefilename!=null)
+                                <p>Previous File Name : <a href="{{asset('storage/notices/')}}/{{$data->uniquefilename}}" download=""  class="nounderline"> {{$data->givenfilename}}</a></p>
+                                <hr>
+                                <button class="btn-secondary" onclick="return asd(1)">Keep previous file</button>
+                                <button class="btn-primary" onclick=" return asd(2)">Edit File Submission</button>
+                                <div class="form-group" id="asd">
+                                    <label for="upload_file" class="control-label col-sm-3">Upload File</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="file" name="upload_file" id="upload_file">
+                                        <span class="alert-danger">
+                                            <strong>{{ $errors->first('upload_file') }}</strong>
+                                        </span>
+                                    </div>
+                                </div>
+                            @else
+                                <button class="btn-secondary" onclick="return asd(1)">Hide</button>
+                                <button class="btn-primary" onclick=" return asd(2)">Insert New File</button>
+                                <div class="form-group" id="asd">
+                                    <label for="upload_file" class="control-label col-sm-3">Upload File</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="file" name="upload_file"  id="upload_file">
+                                        <span class="alert-danger">
+                                            <strong>{{ $errors->first('upload_file') }}</strong>
+                                        </span>
+                                    </div>
+                                </div>
+                            @endif
 
+                            <hr>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-success">
@@ -54,4 +82,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById("asd").style.display="none";
+        function asd(a)
+        {
+            if(a==1)
+                document.getElementById("asd").style.display="none";
+            else
+                document.getElementById("asd").style.display="block";
+            return false;
+        }
+    </script>
 @endsection

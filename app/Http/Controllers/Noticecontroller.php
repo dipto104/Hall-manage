@@ -111,10 +111,12 @@ class Noticecontroller extends Controller
         $this->validate($request, [
             'noticename' => 'required|',
             'noticebody' => 'required|',
+            'upload_file'   => 'mimes:doc,pdf,docx,zip',
         ]);
 
         $noticename = $request['noticename'];
         $noticebody = $request['noticebody'];
+
 
 
         $notice = Notice::find($id);
@@ -127,8 +129,38 @@ class Noticecontroller extends Controller
             Session::flash('danger', 'This Notice can be edited by only PROVOST SIR and Assitant PROVOST SIR.');
             return redirect()->back();
         }
-        $notice->noticename = $noticename;
-        $notice->noticebody = $noticebody;
+
+
+
+        if($request->hasFile('upload_file')){
+
+            if($notice->uniquefilename==null) {
+                $request->upload_file->store('public\notices');
+                $uniquefilename = $request->file('upload_file')->hashName();
+                $givenfilename = $request->upload_file->getClientOriginalName();
+
+                $notice->noticename = $noticename;
+                $notice->noticebody = $noticebody;
+                $notice->uniquefilename = $uniquefilename;
+                $notice->givenfilename = $givenfilename;
+            }
+            else if($notice->uniquefilename!=null){
+                Storage::delete("public/notices/$notice->uniquefilename");
+
+                $request->upload_file->store('public\notices');
+                $uniquefilename = $request->file('upload_file')->hashName();
+                $givenfilename = $request->upload_file->getClientOriginalName();
+
+                $notice->noticename = $noticename;
+                $notice->noticebody = $noticebody;
+                $notice->uniquefilename = $uniquefilename;
+                $notice->givenfilename = $givenfilename;
+            }
+        }
+        else{
+            $notice->noticename = $noticename;
+            $notice->noticebody = $noticebody;
+        }
         if (Auth::guard('provost')->check()) {
             $notice->noticeby = "PROVOST SIR";
         } else if (Auth::guard('asstprovost')->check()) {
@@ -152,6 +184,9 @@ class Noticecontroller extends Controller
         {
             Session::flash('danger', 'This Notice can be deleted by only PROVOST SIR and Assitant PROVOST SIR.');
             return redirect()->back();
+        }
+        if($notice->uniquefilename!=null){
+            Storage::delete("public/notices/$notice->uniquefilename");
         }
         $notice->delete();
         Session::flash('success', 'This Notice is successfully deleted.');

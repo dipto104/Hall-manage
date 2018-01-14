@@ -13,9 +13,12 @@
                             <li><p class="card-text">Notice Given By : {{$data->noticeby}}</p></li>
                         </ul>
                     </div>
-                    <div class="card-footer">
-                        <a href="#" download class="btn btn-primary">Download</a>
-                    </div>
+                    @if($data->uniquefilename!=null)
+                        <div class="card-footer">
+                                <p class="text-success">Download Here</p>
+                                <a href="{{asset('storage/notices/')}}/{{$data->uniquefilename}}" download=""  class="nounderline"> {{$data->givenfilename}}</a>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="col-md-4">
