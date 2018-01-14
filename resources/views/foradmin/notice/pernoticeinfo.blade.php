@@ -15,7 +15,7 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <a href='{{\Storage::url($data->uniquefilename)}}' download class="btn btn-primary">Download {{$data->givenfilename}}</a>
+                        <a href="{{asset('storage/notices/')}}/{{$data->uniquefilename}}" download="" class="btn btn-primary">Download {{$data->givenfilename}}</a>
                     </div>
                 </div>
             </div>
