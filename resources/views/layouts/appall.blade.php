@@ -193,7 +193,7 @@
                           Option
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-
+                          <a class="dropdown-item" href="{{ route('admin.changepassshow') }}">Change Password</a>
                           <a class="dropdown-item" href="{{ route('admin.logout') }}">Log Out</a>
                       </div>
                   </li>

@@ -163,7 +163,8 @@ Route::prefix('admin')->group(function (){
     Route::get('/deletenotice/{id}','Noticecontroller@destroy')->name('admin.deletenotice');
 
 
-
+    Route::get('/changepasswordshow', 'AdminController@resetpasswordshow')->name('admin.changepassshow');
+    Route::post('/changepassword', 'AdminController@resetpassword')->name('admin.changepass');
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
 
 
