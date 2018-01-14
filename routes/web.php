@@ -69,6 +69,8 @@ Route::prefix('provost')->group(function (){
 });
 Route::prefix('home')->group(function (){
     Route::get('/duestatus/{id}','HomeController@showduestatus')->name('student.duestatus');
+    Route::get('/changepasswordshow', 'HomeController@resetpasswordshow')->name('student.changepassshow');
+    Route::post('/changepassword', 'HomeController@resetpassword')->name('student.changepass');
     Route::get('/login','Auth\StudentLoginController@showloginform')->name('student.login');
     Route::post('/login','Auth\StudentLoginController@login')->name('student.login.submit');
     Route::get('/logout','Auth\StudentLoginController@studentlogout')->name('student.logout');

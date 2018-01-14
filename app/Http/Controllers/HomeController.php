@@ -11,6 +11,7 @@ use App\Termdue;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 
@@ -48,5 +49,34 @@ class HomeController extends Controller
         }
         $data=DB::select('select * from termdues where  studentid = :studentid', ['studentid' => $student->studentid]);
         return view('forstudent.duestatus',compact('data'));
+    }
+    public function resetpasswordshow()
+    {
+        return view('forstudent.passwordreset');
+    }
+    public function resetpassword(Request $request){
+        $id=Auth::user()->id;
+        $student= User::find($id);
+        $this->validate($request, [
+            'oldpass' => 'required|',
+            'password' => 'required|min:7|confirmed',
+        ]);
+
+        $oldpass=$request['oldpass'];
+        $newpass=$request['password'];
+        $variable=Hash::check($oldpass, $student->password);
+        if($variable==false){
+             Session::flash('danger', 'Old Password was incorrect.');
+             return redirect()->back();
+        }
+        else{
+            $student->password=bcrypt($newpass);
+            $student->save();
+
+            Session::flash('success', 'Password successfully updated.');
+            return redirect()->route('student.dashboard',$id);
+        }
+
+
     }
 }

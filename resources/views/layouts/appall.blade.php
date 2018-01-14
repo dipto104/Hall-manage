@@ -53,6 +53,7 @@
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
 
+                          <a class="dropdown-item" href="{{ route('student.changepassshow') }}">Change Password</a>
                           <a class="dropdown-item" href="{{ route('student.logout') }}">Log Out</a>
                       </div>
                   </li>
