@@ -5,21 +5,21 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"> Student Dashboard</div>
+                <div class="panel-heading"> <h4>{{$data->name}}'s Dashboard</h4></div>
 
                 <div class="panel-body">
-                    @component('component.who')
+                    <!--@component('component.who')
                     @endcomponent
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
-                    @endif
+                    @endif-->
 
-                            <div class="col-sm-6">
-                                <a href="{{route('student.duestatus',$data->id)}}" class="btn btn-primary btn-block"> Due Status</a>
-                            </div>
-
+                            <p class="lead">Name : {{ $data->name }}</p>
+                            <p class="lead">Student ID : {{ $data->studentid }}</p>
+                            <p class="lead">Department : {{ $data->department }}</p>
+                            <p class="lead">Room NO : {{ $data->roomno }}</p>
                 </div>
 
             </div>

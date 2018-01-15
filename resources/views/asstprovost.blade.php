@@ -5,17 +5,19 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Assistant Provost Dashboard</div>
+                    <div class="panel-heading"><h3>Assistant Provost Dashboard</h3></div>
 
                     <div class="panel-body">
+                    <!--@component('component.who')
+                    @endcomponent
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                                </div>
+                            @endif-->
 
-                        @component('component.who')
-                        @endcomponent
-                        @if (session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+                            <p class="lead">Name : {{ Auth::user()->name }}</p>
+                            <p class="lead">Post : Assistant Provost</p>
                     </div>
                 </div>
             </div>

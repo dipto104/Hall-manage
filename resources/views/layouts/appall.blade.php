@@ -49,6 +49,16 @@
                   </li>
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          {{Auth::user()->name}}
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+
+                          <a class="dropdown-item" href="{{ route('student.dashboard',Auth::user()->id) }}">View Profile</a>
+                          <a class="dropdown-item" href="{{ route('student.duestatus',Auth::user()->id) }}">Due Status</a>
+                      </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Option
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
@@ -186,7 +196,7 @@
                       <a class="nav-link" href="{{ route('admin.studentdata') }}">Student Data</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="{{ route('student.login') }}">Student Login</a>
+                      <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin</a>
                   </li>
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -46,16 +46,15 @@ class AdminController extends Controller
             'studentid' => 'required|numeric|unique:users',
             'department' => 'required|',
             'roomno' => 'required|numeric',
-            'userid' => 'required|min:7|numeric|unique:users',
-            'password' => 'required|min:7|confirmed'
+
         ]);
 
         $name=$request['name'];
         $studentid=$request['studentid'];
         $department=$request['department'];
         $roomno=$request['roomno'];
-        $userid=$request['userid'];
-        $password=bcrypt($request['password']);
+        $userid=$studentid;
+        $password=bcrypt($studentid);
         $reqroom = DB::select('select * from requestrooms where roomno = :roomno', ['roomno' => $roomno]);
         if($reqroom==null) {
             $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $roomno]);

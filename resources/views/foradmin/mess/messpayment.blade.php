@@ -14,10 +14,16 @@
                             <hr>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ route('admin.createmess',$data->termno) }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Create New Mess</a>
+                            <a href="{{ route('admin.createmess',$data->id) }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Create New Mess</a>
+                        </div>
+                        <div class="col-md-12">
+                            <hr>
                         </div>
                         <div class="col-md-4">
                             <a href="{{ route('admin.termduecal',$data->id) }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Calculate Due </a>
+                        </div>
+                        <div class="col-md-12">
+                            <hr>
                         </div>
                         <div class="col-md-4">
                             <a href="{{ route('admin.termdueshow',$data->id) }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Show Due List</a>
@@ -27,12 +33,6 @@
                         </div>
                         <div class="col-md-4">
                             <a href="{{ route('admin.messdata',$data->termno) }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Mess List Of This Term</a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="{{ route('admin.insertstudent') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Create New Mess</a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="{{ route('admin.insertstudent') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Create New Mess</a>
                         </div>
                     </div>
                 </div>

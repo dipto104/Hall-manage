@@ -152,9 +152,8 @@ class MessController extends Controller
 
 
         ]);
-
-
-        $termno = $id;
+        $termdata=Term::find($id);
+        $termno = $termdata->termno;
         $messno = $request['messno'];
         $startat = $request['startat'];
         $finishat = $request['finishat'];
