@@ -67,7 +67,6 @@ class StudentdataController extends Controller
             'studentid' => ['required','numeric',Rule::unique('users')->ignore($id)],
             'department' => 'required|',
             'roomno' => 'required|numeric',
-            'userid' => ['required','numeric',Rule::unique('users')->ignore($id)]
 
         ]);
 
@@ -110,7 +109,7 @@ class StudentdataController extends Controller
                     }
                 }
                 $student->roomno = $roomno;
-                $student->userid = $userid;
+                $student->userid = $studentid;
 
                 $student->save();
                 Session::flash('success', 'This data was successfully updated.');

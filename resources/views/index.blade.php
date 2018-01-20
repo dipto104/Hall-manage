@@ -221,22 +221,18 @@
           <!-- Slide One - Set the background image for this slide in the line below -->
           <div class="carousel-item active" style="background-image: url('/image/registerbuilding.jpg')">
             <div class="carousel-caption d-none d-md-block">
-              <h3>First Slide</h3>
-              <p>This is a description for the first slide.</p>
+
             </div>
           </div>
           <!-- Slide Two - Set the background image for this slide in the line below -->
           <div class="carousel-item" style="background-image: url('/image/Hall1.jpg')">
             <div class="carousel-caption d-none d-md-block">
-              <h3>Second Slide</h3>
-              <p>This is a description for the second slide.</p>
+
             </div>
           </div>
           <!-- Slide Three - Set the background image for this slide in the line below -->
           <div class="carousel-item" style="background-image: url('/image/CSEbuet.jpg')">
             <div class="carousel-caption d-none d-md-block">
-              <h3>Third Slide</h3>
-              <p>This is a description for the third slide.</p>
             </div>
           </div>
         </div>
@@ -262,7 +258,7 @@
           <div class="card h-100">
             <h4 class="card-header bg-dark text-white">About Hall</h4>
             <div class="card-body">
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+              <p class="card-text">Shere Bangla Hall is one of the best halls in buet which is best accomadtion for students..</p>
             </div>
             <div class="card-footer">
 
@@ -271,9 +267,9 @@
         </div>
         <div class="col-lg-4 mb-4">
           <div class="card h-100">
-            <h4 class="card-header bg-dark text-white">Card Title</h4>
+            <h4 class="card-header bg-dark text-white">About BUET</h4>
             <div class="card-body">
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ipsam eos, nam perspiciatis natus commodi similique totam consectetur praesentium molestiae atque exercitationem ut consequuntur, sed eveniet, magni nostrum sint fuga.</p>
+              <p class="card-text">BUET is one of the best universities of Bangladesh. It is located in the west palashi, Dhaka. </p>
             </div>
             <div class="card-footer">
 
@@ -282,9 +278,9 @@
         </div>
         <div class="col-lg-4 mb-4">
           <div class="card h-100">
-            <h4 class="card-header bg-dark text-white">Card Title</h4>
+            <h4 class="card-header bg-dark text-white">Life in BUET</h4>
             <div class="card-body">
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+              <p class="card-text">Here, Life is amusing. In spite of the academic hardship , Students enjoy themselves a lot . Various cultural program is held annually. </p>
             </div>
             <div class="card-footer">
 
@@ -309,10 +305,10 @@
             </li>
             <li>Notice Board is Digital Here</li>
             <li>Student Data and Room Data Will be authenticated by Provost Sir and Asst Provost Sir</li>
-            <li>Working contact form with validation</li>
-            <li>Unstyled page elements for easy customization</li>
+
+            <li>Admin can send request to asst prvost and provost sir</li>
           </ul>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
+
         </div>
         <div class="col-lg-6">
           <img class="img-fluid rounded" src="{{url('/image/hall3.jpg')}}" alt="">
@@ -325,10 +321,10 @@
       <!-- Call to Action Section -->
       <div class="row mb-4">
         <div class="col-md-8">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, expedita, saepe, vero rerum deleniti beatae veniam harum neque nemo praesentium cum alias asperiores commodi.</p>
+
         </div>
         <div class="col-md-4">
-          <a class="btn btn-lg btn-secondary btn-block" href="#">Call to Action</a>
+
         </div>
       </div>
 

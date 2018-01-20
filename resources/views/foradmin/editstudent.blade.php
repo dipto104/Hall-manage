@@ -64,19 +64,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group{{ $errors->has('userid') ? ' has-error' : '' }}">
-                                <label for="userid" class="col-md-4 control-label">User ID</label>
 
-                                <div class="col-md-6">
-                                    <input id="userid" type="text" class="form-control" name="userid" value="{{ $data->userid}}" required>
-
-                                    @if ($errors->has('userid'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('userid') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
 
 
 
