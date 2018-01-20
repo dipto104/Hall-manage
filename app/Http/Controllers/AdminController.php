@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Alluser;
 use App\User;
 use App\Room;
 use App\Admin;
@@ -78,6 +79,12 @@ class AdminController extends Controller
             $student->userid = $userid;
             $student->password = $password;
 
+
+            $alluser = new Alluser();
+            $alluser->userid = $userid;
+            $alluser->password = $password;
+            $alluser->guard='web';
+            $alluser->save();
 
             if (!Auth::guard('provost')->check()) {
                 $requeststudent = new Requeststudent();

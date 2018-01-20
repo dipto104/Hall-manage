@@ -56,12 +56,18 @@ class Alllogincontroller extends Controller
             }
             else if($data[0]->guard=='provost') {
                 if (Auth::guard('provost')->attempt(['userid' => $request['userid'], 'password' => $request['password']], $request->remember)) {
+                    $data= DB::select('select * from admins');
+                    $admin=Admin::find($data[0]->id);
+                    Auth::guard('admin')->login($admin);
                     return redirect()->route('provost.dashboard');
                 }
                 Session::flash('danger', 'User ID or Password is incorrect.');
             }
             else if($data[0]->guard=='asstprovost') {
                 if (Auth::guard('asstprovost')->attempt(['userid' => $request['userid'], 'password' => $request['password']], $request->remember)) {
+                    $data= DB::select('select * from admins');
+                    $admin=Admin::find($data[0]->id);
+                    Auth::guard('admin')->login($admin);
                     return redirect()->route('asstprovost.dashboard');
                 }
                 Session::flash('danger', 'User ID or Password is incorrect.');
@@ -82,17 +88,19 @@ class Alllogincontroller extends Controller
     }
     public function logout()
     {
-        if( Auth::guard('admin')->check()){
-            Auth::guard('admin')->logout();
-        }
-       elseif (Auth::guard('web')->check()){
-           Auth::guard('web')->logout();
-       }
-        elseif (Auth::guard('provost')->check()){
+        if (Auth::guard('provost')->check()){
             Auth::guard('provost')->logout();
+            Auth::guard('admin')->logout();
         }
         elseif (Auth::guard('asstprovost')->check()){
             Auth::guard('asstprovost')->logout();
+            Auth::guard('admin')->logout();
+        }
+        elseif( Auth::guard('admin')->check()){
+            Auth::guard('admin')->logout();
+        }
+        elseif (Auth::guard('web')->check()){
+            Auth::guard('web')->logout();
         }
         return redirect('/');
     }
