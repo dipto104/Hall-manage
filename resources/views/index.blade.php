@@ -50,7 +50,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
 
                   <a class="dropdown-item" href="{{ route('student.changepassshow') }}">Change Password</a>
-                  <a class="dropdown-item" href="{{ route('student.logout') }}">Log Out</a>
+                  <a class="dropdown-item" href="{{ route('all.logout') }}">Log Out</a>
                 </div>
               </li>
             @elseif (Auth::guard('asstprovost')->check())
@@ -100,7 +100,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
                   <a class="dropdown-item" href="{{ route('asstprovost.changepassshow') }}">Change Password</a>
-                  <a class="dropdown-item" href="{{ route('asstprovost.logout') }}">Log Out</a>
+                  <a class="dropdown-item" href="{{ route('all.logout') }}">Log Out</a>
                 </div>
               </li>
             @elseif (Auth::guard('provost')->check())
@@ -150,7 +150,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
                   <a class="dropdown-item" href="{{ route('provost.changepassshow') }}">Change Password</a>
-                  <a class="dropdown-item" href="{{ route('provost.logout') }}">Log Out</a>
+                  <a class="dropdown-item" href="{{ route('all.logout') }}">Log Out</a>
                 </div>
               </li>
             @elseif(Auth::guard('admin')->check())
@@ -190,7 +190,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
                   <a class="dropdown-item" href="{{ route('admin.changepassshow') }}">Change Password</a>
-                  <a class="dropdown-item" href="{{ route('admin.logout') }}">Log Out</a>
+                  <a class="dropdown-item" href="{{ route('all.logout') }}">Log Out</a>
                 </div>
               </li>
 
@@ -199,10 +199,7 @@
                 <a class="nav-link" href="{{ route('publicnotice') }}">Notice</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('student.login') }}">Student Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.login') }}">Admin Login</a>
+                <a class="nav-link" href="{{ route('all.login') }}">Login</a>
               </li>
             @endif
           </ul>

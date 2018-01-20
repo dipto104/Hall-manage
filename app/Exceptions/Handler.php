@@ -5,7 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-
+use Auth;
 class Handler extends ExceptionHandler
 {
     /**
@@ -60,21 +60,38 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
         $guard = array_get($exception->guards(),0);
-
-        switch ($guard){
-            case 'admin':
-                $login='admin.login';
-                break;
-            case 'provost':
-                $login='provost.login';
-                break;
-            case 'asstprovost':
-                $login='asstprovost.login';
-                break;
-            default:
-                $login='student.login';
-                break;
+        /*if(!Auth::check()) {
+            switch ($guard) {
+                case 'admin':
+                    $login = 'all.login';
+                    break;
+                case 'provost':
+                    $login = 'all.login';
+                    break;
+                case 'asstprovost':
+                    $login = 'all.login';
+                    break;
+                default:
+                    $login = 'all.login';
+                    break;
+            }
         }
-        return redirect()->guest(route($login));
+        else{
+            return redirect()->back();
+        }
+        return redirect()->guest(route($login));*/
+        if(Auth::guard('admin')->check()){
+            return redirect()->back();
+        }
+        elseif (Auth::guard('web')->check()){
+            return redirect()->back();
+        }
+        elseif (Auth::guard('provost')->check()){
+            return redirect()->back();
+        }
+        elseif (Auth::guard('asstprovost')->check()){
+            return redirect()->back();
+        }
+        return redirect()->guest(route('all.login'));
     }
 }

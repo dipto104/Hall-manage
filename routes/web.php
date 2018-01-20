@@ -10,15 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('index');
 });
 
 Auth::routes();
 Route::prefix('asstprovost')->group(function (){
-    Route::get('/login','Auth\AsstprovostLoginController@showloginform')->name('asstprovost.login');
-    Route::post('/login','Auth\AsstprovostLoginController@login')->name('asstprovost.login.submit');
     Route::get('/logout','Auth\AsstprovostLoginController@asstprovostlogout')->name('asstprovost.logout');
     Route::get('/changepasswordshow', 'AsstprovostController@resetpasswordshow')->name('asstprovost.changepassshow');
     Route::post('/changepassword', 'AsstprovostController@resetpassword')->name('asstprovost.changepass');
@@ -47,8 +45,6 @@ Route::prefix('asstprovost')->group(function (){
 
 });
 Route::prefix('provost')->group(function (){
-    Route::get('/login','Auth\ProvostLoginController@showloginform')->name('provost.login');
-    Route::post('/login','Auth\ProvostLoginController@login')->name('provost.login.submit');
     Route::get('/logout','Auth\ProvostLoginController@provostlogout')->name('provost.logout');
 
     Route::get('/changepasswordshow', 'ProvostController@resetpasswordshow')->name('provost.changepassshow');
@@ -79,14 +75,10 @@ Route::prefix('home')->group(function (){
     Route::get('/duestatus/{id}','HomeController@showduestatus')->name('student.duestatus');
     Route::get('/changepasswordshow', 'HomeController@resetpasswordshow')->name('student.changepassshow');
     Route::post('/changepassword', 'HomeController@resetpassword')->name('student.changepass');
-    Route::get('/login','Auth\StudentLoginController@showloginform')->name('student.login');
-    Route::post('/login','Auth\StudentLoginController@login')->name('student.login.submit');
     Route::get('/logout','Auth\StudentLoginController@studentlogout')->name('student.logout');
     Route::get('/{id}', 'HomeController@index')->name('student.dashboard');
 });
 Route::prefix('admin')->group(function (){
-    Route::get('/login','Auth\AdminLoginController@showloginform')->name('admin.login');
-    Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('/logout','Auth\AdminLoginController@adminlogout')->name('admin.logout');
 
 
@@ -180,3 +172,13 @@ Route::prefix('admin')->group(function (){
 
 Route::get('/publicnotice/show','Publicnoticecontroller@publicnotice')->name('publicnotice');
 Route::get('/perpublicnotice/{id}','Publicnoticecontroller@perpublicnotice')->name('perpublicnotice');
+
+
+Route::prefix('all')->group(function () {
+    if(Auth::guard('admin')->check()){
+        return redirect()->back();
+    }
+    Route::get('/login', 'Auth\Alllogincontroller@showloginform')->name('all.login');
+    Route::post('/login', 'Auth\Alllogincontroller@login')->name('all.login.submit');
+    Route::get('/logout', 'Auth\Alllogincontroller@logout')->name('all.logout');
+});
