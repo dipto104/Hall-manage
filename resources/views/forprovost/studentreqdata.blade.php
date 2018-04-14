@@ -12,7 +12,7 @@
             <hr>
         </div>
         <div class="col-md-2">
-            <a href="{{ route('provost.studentinsertallow') }}" class="btn btn-lg btn-block btn-success btn-h1-spacing">Accept All</a>
+            <a href="{{ route('provost.studentinsertallowall') }}" class="btn btn-lg btn-block btn-success btn-h1-spacing">Accept All</a>
         </div>
         <div class="col-md-4">
             <button type="button" class="btn btn-lg btn btn-danger btn-block col-sm-5" data-toggle="modal" data-target="#confirm">

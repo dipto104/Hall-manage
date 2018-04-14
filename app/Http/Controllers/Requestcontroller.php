@@ -45,7 +45,9 @@ class Requestcontroller extends Controller
     }
     public function studentinsertreject($id){
         $data=Requeststudent::find($id);
+        DB::table('allusers')->where('userid','=',$data->studentid)->delete();
         DB::table('users')->where('studentid','=',$data->studentid)->delete();
+
 
         $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $data->roomno]);
         $room=Room::find($dataroom[0]->id);
@@ -68,8 +70,8 @@ class Requestcontroller extends Controller
     public function studentinsertrejectall(){
         $data=Requeststudent::all();
         foreach ($data as $singledata){
+            DB::table('allusers')->where('userid','=',$singledata->studentid)->delete();
             DB::table('users')->where('studentid','=',$singledata->studentid)->delete();
-
             $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $singledata->roomno]);
             $room=Room::find($dataroom[0]->id);
             $room->occupy=$room->occupy-1;
@@ -101,6 +103,7 @@ class Requestcontroller extends Controller
     }
     public function studentdeleteallow($id){
         $data=Requeststudent::find($id);
+        DB::table('allusers')->where('userid','=',$data->studentid)->delete();
         DB::table('users')->where('studentid','=',$data->studentid)->delete();
 
 
@@ -123,6 +126,7 @@ class Requestcontroller extends Controller
     public function studentdeleteallowall(){
         $datas=Requeststudent::all();
         foreach ($datas as $data) {
+            DB::table('allusers')->where('userid','=',$data->studentid)->delete();
             DB::table('users')->where('studentid', '=', $data->studentid)->delete();
 
 

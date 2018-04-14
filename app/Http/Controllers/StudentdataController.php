@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Room;
+use App\Alluser;
 use App\Requeststudent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -106,12 +107,21 @@ class StudentdataController extends Controller
                         $data = Room::find($dataroom[0]->id);
                         $data->occupy = $data->occupy - 1;
                         $data->save();
+
                     }
                 }
                 $student->roomno = $roomno;
                 $student->userid = $studentid;
 
                 $student->save();
+
+
+                $dataall= DB::select('select * from allusers where userid = :userid ', ['userid' =>  $request['userid'] ]);
+                $dataalluser=Alluser::find($dataall[0]->id);
+                $dataalluser->userid=$studentid;
+                $dataalluser->save();
+
+
                 Session::flash('success', 'This data was successfully updated.');
             } else {
                 Session::flash('danger', 'The Student data cant be edited now.');
@@ -174,6 +184,12 @@ class StudentdataController extends Controller
                     $student->userid = $userid;
                     $student->password = $password;
 
+
+                    $alluser = new Alluser();
+                    $alluser->userid = $userid;
+                    $alluser->password = $password;
+                    $alluser->guard='web';
+
                     if (!Auth::guard('provost')->check()) {
                         $requeststudent = new Requeststudent();
                         $requeststudent->name = $name;
@@ -185,10 +201,12 @@ class StudentdataController extends Controller
 
                         $student->save();
                         $requeststudent->save();
+                        $alluser->save();
                         Session::flash('success', 'All The INSERT request is sent to Provost Sir.');
 
-                    } else {
+                    }else {
                         $student->save();
+                        $alluser->save();
                         Session::flash('success', 'All students data were successfully saved.');
                     }
                 }
@@ -235,7 +253,7 @@ class StudentdataController extends Controller
             <td>'.$data->department.'</td>
             <td>'.$data->roomno.'</td>
             </tr>';
-      
+
         }
         $student.='</table>';
         header('Content_Type: application/xls');
@@ -270,7 +288,7 @@ class StudentdataController extends Controller
             $room->save();
             //room data upadting end
 
-
+            DB::table('allusers')->where('userid', '=', $data->studentid)->delete();
             $data->delete();
             Session::flash('success', 'This Data is successfully deleted.');
 
