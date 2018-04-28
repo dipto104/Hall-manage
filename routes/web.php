@@ -98,6 +98,10 @@ Route::prefix('admin')->group(function (){
 
 
 
+    Route::get('/insertattachedstudent','AdminController@showinsertstudent')->name('admin.insertstudent');
+    Route::post('/insertattachedstudent','AdminController@insertstudent')->name('admin.insertstudent.submit');
+
+
 
     Route::get('/messdata/{id}','MessController@showmess')->name('admin.messdata');
     Route::get('/messdatashow/{id}','MessController@showmessdata')->name('admin.messdatashow');
