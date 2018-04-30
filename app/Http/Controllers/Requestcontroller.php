@@ -45,14 +45,22 @@ class Requestcontroller extends Controller
     }
     public function studentinsertreject($id){
         $data=Requeststudent::find($id);
-        DB::table('allusers')->where('userid','=',$data->studentid)->delete();
-        DB::table('users')->where('studentid','=',$data->studentid)->delete();
+        if($data->requesttype=="RESIDENT"){
+            DB::table('allusers')->where('userid','=',$data->studentid)->delete();
+            DB::table('users')->where('studentid','=',$data->studentid)->delete();
+
+            $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $data->roomno]);
+            $room=Room::find($dataroom[0]->id);
+            $room->occupy=$room->occupy-1;
+            $room->save();
+        }
+        else if($data->requesttype=="ATTACHED"){
+            DB::table('attachedstudents')->where('studentid','=',$data->studentid)->delete();
+
+        }
 
 
-        $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $data->roomno]);
-        $room=Room::find($dataroom[0]->id);
-        $room->occupy=$room->occupy-1;
-        $room->save();
+
 
         $data->delete();
         Session::flash('success', 'This Request is rejected.');
@@ -61,7 +69,9 @@ class Requestcontroller extends Controller
     public function studentinsertallowall(){
         $data=Requeststudent::all();
         foreach ($data as $singledata){
-            $singledata->delete();
+            if($singledata->requesttype=="INSERT") {
+                $singledata->delete();
+            }
         }
 
         Session::flash('success', 'All Srudent_Insert Request is accpted.');
@@ -70,13 +80,21 @@ class Requestcontroller extends Controller
     public function studentinsertrejectall(){
         $data=Requeststudent::all();
         foreach ($data as $singledata){
-            DB::table('allusers')->where('userid','=',$singledata->studentid)->delete();
-            DB::table('users')->where('studentid','=',$singledata->studentid)->delete();
-            $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $singledata->roomno]);
-            $room=Room::find($dataroom[0]->id);
-            $room->occupy=$room->occupy-1;
-            $room->save();
-            $singledata->delete();
+            if($singledata->requesttype=="INSERT") {
+                if($singledata->requesttype=="RESIDENT") {
+                    DB::table('allusers')->where('userid', '=', $singledata->studentid)->delete();
+                    DB::table('users')->where('studentid', '=', $singledata->studentid)->delete();
+                    $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $singledata->roomno]);
+                    $room = Room::find($dataroom[0]->id);
+                    $room->occupy = $room->occupy - 1;
+                    $room->save();
+
+                }
+                else if($singledata->requesttype=="ATTACHED"){
+                    DB::table('attachedstudents')->where('studentid','=',$singledata->studentid)->delete();
+                }
+                $singledata->delete();
+            }
         }
         Session::flash('success', 'ALL the Request is rejected.');
         return redirect()->route('provost.studentreqinsertshow');
@@ -103,14 +121,20 @@ class Requestcontroller extends Controller
     }
     public function studentdeleteallow($id){
         $data=Requeststudent::find($id);
-        DB::table('allusers')->where('userid','=',$data->studentid)->delete();
-        DB::table('users')->where('studentid','=',$data->studentid)->delete();
+        if($data->requesttype=="RESIDENT") {
+            DB::table('allusers')->where('userid', '=', $data->studentid)->delete();
+            DB::table('users')->where('studentid', '=', $data->studentid)->delete();
 
 
-        $dataroom=DB::select('select * from rooms where roomno = :roomno',['roomno' => $data->roomno]);
-        $room=Room::find($dataroom[0]->id);
-        $room->occupy=$room->occupy-1;
-        $room->save();
+            $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $data->roomno]);
+            $room = Room::find($dataroom[0]->id);
+            $room->occupy = $room->occupy - 1;
+            $room->save();
+        }
+        else if($data->requesttype=="ATTACHED"){
+            DB::table('attachedstudents')->where('studentid','=',$data->studentid)->delete();
+
+        }
 
 
         $data->delete();
@@ -126,17 +150,24 @@ class Requestcontroller extends Controller
     public function studentdeleteallowall(){
         $datas=Requeststudent::all();
         foreach ($datas as $data) {
-            DB::table('allusers')->where('userid','=',$data->studentid)->delete();
-            DB::table('users')->where('studentid', '=', $data->studentid)->delete();
+            if($data->requesttype=="DELETE") {
+                if ($data->requesttype == "RESIDENT") {
+                    DB::table('allusers')->where('userid', '=', $data->studentid)->delete();
+                    DB::table('users')->where('studentid', '=', $data->studentid)->delete();
 
 
-            $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $data->roomno]);
-            $room = Room::find($dataroom[0]->id);
-            $room->occupy = $room->occupy - 1;
-            $room->save();
+                    $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $data->roomno]);
+                    $room = Room::find($dataroom[0]->id);
+                    $room->occupy = $room->occupy - 1;
+                    $room->save();
+                } else if ($data->requesttype == "ATTACHED") {
+                    DB::table('attachedstudents')->where('studentid', '=', $singledata->studentid)->delete();
+                }
+                $data->delete();
+            }
 
 
-            $data->delete();
+
         }
         Session::flash('success', 'All Srudent_delete Request are accpted.');
         return redirect()->route('provost.studentreqdeleteshow');
@@ -144,7 +175,9 @@ class Requestcontroller extends Controller
     public function studentdeleterejectall(){
         $data=Requeststudent::all();
         foreach ($data as $singledata) {
-            $singledata->delete();
+            if($singledata->requesttype=="DELETE") {
+                $singledata->delete();
+            }
         }
         Session::flash('success', 'All The Request are rejected.');
         return redirect()->route('provost.studentreqdeleteshow');

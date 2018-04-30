@@ -155,64 +155,69 @@ class StudentdataController extends Controller
                 $roomno=$data[3];
                 $userid=$studentid;
                 $password=bcrypt($studentid);
+                $reqstudent = DB::select('select * from requeststudents where studentid = :studentid', ['studentid' => $studentid]);
 
                 $reqroom = DB::select('select * from requestrooms where roomno = :roomno', ['roomno' => $roomno]);
-                if($reqroom==null) {
-                    $datastudent = DB::select('select * from users where studentid = :studentid', ['studentid' => $studentid]);
-                    if ($datastudent != null) {
-                        Session::flash('danger', "Duplicate student id No : $studentid");
-                        return redirect()->back();
-                    }
-                    $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $roomno]);
-                    if ($dataroom == null) {
-                        Session::flash('danger', "Room number is not available for student id : $studentid");
-                        return redirect()->back();
-                    } else {
-                        if ($dataroom[0]->occupy == $dataroom[0]->capacity) {
-                            Session::flash('danger', "No Sit is available in Room No : $roomno for student id : $studentid");
+                if($reqstudent==null) {
+                    if ($reqroom == null) {
+                        $datastudent = DB::select('select * from users where studentid = :studentid', ['studentid' => $studentid]);
+                        if ($datastudent != null) {
+                            Session::flash('danger', "Duplicate student id No : $studentid");
                             return redirect()->back();
                         }
-                        $data = Room::find($dataroom[0]->id);
-                        $data->occupy = $data->occupy + 1;
-                        $data->save();
+                        $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $roomno]);
+                        if ($dataroom == null) {
+                            Session::flash('danger', "Room number is not available for student id : $studentid");
+                            return redirect()->back();
+                        } else {
+                            if ($dataroom[0]->occupy == $dataroom[0]->capacity) {
+                                Session::flash('danger', "No Sit is available in Room No : $roomno for student id : $studentid");
+                                return redirect()->back();
+                            }
+                            $data = Room::find($dataroom[0]->id);
+                            $data->occupy = $data->occupy + 1;
+                            $data->save();
+                        }
+                        $student = new User();
+                        $student->name = $name;
+                        $student->studentid = $studentid;
+                        $student->department = $department;
+                        $student->roomno = $roomno;
+                        $student->userid = $userid;
+                        $student->password = $password;
+
+
+                        $alluser = new Alluser();
+                        $alluser->userid = $userid;
+                        $alluser->password = $password;
+                        $alluser->guard = 'web';
+
+                        if (!Auth::guard('provost')->check()) {
+                            $requeststudent = new Requeststudent();
+                            $requeststudent->name = $name;
+                            $requeststudent->studentid = $studentid;
+                            $requeststudent->department = $department;
+                            $requeststudent->roomno = $roomno;
+                            $requeststudent->studenttype = "RESEDENT";
+                            $requeststudent->requesttype = "INSERT";
+
+                            $student->save();
+                            $requeststudent->save();
+                            $alluser->save();
+                            Session::flash('success', 'All The INSERT request is sent to Provost Sir.');
+
+                        } else {
+                            $student->save();
+                            $alluser->save();
+                            Session::flash('success', 'All students data were successfully saved.');
+                        }
+                    } else {
+                        Session::flash('danger', " Room No :$roomno is not verified yet by the Asst. Provost.");
+                        return redirect()->back();
                     }
-                    $student = new User();
-                    $student->name = $name;
-                    $student->studentid = $studentid;
-                    $student->department = $department;
-                    $student->roomno = $roomno;
-                    $student->userid = $userid;
-                    $student->password = $password;
+                }else{
+                    Session::flash('danger', 'The Previous request is in process please wait.');
 
-
-                    $alluser = new Alluser();
-                    $alluser->userid = $userid;
-                    $alluser->password = $password;
-                    $alluser->guard='web';
-
-                    if (!Auth::guard('provost')->check()) {
-                        $requeststudent = new Requeststudent();
-                        $requeststudent->name = $name;
-                        $requeststudent->studentid = $studentid;
-                        $requeststudent->department = $department;
-                        $requeststudent->roomno = $roomno;
-                        $requeststudent->studenttype = "RESEDENT";
-                        $requeststudent->requesttype = "INSERT";
-
-                        $student->save();
-                        $requeststudent->save();
-                        $alluser->save();
-                        Session::flash('success', 'All The INSERT request is sent to Provost Sir.');
-
-                    }else {
-                        $student->save();
-                        $alluser->save();
-                        Session::flash('success', 'All students data were successfully saved.');
-                    }
-                }
-                else{
-                    Session::flash('danger', " Room No :$roomno is not verified yet by the Asst. Provost.");
-                    return redirect()->back();
                 }
 
 
