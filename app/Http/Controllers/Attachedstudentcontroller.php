@@ -6,16 +6,16 @@ use Illuminate\Http\Request;
 use App\Attachedstudent;
 use App\Requeststudent;
 use Session;
+use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class Attachedstudentcontroller extends Controller
 {
     //
     public function showinsertattached()
     {
-        return view('foradmin.insertstudent');
+        return view('foradmin.insertattachedstudent');
     }
 
     public function insertattached(Request $request)
@@ -60,13 +60,30 @@ class Attachedstudentcontroller extends Controller
                 //return view('foradmin.studentdata', compact('data'));
             } else {
                 Session::flash('danger', 'The Previous request is in process please wait.');
+                return redirect()->back()->withInput();
             }
         }
         else{
             Session::flash('danger', 'The student is allready an resident student.');
+            return redirect()->back()->withInput();
         }
 
 
 
+    }
+    public function showattachedIndex()
+    {
+        return view('foradmin.attachedstudent');
+    }
+    public function attachedstudent()
+    {
+        //$users = User::select(['id', 'name', 'studentid', 'created_at']);
+        $users= DB::select('select * from attachedstudents');
+
+        return Datatables::of($users)
+            ->addColumn('action', function ($user) {
+                return "<a href='/admin/perstudentinfo/$user->id' class='btn btn-xs btn-primary'></i> OPEN</a>";
+            })
+            ->make(true);
     }
 }

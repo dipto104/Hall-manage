@@ -8,7 +8,7 @@
                 <div class="panel-heading">Insert New Student</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('admin.insertstudent.submit') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('admin.insertattached.submit') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -18,7 +18,7 @@
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
 
                                 @if ($errors->has('name'))
-                                    <span class="help-block">
+                                    <span class="alert-danger">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
@@ -31,7 +31,7 @@
                                 <input id="studentid" type="text" class="form-control" name="studentid" value="{{ old('studentid') }}" required autofocus>
 
                                 @if ($errors->has('studentid'))
-                                    <span class="help-block">
+                                    <span class="alert-danger">
                                         <strong>{{ $errors->first('studentid') }}</strong>
                                     </span>
                                 @endif
@@ -45,7 +45,7 @@
                                 <input id="department" type="text" class="form-control" name="department" value="{{ old('department') }}" required>
 
                                 @if ($errors->has('department'))
-                                    <span class="help-block">
+                                    <span class="alert-danger">
                                         <strong>{{ $errors->first('department') }}</strong>
                                     </span>
                                 @endif
