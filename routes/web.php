@@ -104,6 +104,10 @@ Route::prefix('admin')->group(function (){
     Route::post('/insertattached','Attachedstudentcontroller@insertattached')->name('admin.insertattached.submit');
     Route::get('/attacheddata','Attachedstudentcontroller@showattachedIndex')->name('admin.attacheddata');
     Route::get('/attacheddatashow','Attachedstudentcontroller@attachedstudent')->name('admin.attacheddatashow');
+    Route::get('/perattachedinfo/{id}','Attachedstudentcontroller@show')->name('admin.perattached');
+    Route::get('/editattached/{id}','Attachedstudentcontroller@edit')->name('admin.editattached');
+    //Route::get('/deletestudent/{id}','StudentdataController@destroy')->name('admin.deletestudent');
+    Route::post('/updateattached/{id}','Attachedstudentcontroller@update')->name('admin.updateattached');
 
 
 
