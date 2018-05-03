@@ -45,7 +45,7 @@ class Requestcontroller extends Controller
     }
     public function studentinsertreject($id){
         $data=Requeststudent::find($id);
-        if($data->requesttype=="RESIDENT"){
+        if($data->studenttype=="RESIDENT"){
             DB::table('allusers')->where('userid','=',$data->studentid)->delete();
             DB::table('users')->where('studentid','=',$data->studentid)->delete();
 
@@ -54,7 +54,7 @@ class Requestcontroller extends Controller
             $room->occupy=$room->occupy-1;
             $room->save();
         }
-        else if($data->requesttype=="ATTACHED"){
+        else if($data->studenttype=="ATTACHED"){
             DB::table('attachedstudents')->where('studentid','=',$data->studentid)->delete();
 
         }
@@ -81,7 +81,7 @@ class Requestcontroller extends Controller
         $data=Requeststudent::all();
         foreach ($data as $singledata){
             if($singledata->requesttype=="INSERT") {
-                if($singledata->requesttype=="RESIDENT") {
+                if($singledata->studenttype=="RESIDENT") {
                     DB::table('allusers')->where('userid', '=', $singledata->studentid)->delete();
                     DB::table('users')->where('studentid', '=', $singledata->studentid)->delete();
                     $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $singledata->roomno]);
@@ -90,7 +90,7 @@ class Requestcontroller extends Controller
                     $room->save();
 
                 }
-                else if($singledata->requesttype=="ATTACHED"){
+                else if($singledata->studenttype=="ATTACHED"){
                     DB::table('attachedstudents')->where('studentid','=',$singledata->studentid)->delete();
                 }
                 $singledata->delete();
@@ -121,7 +121,7 @@ class Requestcontroller extends Controller
     }
     public function studentdeleteallow($id){
         $data=Requeststudent::find($id);
-        if($data->requesttype=="RESIDENT") {
+        if($data->studenttype=="RESIDENT") {
             DB::table('allusers')->where('userid', '=', $data->studentid)->delete();
             DB::table('users')->where('studentid', '=', $data->studentid)->delete();
 
@@ -131,7 +131,7 @@ class Requestcontroller extends Controller
             $room->occupy = $room->occupy - 1;
             $room->save();
         }
-        else if($data->requesttype=="ATTACHED"){
+        else if($data->studenttype=="ATTACHED"){
             DB::table('attachedstudents')->where('studentid','=',$data->studentid)->delete();
 
         }
@@ -150,8 +150,8 @@ class Requestcontroller extends Controller
     public function studentdeleteallowall(){
         $datas=Requeststudent::all();
         foreach ($datas as $data) {
-            if($data->requesttype=="DELETE") {
-                if ($data->requesttype == "RESIDENT") {
+            if(!strcmp($data->requesttype,"DELETE")) {
+                if (!strcmp($data->studenttype,"RESIDENT")) {
                     DB::table('allusers')->where('userid', '=', $data->studentid)->delete();
                     DB::table('users')->where('studentid', '=', $data->studentid)->delete();
 
@@ -160,15 +160,17 @@ class Requestcontroller extends Controller
                     $room = Room::find($dataroom[0]->id);
                     $room->occupy = $room->occupy - 1;
                     $room->save();
-                } else if ($data->requesttype == "ATTACHED") {
-                    DB::table('attachedstudents')->where('studentid', '=', $singledata->studentid)->delete();
+                    $data->delete();
+
+                } else if (!strcmp($data->studenttype,"ATTACHED")) {
+                    DB::table('attachedstudents')->where('studentid', '=', $data->studentid)->delete();
+                    $data->delete();
                 }
-                $data->delete();
+
             }
 
-
-
         }
+
         Session::flash('success', 'All Srudent_delete Request are accpted.');
         return redirect()->route('provost.studentreqdeleteshow');
     }

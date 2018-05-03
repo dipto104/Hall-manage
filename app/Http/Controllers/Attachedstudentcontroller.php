@@ -9,6 +9,7 @@ use Session;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class Attachedstudentcontroller extends Controller
 {
@@ -60,6 +61,7 @@ class Attachedstudentcontroller extends Controller
                     Session::flash('success', 'The Student Data is saved.');
                 }
                 //$data = User::all();
+                return redirect()->route('admin.attacheddata');
 
                 //return view('foradmin.studentdata', compact('data'));
             } else {
@@ -106,62 +108,25 @@ class Attachedstudentcontroller extends Controller
     {
         $this->validate($request, [
             'name' => 'required|',
-            'studentid' => ['required','numeric',Rule::unique('users')->ignore($id)],
+            'studentid' => ['required', 'numeric', Rule::unique('attachedstudents')->ignore($id)],
             'department' => 'required|',
-            'roomno' => 'required|numeric',
 
         ]);
 
-        $name=$request['name'];
-        $studentid=$request['studentid'];
-        $department=$request['department'];
-        $roomno=$request['roomno'];
-        $userid=$request['userid'];
-        $reqroom = DB::select('select * from requestrooms where roomno = :roomno', ['roomno' => $roomno]);
-        if($reqroom==null) {
-            $reqstudent = DB::select('select * from requeststudents where studentid = :studentid', ['studentid' => $studentid]);
+        $name = $request['name'];
+        $studentid = $request['studentid'];
+        $department = $request['department'];
+        $isresident = DB::select('select * from users where studentid = :studentid', ['studentid' => $studentid]);
+        $reqstudent = DB::select('select * from requeststudents where studentid = :studentid', ['studentid' => $studentid]);
+        if ($isresident == null) {
             if ($reqstudent == null) {
-                $student = User::find($id);
+                $student = Attachedstudent::find($id);
                 $student->name = $name;
                 $student->studentid = $studentid;
                 $student->department = $department;
 
 
-                if ($student->roomno != $roomno) {
-                    $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $roomno]);
-                    if ($dataroom == null) {
-                        Session::flash('danger', 'Room number is not available.');
-                        return redirect()->back()->withInput();
-                    } else {
-                        if ($dataroom[0]->occupy == $dataroom[0]->capacity) {
-                            Session::flash('danger', 'No Sit is available in this Room.');
-                            return redirect()->back()->withInput();
-                        }
-                        //new room added student
-                        $data = Room::find($dataroom[0]->id);
-                        $data->occupy = $data->occupy + 1;
-                        $data->save();
-
-
-                        //previous room substract student
-                        $dataroom = DB::select('select * from rooms where roomno = :roomno', ['roomno' => $student->roomno]);
-                        $data = Room::find($dataroom[0]->id);
-                        $data->occupy = $data->occupy - 1;
-                        $data->save();
-
-                    }
-                }
-                $student->roomno = $roomno;
-                $student->userid = $studentid;
-
                 $student->save();
-
-
-                $dataall= DB::select('select * from allusers where userid = :userid ', ['userid' =>  $request['userid'] ]);
-                $dataalluser=Alluser::find($dataall[0]->id);
-                $dataalluser->userid=$studentid;
-                $dataalluser->save();
-
 
                 Session::flash('success', 'This data was successfully updated.');
             } else {
@@ -169,14 +134,38 @@ class Attachedstudentcontroller extends Controller
             }
 
 
-            $data = User::all();
+            //$data = User::all();
 
-            return view('foradmin.studentdata', compact('data'));
+            return redirect()->route('admin.attacheddata');
+        }
+    }
+    public function destroy($id)
+    {
+        $data = Attachedstudent::find($id);
+        if(!Auth::guard('provost')->check()) {
+            $reqstudent = DB::select('select * from requeststudents where studentid = :studentid', ['studentid' => $data->studentid]);
+            if ($reqstudent == null) {
+                $requeststudent = new Requeststudent();
+                $requeststudent->name = $data->name;
+                $requeststudent->studentid = $data->studentid;
+                $requeststudent->department = $data->department;
+                $requeststudent->studenttype = "ATTACHED";
+                $requeststudent->requesttype = "DELETE";
+                $requeststudent->save();
+                Session::flash('success', 'The DELETE request is sent to Provost Sir.');
+            } else {
+                Session::flash('danger', 'The Previous request is in process please wait.');
+            }
         }
         else{
-            Session::flash('danger', 'This Room is not verified yet by the Asst. Provost.');
-            return redirect()->back()->withInput();
+
+            $data->delete();
+            Session::flash('success', 'This Data is successfully deleted.');
+
         }
 
+        return redirect()->route('admin.attacheddata');
     }
+
+
 }

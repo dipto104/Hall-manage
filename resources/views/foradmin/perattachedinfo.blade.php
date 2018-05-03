@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container">
-        @include('includes.delconfirmstudent')
+        @include('includes.delconfirmattached')
         @include('includes.sturepassword ')
         <div class="row">
             <div class="col-md-8 ">
