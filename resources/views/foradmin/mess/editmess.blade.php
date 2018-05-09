@@ -116,6 +116,7 @@
                                         Save Changes
                                     </button>
                                 </div>
+                                <hr>
                                 <div class="col-md-3">
                                     <a class="btn btn-danger btn-block" href="{{ route('admin.hallmess') }}">
                                         Cancel

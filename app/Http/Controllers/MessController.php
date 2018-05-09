@@ -279,6 +279,10 @@ class MessController extends Controller
                         $days = $days - $datames->vacnumber;
                     }
                     $fine = $days * $datames->fine;
+
+                    if($fine>($datames->fine*30)){
+                        $fine=$datames->fine*30;
+                    }
                     $fine = $fine + $datames->messfee + $datames->extrafee;
 
                     $temp = Payment::find($pay->id);
@@ -288,21 +292,25 @@ class MessController extends Controller
                 } else {
                     $startdate = strtotime($datames->startat);
                     $receivedate = strtotime($pay->receivedate);
+                    $finishdate = strtotime($datames->finishat);
                     $datediff = $receivedate - $startdate;
                     $days = floor($datediff / (60 * 60 * 24))+1;
                     if ($datames->vacnumber != null) {
                         $days = $days - $datames->vacnumber;
                     }
-                    $days = $days - 7;
+                    if($receivedate<=$finishdate){
+                        $days = $days - 7;
+                    }
+
                     if ($days < 0) {
                         $days = 0;
                     }
                     $fine = $datames->fine;
                     $fine = (int)$fine;
                     $fine = $days * $fine;
-                    //if($fine>($datames->fine*30)){
-                    //    $fine=$datames->fine*30;
-                    //}
+                    if($fine>($datames->fine*30)){
+                        $fine=$datames->fine*30;
+                    }
                     $fine = $fine + $datames->messfee + $datames->extrafee - $pay->fee;
                     $temp = Payment::find($pay->id);
                     $temp->due = $fine;

@@ -114,7 +114,7 @@ class Requestroomcontroller extends Controller
     public function roomdeleteallowall(){
         $datas=Requestroom::all();
         foreach ($datas as $data) {
-            if($data->requesttype=="INSERT") {
+            if($data->requesttype=="DELETE") {
                 DB::table('rooms')->where('roomno', '=', $data->roomno)->delete();
                 $data->delete();
             }
