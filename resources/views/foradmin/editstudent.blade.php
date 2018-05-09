@@ -74,6 +74,7 @@
                                         Save Changes
                                     </button>
                                 </div>
+                                <hr>
                                 <div class="col-md-3 ">
                                     <a href="{{route('admin.perstudent',$data->id)}}" class="btn btn-danger btn-block">Cancel</a>
                                 </div>

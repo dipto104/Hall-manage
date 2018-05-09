@@ -161,6 +161,7 @@ Route::prefix('admin')->group(function (){
     Route::post('/editroom/{id}','Roomcontroller@editroom')->name('admin.editroom');
     Route::post('/importroom','Roomcontroller@importroom')->name('admin.importroom');
     Route::get('/deleteroom/{id}','Roomcontroller@destroy')->name('admin.deleteroom');
+    Route::get('/freeroom','Roomcontroller@freeroom')->name('admin.freeroom');
 
 
 

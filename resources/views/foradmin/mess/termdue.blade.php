@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-md-12">
                 <table class="table">
-                    <thead>
+                    <thead class="bg-info text-white">
                     <th>#</th>
                     <th>Student ID</th>
                     <th>Name</th>

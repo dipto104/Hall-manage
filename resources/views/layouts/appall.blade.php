@@ -96,6 +96,7 @@
 
                           <a class="dropdown-item" href="{{ route('admin.showinsertroom') }}">Insert Room</a>
                           <a class="dropdown-item" href="{{ route('admin.roomdata') }}">Room Data</a>
+                          <a class="dropdown-item" href="{{ route('admin.freeroom') }}">Free Room</a>
                       </div>
                   </li>
                   <li class="nav-item">
@@ -146,6 +147,7 @@
 
                           <a class="dropdown-item" href="{{ route('admin.showinsertroom') }}">Insert Room</a>
                           <a class="dropdown-item" href="{{ route('admin.roomdata') }}">Room Data</a>
+                          <a class="dropdown-item" href="{{ route('admin.freeroom') }}">Free Room</a>
                       </div>
                   </li>
                   <li class="nav-item">
@@ -187,6 +189,7 @@
 
                           <a class="dropdown-item" href="{{ route('admin.showinsertroom') }}">Insert Room</a>
                           <a class="dropdown-item" href="{{ route('admin.roomdata') }}">Room Data</a>
+                          <a class="dropdown-item" href="{{ route('admin.freeroom') }}">Free Room</a>
                       </div>
                   </li>
                   <li class="nav-item">

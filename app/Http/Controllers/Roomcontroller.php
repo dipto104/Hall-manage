@@ -190,6 +190,10 @@ class Roomcontroller extends Controller
         return redirect()->route('admin.roomdata');
 
     }
+    public function freeroom(){
+        $freeroom=DB::select('select * from rooms where occupy < capacity');
+        return view('foradmin.room.freeroom',compact('freeroom'));
+    }
     public function destroy($id){
         $data = Room::find($id);
         //room purpose room data updating

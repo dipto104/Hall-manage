@@ -75,7 +75,7 @@ class StudentdataController extends Controller
         $studentid=$request['studentid'];
         $department=$request['department'];
         $roomno=$request['roomno'];
-        $userid=$request['userid'];
+        $userid=$studentid;
         $reqroom = DB::select('select * from requestrooms where roomno = :roomno', ['roomno' => $roomno]);
         if($reqroom==null) {
             $reqstudent = DB::select('select * from requeststudents where studentid = :studentid', ['studentid' => $studentid]);
@@ -116,7 +116,7 @@ class StudentdataController extends Controller
                 $student->save();
 
 
-                $dataall= DB::select('select * from allusers where userid = :userid ', ['userid' =>  $request['userid'] ]);
+                $dataall= DB::select('select * from allusers where userid = :userid ', ['userid' =>  $userid ]);
                 $dataalluser=Alluser::find($dataall[0]->id);
                 $dataalluser->userid=$studentid;
                 $dataalluser->save();
