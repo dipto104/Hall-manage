@@ -150,8 +150,8 @@ class Requestcontroller extends Controller
     public function studentdeleteallowall(){
         $datas=Requeststudent::all();
         foreach ($datas as $data) {
-            if(!strcmp($data->requesttype,"DELETE")) {
-                if (!strcmp($data->studenttype,"RESIDENT")) {
+            if($data->requesttype=="DELETE") {
+                if ($data->studenttype=="RESIDENT") {
                     DB::table('allusers')->where('userid', '=', $data->studentid)->delete();
                     DB::table('users')->where('studentid', '=', $data->studentid)->delete();
 
@@ -162,7 +162,7 @@ class Requestcontroller extends Controller
                     $room->save();
                     $data->delete();
 
-                } else if (!strcmp($data->studenttype,"ATTACHED")) {
+                } else if ($data->studenttype=="ATTACHED") {
                     DB::table('attachedstudents')->where('studentid', '=', $data->studentid)->delete();
                     $data->delete();
                 }

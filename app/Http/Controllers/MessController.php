@@ -536,7 +536,7 @@ class MessController extends Controller
         $data->delete();
         Session::flash('success', 'The mess was successfully deleted.');
 
-        return redirect()->route('admin.messdata',$dataterm[0]->id);
+        return redirect()->route('admin.messdata',$termno);
     }
     public function messupdate(Request $request,$id)
     {

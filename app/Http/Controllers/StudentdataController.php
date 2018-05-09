@@ -198,7 +198,7 @@ class StudentdataController extends Controller
                             $requeststudent->studentid = $studentid;
                             $requeststudent->department = $department;
                             $requeststudent->roomno = $roomno;
-                            $requeststudent->studenttype = "RESEDENT";
+                            $requeststudent->studenttype = "RESIDENT";
                             $requeststudent->requesttype = "INSERT";
 
                             $student->save();
@@ -278,7 +278,7 @@ class StudentdataController extends Controller
                 $requeststudent->studentid = $data->studentid;
                 $requeststudent->department = $data->department;
                 $requeststudent->roomno = $data->roomno;
-                $requeststudent->studenttype = "RESEDENT";
+                $requeststudent->studenttype = "RESIDENT";
                 $requeststudent->requesttype = "DELETE";
                 $requeststudent->save();
                 Session::flash('success', 'The DELETE request is sent to Provost Sir.');

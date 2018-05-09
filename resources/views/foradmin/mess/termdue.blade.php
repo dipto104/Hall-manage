@@ -52,8 +52,6 @@
                                 <td>Cleared</td>
                             @endif
                             <th>{{ $messdata->remarks }}</th>
-                            <td><a href="{{ route('admin.openpayment', $messdata->id) }}" class="btn btn-default btn-sm">Open</a>
-                                <a href="{{ route('admin.editmess',$messdata->id) }}" class="btn btn-default btn-sm">Edit</a></td>
                         </tr>
 
                     @endforeach
