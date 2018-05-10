@@ -44,7 +44,7 @@ class AdminController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|',
-            'studentid' => 'required|numeric|unique:users',
+            'studentid' => 'required|numeric|unique:users|unique:attachedstudents',
             'department' => 'required|',
             'roomno' => 'required|numeric',
 

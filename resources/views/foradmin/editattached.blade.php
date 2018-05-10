@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-.5">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h3p>Edit Attached Student Data</h3p></div>
+                    <div class="panel-heading"><h3>Edit Attached Student Data</h3></div>
 
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="{{route('admin.updateattached',$data->id)}}">

@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-md-5 col-md-offset-4">
-            <h1>Students Data</h1>
+            <h1>Resident Students Data</h1>
         </div>
     </div>
     <div class="row">

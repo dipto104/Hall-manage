@@ -12,26 +12,9 @@
         </div>
 
         <div class="col-md-2">
-            <a href="{{ route('admin.insertstudent') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">InsertStudent</a>
+            <a href="{{ route('admin.insertattached') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">InsertStudent</a>
         </div>
 
-        <form class="form-horizontal" method="POST" action="{{ route('admin.importstudent') }}" enctype="multipart/form-data">
-            {{ csrf_field() }}
-                <div class="col-md-10" >
-                    <p>Insert Excel File Here
-                    <input  type="file" class="form-control" name="file">
-                    <input type="submit" value="import" class="btn btn-success">
-                        <span class="alert-danger">
-                        <strong>{{ $errors->first('file') }}</strong>
-                    </span>
-                    </p>
-                </div>
-
-        </form>
-
-        <div class="col-md-2">
-            <a href="{{ route('admin.exportstudent') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Download</a>
-        </div>
 
         <div class="col-md-12">
             <hr>

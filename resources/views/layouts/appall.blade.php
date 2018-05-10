@@ -102,8 +102,15 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('admin.hallmess') }}">Dining Payment</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ route('admin.studentdata') }}">Student Data</a>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Student Data
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+
+                          <a class="dropdown-item" href="{{ route('admin.studentdata') }}">Resident Student</a>
+                          <a class="dropdown-item" href="{{ route('admin.attacheddata') }}">Attached Student</a>
+                      </div>
                   </li>
 
                   <li class="nav-item">
@@ -153,8 +160,15 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('admin.hallmess') }}">Dining Payment</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ route('admin.studentdata') }}">Student Data</a>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Student Data
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+
+                          <a class="dropdown-item" href="{{ route('admin.studentdata') }}">Resident Student</a>
+                          <a class="dropdown-item" href="{{ route('admin.attacheddata') }}">Attached Student</a>
+                      </div>
                   </li>
 
                       <li class="nav-item">
@@ -195,8 +209,15 @@
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('admin.hallmess') }}">Dining Payment</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ route('admin.studentdata') }}">Student Data</a>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Student Data
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+
+                          <a class="dropdown-item" href="{{ route('admin.studentdata') }}">Resident Student</a>
+                          <a class="dropdown-item" href="{{ route('admin.attacheddata') }}">Attached Student</a>
+                      </div>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin</a>

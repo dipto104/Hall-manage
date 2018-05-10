@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-.5">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Edit Student Data</div>
+                    <div class="panel-heading"><h3>Edit Student Data</h3></div>
 
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="{{route('admin.updatestudent',$data->id)}}">

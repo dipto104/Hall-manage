@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Insert New Student</div>
+                <div class="panel-heading"><h3>Insert New Student</h3></div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('admin.insertstudent.submit') }}">
@@ -18,7 +18,7 @@
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
 
                                 @if ($errors->has('name'))
-                                    <span class="help-block">
+                                    <span class="alert-danger">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
@@ -31,7 +31,7 @@
                                 <input id="studentid" type="text" class="form-control" name="studentid" value="{{ old('studentid') }}" required autofocus>
 
                                 @if ($errors->has('studentid'))
-                                    <span class="help-block">
+                                    <span class="alert-danger">
                                         <strong>{{ $errors->first('studentid') }}</strong>
                                     </span>
                                 @endif
@@ -45,7 +45,7 @@
                                 <input id="department" type="text" class="form-control" name="department" value="{{ old('department') }}" required>
 
                                 @if ($errors->has('department'))
-                                    <span class="help-block">
+                                    <span class="alert-danger">
                                         <strong>{{ $errors->first('department') }}</strong>
                                     </span>
                                 @endif
@@ -58,7 +58,7 @@
                                 <input id="roomno" type="text" class="form-control" name="roomno" value="{{ old('roomno') }}" required>
 
                                 @if ($errors->has('roomno'))
-                                    <span class="help-block">
+                                    <span class="alert-danger">
                                         <strong>{{ $errors->first('roomno') }}</strong>
                                     </span>
                                 @endif
