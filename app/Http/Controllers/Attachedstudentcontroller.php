@@ -139,6 +139,8 @@ class Attachedstudentcontroller extends Controller
             return redirect()->route('admin.attacheddata');
         }
     }
+
+
     public function destroy($id)
     {
         $data = Attachedstudent::find($id);

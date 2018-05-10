@@ -37,14 +37,6 @@
                         </button>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-offset-3">
-                            <button type="button" class="btn btn-danger btn-block " data-toggle="modal" data-target="#reset">
-                                Reset Password
-                            </button>
-
-                        </div>
-                    </div>
 
                 </div>
             </div>

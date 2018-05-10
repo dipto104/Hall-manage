@@ -25,9 +25,6 @@
 
         </form>
 
-        <div class="col-md-2">
-            <a href="{{ route('admin.exportstudent') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Download</a>
-        </div>
 
         <div class="col-md-12">
             <hr>

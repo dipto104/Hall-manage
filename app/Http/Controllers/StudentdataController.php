@@ -5,6 +5,7 @@ use App\User;
 use App\Room;
 use App\Alluser;
 use App\Requeststudent;
+use App\Attachedstudent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;

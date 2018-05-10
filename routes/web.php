@@ -110,7 +110,6 @@ Route::prefix('admin')->group(function (){
     Route::post('/updateattached/{id}','Attachedstudentcontroller@update')->name('admin.updateattached');
 
 
-
     Route::get('/messdata/{id}','MessController@showmess')->name('admin.messdata');
     Route::get('/messdatashow/{id}','MessController@showmessdata')->name('admin.messdatashow');
     Route::get('/createmess/{id}','MessController@indexmess')->name('admin.createmess');
